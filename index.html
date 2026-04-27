@@ -24,8 +24,12 @@
 <meta name="theme-color" content="#0a1320">
 
 <!-- Favicon (browser tab icon) — uses the same sigil image -->
-<link rel="icon" type="image/png" href="sigil.png">
-<link rel="apple-touch-icon" href="sigil.png">
+<!-- Favicon set (multi-size, multi-platform) -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 
 <!-- Distinctive type pairing: Cormorant Garamond (display) + JetBrains Mono (data accents) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,6 +57,20 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+
+/* Scroll progress bar (gold line at very top, fills as you scroll) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(199, 154, 58, 0.6);
+  transition: width 0.08s linear;
+}
 
 body {
   font-family: var(--serif);
@@ -150,6 +168,11 @@ body::before {
   height: 32px;
   flex-shrink: 0;
   object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
+}
+.sigil:hover .sigil-mark {
+  transform: rotate(8deg) scale(1.05);
+  filter: drop-shadow(0 0 6px rgba(199, 154, 58, 0.5));
 }
 
 .topnav {
@@ -1834,6 +1857,9 @@ footer a:hover { color: var(--gold); }
 </head>
 <body>
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="sigil">
@@ -2857,6 +2883,29 @@ quizOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
 });
+
+// ---------------------------------------------------------------------
+// SCROLL PROGRESS BAR — gold line at top, fills as page is scrolled
+// ---------------------------------------------------------------------
+(function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  let ticking = false;
+  function update() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+})();
 </script>
 
 </body>
