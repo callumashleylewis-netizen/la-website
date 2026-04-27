@@ -242,6 +242,123 @@ footer a:hover { color: var(--gold); }
   .article-num { font-size: 1.4rem; }
   .topbar-mark span { display: none; }
 }
+
+/* ========================================================================
+   MARGINALIA — easter egg, revealed by holding Shift for 3 seconds
+   ======================================================================== */
+.marginalia-hint {
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.4rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  background: rgba(5, 10, 20, 0.85);
+  padding: 0.5rem 0.9rem;
+  z-index: 60;
+  transition: opacity 0.3s;
+}
+.marginalia-hint.visible { opacity: 0.7; }
+
+.marginalia-progress {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: rgba(199, 154, 58, 0.18);
+  z-index: 60;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.marginalia-progress.visible { opacity: 1; }
+.marginalia-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 0.06s linear;
+  box-shadow: 0 0 6px rgba(199, 154, 58, 0.5);
+}
+
+/* When marginalia mode is active, articles get a marginal note */
+body.marginalia-active .article {
+  position: relative;
+}
+body.marginalia-active .article-marginalia {
+  display: block;
+  position: absolute;
+  left: calc(100% + 1.5rem);
+  top: 0;
+  width: 14rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--gold);
+  opacity: 0;
+  animation: marginalia-fade-in 0.6s ease-out forwards;
+  padding-top: 0.4rem;
+  border-top: 1px dotted rgba(199, 154, 58, 0.4);
+}
+body.marginalia-active .article-marginalia::before {
+  content: 'Marginalia';
+  display: block;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.4rem;
+}
+.article-marginalia { display: none; }
+@keyframes marginalia-fade-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 0.85; transform: translateY(0); }
+}
+
+/* Below 1100px the page isn't wide enough for side margins, so render inline */
+@media (max-width: 1100px) {
+  body.marginalia-active .article-marginalia {
+    position: static;
+    width: auto;
+    margin-top: 0.8rem;
+    margin-left: 0;
+    border-top: 1px dotted rgba(199, 154, 58, 0.4);
+    padding-top: 0.6rem;
+  }
+}
+
+body.marginalia-active .marginalia-hint { opacity: 0; pointer-events: none; }
+
+.marginalia-banner {
+  position: fixed;
+  top: 4.6rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: rgba(5, 10, 20, 0.92);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.1rem;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+  transition: opacity 0.4s, transform 0.4s;
+}
+body.marginalia-active .marginalia-banner {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 </style>
 </head>
 <body>
@@ -271,6 +388,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of the Record</div>
       <div class="article-body">No member shall fabricate, distort, or knowingly omit truth from the Archive. The record stands above convenience. To falsify is to forfeit one's standing.</div>
+      <aside class="article-marginalia">"I have struck two members in my tenure for breach of this article. Neither returned." — Calex, 19th Chief Librarian</aside>
     </div>
   </div>
 
@@ -279,6 +397,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of Discourse</div>
       <div class="article-body">Disagreement is welcome; contempt is not. All voices are heard before a verdict is taken. A member shall criticise an idea without diminishing the one who held it.</div>
+      <aside class="article-marginalia">"Read this slowly. Most who err here believe themselves the exception." — Thallor, 14th Chief Librarian</aside>
     </div>
   </div>
 
@@ -287,6 +406,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of Instruction</div>
       <div class="article-body">Knowledge is held in trust, not in private. What you have learned, you are obligated to teach when asked. To hoard understanding is to misuse the standing the Assembly has granted you.</div>
+      <aside class="article-marginalia">"The greatest tutors I have known were those who feared most that they had nothing to teach." — Vael Orin, 11th Chief Librarian</aside>
     </div>
   </div>
 
@@ -295,6 +415,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of the Pledge</div>
       <div class="article-body">Newcomers are owed mentorship, not impatience. Every member of the Assembly was once a Pledge. Treat them as you would have wished to be treated, and the Order is preserved.</div>
+      <aside class="article-marginalia">"I joined trembling, certain I would be turned away. The keeper who received me has since taught hundreds." — Anonymous, margin of the 7th edition</aside>
     </div>
   </div>
 
@@ -303,6 +424,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of Conduct</div>
       <div class="article-body">All standards of The Jedi Order apply within the Assembly. Harassment, prejudice, and conduct unbecoming a Jedi are not tolerated under any rank or pretext.</div>
+      <aside class="article-marginalia">"The robe does not excuse. It binds." — Calex, 19th Chief Librarian</aside>
     </div>
   </div>
 
@@ -311,6 +433,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of Privacy</div>
       <div class="article-body">A member's confidence is not for the marketplace. What is shared in good faith between keepers stays between keepers, save where the safety of another is at stake.</div>
+      <aside class="article-marginalia">"The exception is narrow. Walk it carefully, and seek counsel." — Thallor, 14th Chief Librarian</aside>
     </div>
   </div>
 
@@ -319,6 +442,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of the Hierarchy</div>
       <div class="article-body">Rank in the Assembly is earned, not granted. Authority over others is a duty held in service of the Order, never a privilege held over them.</div>
+      <aside class="article-marginalia">"Beware the Curator who finds the title heavier each year. Beware more the one who does not." — Vael Orin, 11th Chief Librarian</aside>
     </div>
   </div>
 
@@ -327,6 +451,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of the Trial</div>
       <div class="article-body">Where a member is called to account, the matter shall be heard openly by High Command. Decisions shall be recorded; reasoning shall be given. The Charter applies upward as well as downward.</div>
+      <aside class="article-marginalia">"The hearing that absolved me also corrected me. I have been the better keeper since." — Anonymous, margin of the 12th edition</aside>
     </div>
   </div>
 
@@ -335,6 +460,7 @@ footer a:hover { color: var(--gold); }
     <div>
       <div class="article-name">Of Departure</div>
       <div class="article-body">Any member may leave the Assembly with grace. Those who go are owed the Order's thanks for what they preserved. The doors close behind them; they do not close against them.</div>
+      <aside class="article-marginalia">"I have re-admitted three former keepers. None did so lightly. None did so unwelcomed." — Calex, 19th Chief Librarian</aside>
     </div>
   </div>
 
@@ -348,6 +474,82 @@ footer a:hover { color: var(--gold); }
 <footer>
   <a href="index.html">Return to the Index</a>
 </footer>
+
+<!-- Marginalia easter egg UI -->
+<div class="marginalia-hint" id="marginalia-hint">Hold Shift to read between the lines</div>
+<div class="marginalia-progress" id="marginalia-progress" aria-hidden="true">
+  <div class="marginalia-progress-fill" id="marginalia-progress-fill"></div>
+</div>
+<div class="marginalia-banner">· Marginalia revealed ·</div>
+
+<script>
+(function initMarginalia() {
+  const hint = document.getElementById('marginalia-hint');
+  const progress = document.getElementById('marginalia-progress');
+  const progressFill = document.getElementById('marginalia-progress-fill');
+  if (!hint || !progress || !progressFill) return;
+
+  // Show hint after 25s of being on the page (so it's discoverable but not immediate)
+  setTimeout(() => {
+    if (!document.body.classList.contains('marginalia-active')) hint.classList.add('visible');
+  }, 25000);
+
+  const HOLD_MS = 3000;
+  let holdStart = null;
+  let rafId = null;
+  let active = false;
+
+  function startHold() {
+    if (active || holdStart !== null) return;
+    holdStart = Date.now();
+    progress.classList.add('visible');
+    tick();
+  }
+
+  function tick() {
+    if (holdStart === null) return;
+    const elapsed = Date.now() - holdStart;
+    const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
+    progressFill.style.width = pct + '%';
+    if (elapsed >= HOLD_MS) {
+      activate();
+      return;
+    }
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  function activate() {
+    active = true;
+    document.body.classList.add('marginalia-active');
+    progress.classList.remove('visible');
+    progressFill.style.width = '0%';
+    holdStart = null;
+    if (rafId) { window.cancelAnimationFrame(rafId); rafId = null; }
+  }
+
+  function cancelHold() {
+    if (active) return;
+    holdStart = null;
+    progress.classList.remove('visible');
+    progressFill.style.width = '0%';
+    if (rafId) { window.cancelAnimationFrame(rafId); rafId = null; }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Shift' && !e.repeat) startHold();
+    if (e.key === 'Escape' && active) {
+      // Allow Esc to dismiss marginalia
+      active = false;
+      document.body.classList.remove('marginalia-active');
+    }
+  });
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Shift') cancelHold();
+  });
+  // Also cancel if user tabs away or window loses focus
+  window.addEventListener('blur', cancelHold);
+})();
+</script>
 
 </body>
 </html>
