@@ -1297,8 +1297,62 @@ footer a:hover { color: var(--gold); }
 }
 
 /* ========================================================================
-   FOOTER MARK
+   ASSEMBLY DISCORD WIDGET — live member counts
    ======================================================================== */
+.assembly-widget {
+  padding: 5rem 4rem;
+  text-align: center;
+  background: var(--ink-deep);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.widget-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--crystal);
+  margin-bottom: 2rem;
+}
+.widget-stats {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.widget-stat {
+  text-align: center;
+  min-width: 140px;
+}
+.widget-stat-num {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 3.6rem);
+  font-weight: 300;
+  color: var(--paper);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+.widget-stat-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.widget-divider {
+  width: 1px;
+  background: var(--rule);
+  align-self: stretch;
+}
+@media (max-width: 600px) {
+  .assembly-widget { padding: 3rem 1.5rem; }
+  .widget-stats { gap: 1.5rem; }
+  .widget-divider { display: none; }
+}
+
+
 .footer-mark {
   display: flex;
   align-items: center;
@@ -1587,6 +1641,22 @@ footer a:hover { color: var(--gold); }
     <ul class="modal-reqs" id="modal-reqs"></ul>
   </div>
 </div>
+
+<!-- DISCORD ACTIVITY WIDGET -->
+<section class="assembly-widget">
+  <div class="widget-eyebrow">· The Assembly Today ·</div>
+  <div class="widget-stats">
+    <div class="widget-stat">
+      <div class="widget-stat-num" id="member-total">—</div>
+      <div class="widget-stat-label">Members</div>
+    </div>
+    <div class="widget-divider"></div>
+    <div class="widget-stat">
+      <div class="widget-stat-num" id="member-online">—</div>
+      <div class="widget-stat-label">Online Now</div>
+    </div>
+  </div>
+</section>
 
 <!-- JOIN -->
 <section class="join" id="join">
@@ -1937,6 +2007,57 @@ loreOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
 });
+
+// ---------------------------------------------------------------------
+// DISCORD ASSEMBLY WIDGET
+// Fetches live member count from Discord's public widget API.
+// Requires server widget to be enabled in Server Settings → Widget.
+// ---------------------------------------------------------------------
+const DISCORD_GUILD_ID = '1385930651810660494';
+
+async function loadAssemblyStats() {
+  const totalEl = document.getElementById('member-total');
+  const onlineEl = document.getElementById('member-online');
+  if (!totalEl || !onlineEl) return;
+
+  try {
+    const res = await fetch(`https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`);
+    if (!res.ok) throw new Error('Widget API unavailable');
+    const data = await res.json();
+
+    // Discord widget gives presence_count directly. For total members,
+    // we have to count the array (limited to ~100) — for accurate totals
+    // we'd need a bot, so we display presence_count as the visible figure
+    // and use members.length as the broader count.
+    const online = data.presence_count || 0;
+    const total = data.members ? data.members.length : online;
+
+    // Animate count-up effect (just a small flourish)
+    animateCount(onlineEl, online);
+    animateCount(totalEl, total);
+  } catch (err) {
+    // Widget disabled or network error — just show a quiet fallback
+    totalEl.textContent = '—';
+    onlineEl.textContent = '—';
+    console.warn('Assembly widget unavailable:', err);
+  }
+}
+
+function animateCount(el, target) {
+  const duration = 900;
+  const start = performance.now();
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // ease-out
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+loadAssemblyStats();
 </script>
 
 </body>
