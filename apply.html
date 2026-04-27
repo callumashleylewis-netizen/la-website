@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petition for Membership · Librarians' Assembly</title>
+<meta name="description" content="What is asked of those who would seek a place in the Librarians' Assembly.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Petition for Membership · Librarians' Assembly">
+<meta property="og:description" content="What is asked of those who would seek a place in the Librarians' Assembly.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/apply.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0a1320;
+  --ink-deep: #050a14;
+  --paper: #f4ead2;
+  --paper-warm: #e8dcb8;
+  --gold: #c79a3a;
+  --gold-bright: #e6b94a;
+  --rule: rgba(199, 154, 58, 0.3);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink-deep);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 300;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(5, 10, 20, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+}
+.topbar-mark {
+  display: flex; align-items: center; gap: 0.7rem;
+  text-decoration: none; color: var(--paper);
+}
+.topbar-mark img {
+  width: 32px; height: 32px; opacity: 0.85;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
+}
+.topbar-mark:hover img {
+  transform: rotate(15deg) scale(1.12);
+  filter: drop-shadow(0 0 10px rgba(199, 154, 58, 0.8));
+}
+.topbar-mark span {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.75;
+}
+.topbar-back {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  padding: 0.55rem 1.1rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.topbar-back:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+}
+
+.apply {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.apply-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.apply-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.apply-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.apply-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.apply-preamble {
+  font-style: italic;
+  text-align: center;
+  font-size: 1.05rem;
+  opacity: 0.78;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+.apply-preamble::before, .apply-preamble::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--rule);
+  margin: 1.4rem auto;
+}
+
+/* Section blocks */
+.apply-section {
+  margin-bottom: 3.5rem;
+}
+.apply-section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+.apply-section-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin-bottom: 1.2rem;
+}
+.apply-section-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.apply-section p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--paper);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.apply-list {
+  list-style: none;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+}
+.apply-list li {
+  position: relative;
+  padding: 0.7rem 0 0.7rem 1.8rem;
+  border-bottom: 1px solid rgba(199, 154, 58, 0.1);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  opacity: 0.85;
+}
+.apply-list li:last-child { border-bottom: none; }
+.apply-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  top: 0.7rem;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+.apply-list li strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+/* Note callout (e.g. for cooldown warning) */
+.apply-note {
+  border-left: 2px solid var(--gold);
+  background: rgba(199, 154, 58, 0.04);
+  padding: 1rem 1.4rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* Steps panel — visual sequence of what happens after they apply */
+.apply-steps {
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.18);
+  padding: 2rem 2.2rem;
+  margin: 1.4rem 0;
+}
+.apply-step {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 1.2rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px dotted rgba(199, 154, 58, 0.12);
+}
+.apply-step:last-child { border-bottom: none; }
+.apply-step-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--gold);
+}
+.apply-step-body {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+.apply-step-body strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+/* Final petition CTA block */
+.apply-petition {
+  margin-top: 4.5rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.apply-petition-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.apply-petition-sub {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.apply-petition-btn {
+  display: inline-block;
+  padding: 1rem 2.4rem;
+  background: var(--gold);
+  color: var(--ink-deep);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.3s;
+  border: 1px solid var(--gold);
+}
+.apply-petition-btn:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+}
+.apply-petition-fineprint {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.45;
+  text-transform: uppercase;
+  margin-top: 1.6rem;
+}
+
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.5;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(244, 234, 210, 0.3);
+}
+footer a:hover { color: var(--gold); }
+
+@media (max-width: 600px) {
+  .topbar { padding: 0.8rem 1.2rem; }
+  .apply { padding: 4rem 1.4rem 4rem; }
+  .apply-steps { padding: 1.4rem 1.2rem; }
+  .apply-step { grid-template-columns: 2rem 1fr; gap: 0.9rem; }
+  .topbar-mark span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <a href="index.html" class="topbar-back">← Return to the index</a>
+</header>
+
+<main class="apply">
+
+  <div class="apply-eyebrow">· Petition for Membership ·</div>
+  <h1 class="apply-heading">So you would <em>join</em> the Assembly</h1>
+  <p class="apply-sub">Read this before you petition. The Order owes its applicants honesty about what it asks of them.</p>
+
+  <p class="apply-preamble">
+    The Librarians' Assembly is not a casual collective. It is a working
+    body of scholars, archivists, and tutors. Those who pass through these
+    doors are expected to learn, to teach, and to keep the record. What
+    follows is what is asked of you, and what you may ask of us.
+  </p>
+
+  <section class="apply-section">
+    <div class="apply-section-num">· I ·</div>
+    <h2 class="apply-section-title">What is <em>asked</em> of you</h2>
+    <p>
+      Membership in the Assembly is granted by application — not by request, and not by chance.
+      Before you petition, you must meet the following:
+    </p>
+    <ul class="apply-list">
+      <li>Hold the rank of <strong>Initiate</strong> or above within the Order.</li>
+      <li>Demonstrate a <strong>high level of grammatical ability</strong> in your written work.</li>
+      <li>Carry yourself with the <strong>maturity</strong> the Assembly expects of its scholars.</li>
+      <li>Be <strong>fluent in English</strong>, the working language of the Order.</li>
+      <li>Be <strong>unaffiliated with another pathway</strong>, or already a member of the <strong>Consular pathway</strong>.</li>
+      <li>Pend for the <strong>Roblox group</strong> at the time of your application.</li>
+    </ul>
+    <p>
+      If you do not meet one of these, do not petition yet. The application is not a tour;
+      it is a working test of your readiness.
+    </p>
+  </section>
+
+  <section class="apply-section">
+    <div class="apply-section-num">· II ·</div>
+    <h2 class="apply-section-title">The <em>application</em></h2>
+    <p>
+      The Assembly's application is a written essay on a topic of Jedi lore.
+      You will be asked to choose a topic and produce an original piece of work
+      that demonstrates your reading, your reasoning, and your voice.
+    </p>
+    <p>Submitted essays are reviewed by a member of staff against five measures:</p>
+    <ul class="apply-list">
+      <li><strong>Grammar.</strong> Your sentences must hold together.</li>
+      <li><strong>Structure.</strong> Your argument must move with intent from one point to the next.</li>
+      <li><strong>Punctuation.</strong> The small marks matter; they shape meaning.</li>
+      <li><strong>Content.</strong> Your essay must say something, and what it says must be sound.</li>
+      <li><strong>Plagiarism &amp; AI generation.</strong> The work must be yours. Both copied prose and machine-written prose disqualify the application.</li>
+    </ul>
+    <p>
+      For an idea of how such an essay should be structured, look to the works
+      already published by the Assembly. Match the form, then bring your own thinking to it.
+    </p>
+  </section>
+
+  <section class="apply-section">
+    <div class="apply-section-num">· III ·</div>
+    <h2 class="apply-section-title">What follows the <em>petition</em></h2>
+    <div class="apply-steps">
+      <div class="apply-step">
+        <div class="apply-step-num">i.</div>
+        <div class="apply-step-body">You join the <strong>Discord</strong> and read the rules of the Order.</div>
+      </div>
+      <div class="apply-step">
+        <div class="apply-step-num">ii.</div>
+        <div class="apply-step-body">You pend for the <strong>Roblox group</strong> linked from the Assembly Informations channel.</div>
+      </div>
+      <div class="apply-step">
+        <div class="apply-step-num">iii.</div>
+        <div class="apply-step-body">You write and submit your <strong>application essay</strong> on a chosen lore topic.</div>
+      </div>
+      <div class="apply-step">
+        <div class="apply-step-num">iv.</div>
+        <div class="apply-step-body">A member of staff reviews your work. <strong>You are notified</strong> of the result with reasoning.</div>
+      </div>
+      <div class="apply-step">
+        <div class="apply-step-num">v.</div>
+        <div class="apply-step-body">If accepted, you are admitted as a <strong>Pledge</strong> and your path begins.</div>
+      </div>
+    </div>
+    <div class="apply-note">
+      A failed application carries a <strong>one day cooldown</strong> before you may
+      reapply. Use the time. Read the feedback. Strengthen what was weak.
+    </div>
+  </section>
+
+  <section class="apply-section">
+    <div class="apply-section-num">· IV ·</div>
+    <h2 class="apply-section-title">What you may ask of <em>us</em></h2>
+    <p>
+      The Charter binds the Assembly to its members as much as its members
+      to the Assembly. As a Pledge, and at every rank thereafter, you are owed:
+    </p>
+    <ul class="apply-list">
+      <li><strong>Mentorship.</strong> No one is left to find their footing alone.</li>
+      <li><strong>A clear path of advancement.</strong> Every rank, every requirement, written down and applied evenly.</li>
+      <li><strong>An honest hearing.</strong> If you are called to account, you will be heard openly and the reasoning given.</li>
+      <li><strong>A community where curiosity is a contribution.</strong> Questions are not interruptions; they are the work itself.</li>
+    </ul>
+    <p>
+      The full text of what binds us, on both sides, is set out in the Charter.
+      Read it before you petition. <a href="charter.html" style="color: var(--gold-bright); border-bottom: 1px dotted rgba(230, 185, 74, 0.5); text-decoration: none;">It is short, and it is honest.</a>
+    </p>
+  </section>
+
+  <div class="apply-petition">
+    <div class="apply-petition-title">Ready to petition?</div>
+    <div class="apply-petition-sub">
+      The Discord is the threshold. From there you will be guided to the application form
+      and the rest of the path.
+    </div>
+    <a class="apply-petition-btn" href="https://discord.gg/tmZVZChHQe" target="_blank" rel="noopener noreferrer">Enter the Assembly</a>
+    <div class="apply-petition-fineprint">By patience, by record, by light</div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="charter.html">The Charter</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+</body>
+</html>
