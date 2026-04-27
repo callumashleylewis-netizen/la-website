@@ -6,6 +6,23 @@
 <title>Librarians' Assembly · Keepers of the Archive</title>
 <meta name="description" content="A scholarly order dedicated to the preservation of Jedi knowledge.">
 
+<!-- Open Graph (Discord, Facebook, LinkedIn link unfurls) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Librarians' Assembly">
+<meta property="og:description" content="A specialised collective within the Jedi Order. Guardians of history, philosophy, and the teachings of the Force.">
+<meta property="og:url" content="https://la-website.callumashleylewis.workers.dev/">
+<meta property="og:image" content="https://la-website.callumashleylewis.workers.dev/sigil.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Librarians' Assembly">
+<meta name="twitter:description" content="A specialised collective within the Jedi Order.">
+<meta name="twitter:image" content="https://la-website.callumashleylewis.workers.dev/sigil.png">
+
+<!-- Theme colour (mobile browser chrome) -->
+<meta name="theme-color" content="#0a1320">
+
 <!-- Favicon (browser tab icon) — uses the same sigil image -->
 <link rel="icon" type="image/png" href="sigil.png">
 <link rel="apple-touch-icon" href="sigil.png">
@@ -1509,10 +1526,447 @@ footer a:hover { color: var(--gold); }
   width: 100px;
 }
 
-/* Add tiny diamond markers to dividers */
-.divider {
+/* ========================================================================
+   NEW SECTIONS — epigraph, archives, voices, quiz, heretic crystal
+   ======================================================================== */
+
+/* HERO EPIGRAPH (rotating quote above the title) */
+.hero-epigraph {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--paper);
+  opacity: 0.78;
+  max-width: 38rem;
+  margin: 0 auto 2.2rem;
+  text-align: center;
+  position: relative;
+  padding: 0 1rem;
+}
+.hero-epigraph .epigraph-text::before,
+.hero-epigraph .epigraph-text::after {
+  content: '"';
+  font-family: var(--serif);
+  color: var(--kyber, #7adcff);
+  opacity: 0.55;
+  font-size: 1.3em;
+  margin: 0 0.2em;
+}
+.hero-epigraph-attribution {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.45;
+  margin-top: 0.6rem;
+  font-style: normal;
+}
+.hero-epigraph-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.hero-epigraph-rule::before,
+.hero-epigraph-rule::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: rgba(122, 220, 255, 0.4);
+}
+.hero-epigraph-rule span {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: #7adcff;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+@media (max-width: 720px) {
+  .hero-epigraph { font-size: 0.95rem; max-width: 92%; }
+}
+
+/* FROM THE ARCHIVES */
+.archives {
+  padding: 7rem 4rem;
+  background:
+    radial-gradient(ellipse at top, rgba(199, 154, 58, 0.04), transparent 70%),
+    var(--ink);
+  text-align: center;
+  position: relative;
+}
+.archives-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
   letter-spacing: 0.4em;
-  font-weight: 500;
+  color: rgba(244, 234, 210, 0.55);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.archives-heading {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+.archives-heading em { color: var(--gold-bright, var(--gold)); font-style: italic; }
+.archives-intro {
+  max-width: 32rem;
+  margin: 0 auto 3.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--paper);
+  opacity: 0.7;
+}
+.archives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.archive-card {
+  background: rgba(10, 19, 32, 0.6);
+  border: 1px solid rgba(199, 154, 58, 0.2);
+  padding: 1.8rem 1.4rem;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.archive-card:hover {
+  border-color: rgba(199, 154, 58, 0.5);
+  transform: translateY(-3px);
+}
+.archive-volume {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.archive-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 0.7rem;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+.archive-desc {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--paper);
+  opacity: 0.6;
+}
+@media (max-width: 720px) {
+  .archives { padding: 4rem 1.5rem; }
+}
+
+/* VOICES OF THE ASSEMBLY */
+.voices {
+  padding: 7rem 4rem;
+  background: var(--ink-deep);
+  text-align: center;
+}
+.voices-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: rgba(244, 234, 210, 0.55);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.voices-heading {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 3.5rem;
+}
+.voices-heading em { color: var(--gold-bright, var(--gold)); font-style: italic; }
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.voice-card {
+  background: rgba(20, 30, 50, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.18);
+  padding: 2rem 1.6rem;
+  text-align: left;
+  position: relative;
+}
+.voice-quote-mark {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.5;
+  margin-bottom: 0.4rem;
+}
+.voice-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--paper);
+  opacity: 0.88;
+  margin-bottom: 1.4rem;
+}
+.voice-rank {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.voice-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--paper);
+}
+@media (max-width: 720px) {
+  .voices { padding: 4rem 1.5rem; }
+}
+
+/* TRIAL OF KNOWLEDGE button */
+.trial-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+.trial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.8rem;
+  background: transparent;
+  border: 1px solid rgba(122, 220, 255, 0.4);
+  color: #7adcff;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+}
+.trial-btn:hover {
+  border-color: #7adcff;
+  background: rgba(122, 220, 255, 0.08);
+  color: #b0eaff;
+}
+.trial-btn::before {
+  content: '◆';
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+/* QUIZ MODAL (uses generic .modal-overlay base, adds quiz-specific bits) */
+.quiz-progress {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+}
+.quiz-progress .pip {
+  width: 22px;
+  height: 4px;
+  background: rgba(199, 154, 58, 0.22);
+  transition: background 0.3s;
+}
+.quiz-progress .pip.done { background: var(--gold); }
+.quiz-progress .pip.current { background: rgba(199, 154, 58, 0.6); }
+.quiz-question-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+.quiz-question {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--paper);
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1.6rem;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.4rem;
+}
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: rgba(20, 35, 58, 0.4);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.2s, background 0.2s;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: rgba(199, 154, 58, 0.7);
+  background: rgba(20, 35, 58, 0.65);
+}
+.quiz-option .quiz-letter {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--gold);
+  min-width: 1.4rem;
+}
+.quiz-option.selected {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+}
+.quiz-option.correct {
+  border-color: #7adcff;
+  background: rgba(122, 220, 255, 0.08);
+}
+.quiz-option.wrong {
+  border-color: #c4504e;
+  background: rgba(196, 80, 78, 0.08);
+}
+.quiz-option:disabled { cursor: default; }
+.quiz-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(244, 234, 210, 0.45);
+  text-transform: uppercase;
+}
+.quiz-next-btn {
+  background: transparent;
+  border: 1px solid rgba(199, 154, 58, 0.5);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.2s, background 0.2s;
+}
+.quiz-next-btn.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+.quiz-next-btn.ready:hover {
+  background: rgba(199, 154, 58, 0.1);
+}
+.quiz-result {
+  text-align: center;
+}
+.quiz-result-score {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--gold);
+  margin: 1rem 0 0.4rem;
+  font-weight: 400;
+}
+.quiz-result-rank {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.quiz-result-msg {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--paper);
+  opacity: 0.85;
+  margin-bottom: 1.6rem;
+  line-height: 1.5;
+}
+.quiz-restart {
+  background: transparent;
+  border: 1px solid rgba(122, 220, 255, 0.4);
+  color: #7adcff;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.quiz-restart:hover {
+  border-color: #7adcff;
+  background: rgba(122, 220, 255, 0.08);
+}
+
+/* HERETIC CRYSTAL (easter egg — top-left, hidden until activated) */
+.holo-heretic {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 64px;
+  height: 64px;
+  z-index: 80;
+  cursor: pointer;
+  filter: drop-shadow(0 0 14px rgba(199, 154, 58, 0.5));
+  opacity: 0;
+  transform: scale(0.4) rotate(-30deg);
+  pointer-events: none;
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out, filter 0.3s;
+}
+.holo-heretic.revealed {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+  pointer-events: auto;
+}
+.holo-heretic:hover {
+  filter: drop-shadow(0 0 22px rgba(199, 154, 58, 0.8));
+}
+.holo-heretic .crystal { width: 100%; height: 100%; }
+.holo-heretic-hint {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.8rem);
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+.holo-heretic:hover .holo-heretic-hint { opacity: 0.9; }
+@media (max-width: 720px) {
+  .holo-heretic { width: 50px; height: 50px; top: 1rem; left: 1rem; }
+  .holo-heretic-hint { display: none; }
 }
 
 </style>
@@ -1566,6 +2020,11 @@ footer a:hover { color: var(--gold); }
   </svg>
 
   <div class="hero-content">
+    <div class="hero-epigraph" id="hero-epigraph" hidden>
+      <div class="hero-epigraph-rule"><span>Epigraph</span></div>
+      <div class="epigraph-text" id="epigraph-text"></div>
+      <div class="hero-epigraph-attribution" id="epigraph-attribution"></div>
+    </div>
     <div class="hero-eyebrow">Order Sanctioned · Established 25 ABY</div>
     <h1 class="hero-title">
       Librarians'
@@ -1760,6 +2219,10 @@ footer a:hover { color: var(--gold); }
       </button>
     </div>
 
+    <div class="trial-cta fade-in">
+      <button class="trial-btn" id="trial-open">Trial of Knowledge</button>
+    </div>
+
   </div>
 </section>
 
@@ -1786,6 +2249,43 @@ footer a:hover { color: var(--gold); }
     <p class="modal-desc" id="hc-modal-desc"></p>
   </div>
 </div>
+
+<!-- FROM THE ARCHIVES -->
+<section class="archives" id="archives">
+  <div class="archives-eyebrow">· From the Archives ·</div>
+  <h2 class="archives-heading fade-in">Selected <em>texts</em> of the Order</h2>
+  <p class="archives-intro fade-in">
+    A small selection of the works held in the Assembly's stacks. Each is studied,
+    annotated, and passed forward.
+  </p>
+  <div class="archives-grid">
+
+    <div class="archive-card fade-in">
+      <div class="archive-volume">Vol. IV</div>
+      <div class="archive-title">On the Patience of Records</div>
+      <div class="archive-desc">A meditation on what is preserved and what is allowed to be lost.</div>
+    </div>
+
+    <div class="archive-card fade-in">
+      <div class="archive-volume">Vol. IX</div>
+      <div class="archive-title">The Vigil's Charter</div>
+      <div class="archive-desc">Foundational duties of those who keep watch over the catalogue.</div>
+    </div>
+
+    <div class="archive-card fade-in">
+      <div class="archive-volume">Vol. XII</div>
+      <div class="archive-title">Annotations on the Telosian Codex</div>
+      <div class="archive-desc">Marginalia gathered across three generations of curators.</div>
+    </div>
+
+    <div class="archive-card fade-in">
+      <div class="archive-volume">Vol. XVII</div>
+      <div class="archive-title">Of Discourse and Restraint</div>
+      <div class="archive-desc">A primer on civil disagreement and the obligations of the listener.</div>
+    </div>
+
+  </div>
+</section>
 
 <!-- HIGH COMMAND -->
 <section class="high-command">
@@ -1828,6 +2328,60 @@ footer a:hover { color: var(--gold); }
   </div>
 </section>
 
+<!-- VOICES OF THE ASSEMBLY -->
+<section class="voices" id="voices">
+  <div class="voices-eyebrow">· Voices of the Assembly ·</div>
+  <h2 class="voices-heading fade-in">In their <em>own</em> words</h2>
+  <div class="voices-grid">
+
+    <div class="voice-card fade-in">
+      <div class="voice-quote-mark">"</div>
+      <p class="voice-text">I came for the lore. I stayed because every conversation here teaches you something you didn't know you needed.</p>
+      <div class="voice-rank">Lore Keeper</div>
+      <div class="voice-name">A keeper of the Assembly</div>
+    </div>
+
+    <div class="voice-card fade-in">
+      <div class="voice-quote-mark">"</div>
+      <p class="voice-text">The Assembly is the rare place where being curious is treated as a contribution, not an interruption.</p>
+      <div class="voice-rank">Tutor</div>
+      <div class="voice-name">A tutor of the Assembly</div>
+    </div>
+
+    <div class="voice-card fade-in">
+      <div class="voice-quote-mark">"</div>
+      <p class="voice-text">There's no other corner of the Order where the questions matter as much as the answers do.</p>
+      <div class="voice-rank">Archivist</div>
+      <div class="voice-name">An archivist of the Assembly</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quiz-overlay">
+  <div class="modal" id="quiz-modal">
+    <button class="modal-close" id="quiz-close" aria-label="Close">×</button>
+    <div id="quiz-body">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div class="quiz-question-label" id="quiz-question-label">Question I</div>
+      <h3 class="quiz-question" id="quiz-question"></h3>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-footer">
+        <span id="quiz-score-label">Score: 0</span>
+        <button class="quiz-next-btn" id="quiz-next">Next →</button>
+      </div>
+    </div>
+    <div id="quiz-result" class="quiz-result" style="display:none;">
+      <div class="modal-tier">Trial Complete</div>
+      <div class="quiz-result-score" id="quiz-result-score">—</div>
+      <div class="quiz-result-rank" id="quiz-result-rank"></div>
+      <p class="quiz-result-msg" id="quiz-result-msg"></p>
+      <button class="quiz-restart" id="quiz-restart">Take the Trial again</button>
+    </div>
+  </div>
+</div>
+
 <!-- JOIN -->
 <section class="join" id="join">
   <div class="join-eyebrow">· Acceptance into the Assembly ·</div>
@@ -1847,7 +2401,7 @@ footer a:hover { color: var(--gold); }
     <img src="sigil.png" alt="" aria-hidden="true">
     <span>Librarians' Assembly · Holocron Archives</span>
   </div>
-  <div>By patience, by record, by light</div>
+  <div><a href="charter.html">The Charter</a> · By patience, by record, by light</div>
 </footer>
 
 <!-- CORNER SENTINEL -->
@@ -1872,6 +2426,32 @@ footer a:hover { color: var(--gold); }
       <polygon points="15,72 15,28 50,50" fill="url(#cFaceLight)" opacity="0.85"/>
       <polygon points="15,28 50,8 50,50" fill="url(#cFaceDark)" opacity="0.9"/>
       <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
+    </g>
+  </svg>
+</div>
+
+<!-- HERETIC CRYSTAL (easter egg — top-left, hidden until activated) -->
+<div class="holo-heretic" id="holo-heretic" aria-hidden="true">
+  <span class="holo-heretic-hint">A Lost Holocron</span>
+  <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hFaceLight" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f4cd6f"/>
+        <stop offset="100%" stop-color="#8a6520"/>
+      </linearGradient>
+      <linearGradient id="hFaceDark" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#c79a3a"/>
+        <stop offset="100%" stop-color="#3d2a0c"/>
+      </linearGradient>
+    </defs>
+    <g stroke="#1a0e02" stroke-width="0.8">
+      <polygon points="50,8 85,28 50,50" fill="url(#hFaceLight)"/>
+      <polygon points="85,28 85,72 50,50" fill="url(#hFaceDark)"/>
+      <polygon points="85,72 50,92 50,50" fill="url(#hFaceLight)" opacity="0.7"/>
+      <polygon points="50,92 15,72 50,50" fill="url(#hFaceDark)"/>
+      <polygon points="15,72 15,28 50,50" fill="url(#hFaceLight)" opacity="0.85"/>
+      <polygon points="15,28 50,8 50,50" fill="url(#hFaceDark)" opacity="0.9"/>
+      <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(255,230,160,0.6)" stroke="#1a0e02" stroke-width="0.6"/>
     </g>
   </svg>
 </div>
@@ -2219,20 +2799,21 @@ const loreClose = document.getElementById('lore-close');
 const loreText = document.getElementById('lore-text');
 const loreAttribution = document.getElementById('lore-attribution');
 
-function showRandomQuote() {
+function showRandomQuote(pool) {
+  pool = pool || LORE_QUOTES;
   // Pick an index that hasn't been shown recently
   let idx;
   let attempts = 0;
   do {
-    idx = Math.floor(Math.random() * LORE_QUOTES.length);
+    idx = Math.floor(Math.random() * pool.length);
     attempts++;
-  } while (RECENT_QUOTES.includes(idx) && attempts < 30);
+  } while (RECENT_QUOTES.includes(pool === LORE_QUOTES ? idx : 'h' + idx) && attempts < 30);
 
-  // Update the recent-buffer (FIFO)
-  RECENT_QUOTES.push(idx);
+  // Update the recent-buffer (FIFO) — namespace heretic indices with 'h' prefix
+  RECENT_QUOTES.push(pool === LORE_QUOTES ? idx : 'h' + idx);
   if (RECENT_QUOTES.length > RECENT_BUFFER) RECENT_QUOTES.shift();
 
-  const q = LORE_QUOTES[idx];
+  const q = pool[idx];
   loreText.textContent = q.text;
   loreAttribution.textContent = q.attribution;
   loreOverlay.classList.add('open');
@@ -2244,8 +2825,24 @@ function closeLore() {
   document.body.style.overflow = '';
 }
 
-// Sentinel: random quote
-document.getElementById('holo-sentinel').addEventListener('click', showRandomQuote);
+// Sentinel: random quote + easter-egg click counter
+let SENTINEL_CLICK_COUNT = 0;
+let HERETIC_REVEALED = false;
+const heretic = document.getElementById('holo-heretic');
+
+function handleSentinelClick() {
+  SENTINEL_CLICK_COUNT++;
+  if (SENTINEL_CLICK_COUNT >= 7 && !HERETIC_REVEALED) {
+    HERETIC_REVEALED = true;
+    heretic.classList.add('revealed');
+    heretic.setAttribute('aria-hidden', 'false');
+  }
+  showRandomQuote(LORE_QUOTES);
+}
+document.getElementById('holo-sentinel').addEventListener('click', handleSentinelClick);
+
+// Heretic crystal: heretic quote pool
+heretic.addEventListener('click', () => showRandomQuote(HERETIC_QUOTES));
 
 // Close handlers
 loreClose.addEventListener('click', closeLore);
@@ -2254,6 +2851,204 @@ loreOverlay.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
+});
+
+// ---------------------------------------------------------------------
+// HERETIC QUOTE POOL — appears only after the easter egg is unlocked
+// ---------------------------------------------------------------------
+const HERETIC_QUOTES = [
+  { text: "The archive remembers what the archivist would forget.", attribution: "Apocrypha · folio uncertain" },
+  { text: "Truth is what survives the burning.", attribution: "Marginalia · unsigned" },
+  { text: "Every codex begins with what someone refused to say.", attribution: "Late commentary · attributed to no one" },
+  { text: "We are the footnote to the silence.", attribution: "From an unbound manuscript" },
+  { text: "Knowledge does not pardon. It merely catalogues.", attribution: "Heretic's Maxim" },
+  { text: "The librarian's blade is the blank page.", attribution: "Aphorism · uncatalogued" },
+  { text: "What you do not write down, you have already lost.", attribution: "Apocrypha · folio uncertain" },
+  { text: "Names rot faster than bindings.", attribution: "From the Burned Index" },
+  { text: "A quiet shelf is a confession.", attribution: "Marginalia · unsigned" },
+  { text: "The first book burned was always the most honest one.", attribution: "Heretic's Maxim" },
+  { text: "An archive is a graveyard you can read.", attribution: "From an unbound manuscript" },
+  { text: "The catalogue is older than its keepers, and crueler.", attribution: "Apocrypha · folio uncertain" },
+];
+
+// ---------------------------------------------------------------------
+// HERO EPIGRAPH — random quote shown above the title each visit
+// ---------------------------------------------------------------------
+(function initEpigraph() {
+  const el = document.getElementById('hero-epigraph');
+  if (!el) return;
+  const q = LORE_QUOTES[Math.floor(Math.random() * LORE_QUOTES.length)];
+  document.getElementById('epigraph-text').textContent = q.text;
+  document.getElementById('epigraph-attribution').textContent = '— ' + q.attribution;
+  el.hidden = false;
+})();
+
+// ---------------------------------------------------------------------
+// TRIAL OF KNOWLEDGE — quiz
+// ---------------------------------------------------------------------
+const QUIZ_QUESTIONS = [
+  {
+    q: "On which Council does the Chief Librarian serve?",
+    options: ["The High Council", "The Council of Reconciliation", "The Council of First Knowledge", "The Council of Reassignment"],
+    answer: 2,
+  },
+  {
+    q: "What position does the Curator of the Archives hold within the Assembly?",
+    options: ["Senior High Rank", "Second-in-Command", "Honorary Advisor", "Equal of the Chief Librarian"],
+    answer: 1,
+  },
+  {
+    q: "How many tiers comprise the Path of Ascension?",
+    options: ["Three", "Four", "Five", "Six"],
+    answer: 1,
+  },
+  {
+    q: "Which rank immediately precedes Historian on the Path of Ascension?",
+    options: ["Tutor", "Lore Keeper", "Archivist", "Curator of the Archives"],
+    answer: 2,
+  },
+  {
+    q: "Who handpicks the Curator of the Archives?",
+    options: ["The Jedi High Council", "The Chief Librarian", "A vote of all High Ranks", "The retiring Curator"],
+    answer: 1,
+  },
+  {
+    q: "How long does a Pledge have to achieve Student?",
+    options: ["Three days", "One week", "Two weeks", "One month"],
+    answer: 1,
+  },
+  {
+    q: "Who chooses the Chief Librarian?",
+    options: ["The Curator of the Archives", "The retiring Chief Librarian", "The Jedi High Council", "A vote of the Assembly"],
+    answer: 2,
+  },
+  {
+    q: "Which Jedi class must a Lore Keeper hold?",
+    options: ["Sentinel AJK", "Guardian AJK", "Consular AJK", "Any class"],
+    answer: 2,
+  },
+];
+
+const QUIZ_RESULT_TIERS = [
+  { min: 0, max: 2, rank: "Pledge", msg: "The first steps of any keeper are uncertain. The Archive is patient." },
+  { min: 3, max: 4, rank: "Student", msg: "A foundation is laid. With study, every text yields its meaning in time." },
+  { min: 5, max: 5, rank: "Intellect", msg: "A respectable showing. The shape of the Order is becoming clear to you." },
+  { min: 6, max: 6, rank: "Tutor", msg: "Confidently familiar. You could already begin teaching others what you know." },
+  { min: 7, max: 7, rank: "Lore Keeper", msg: "The lore is in good hands. Few outside the Assembly answer this well." },
+  { min: 8, max: 8, rank: "Chief Librarian", msg: "Flawless. The catalogue itself could not have answered better." },
+];
+
+const quizOverlay = document.getElementById('quiz-overlay');
+const quizClose = document.getElementById('quiz-close');
+const quizBody = document.getElementById('quiz-body');
+const quizResult = document.getElementById('quiz-result');
+const quizProgress = document.getElementById('quiz-progress');
+const quizQLabel = document.getElementById('quiz-question-label');
+const quizQ = document.getElementById('quiz-question');
+const quizOpts = document.getElementById('quiz-options');
+const quizScoreLabel = document.getElementById('quiz-score-label');
+const quizNext = document.getElementById('quiz-next');
+const quizResultScore = document.getElementById('quiz-result-score');
+const quizResultRank = document.getElementById('quiz-result-rank');
+const quizResultMsg = document.getElementById('quiz-result-msg');
+const quizRestart = document.getElementById('quiz-restart');
+
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+function renderQuizProgress() {
+  quizProgress.innerHTML = '';
+  for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'pip';
+    if (i < quizIndex) pip.classList.add('done');
+    else if (i === quizIndex) pip.classList.add('current');
+    quizProgress.appendChild(pip);
+  }
+}
+
+function renderQuizQuestion() {
+  quizAnswered = false;
+  const data = QUIZ_QUESTIONS[quizIndex];
+  quizQLabel.textContent = 'Question ' + ROMAN[quizIndex];
+  quizQ.textContent = data.q;
+  quizOpts.innerHTML = '';
+  data.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.innerHTML = '<span class="quiz-letter">' + String.fromCharCode(65 + i) + '.</span><span>' + opt + '</span>';
+    btn.addEventListener('click', () => selectQuizOption(btn, i));
+    quizOpts.appendChild(btn);
+  });
+  quizScoreLabel.textContent = 'Score: ' + quizScore;
+  quizNext.classList.remove('ready');
+  quizNext.textContent = quizIndex === QUIZ_QUESTIONS.length - 1 ? 'See result →' : 'Next →';
+  renderQuizProgress();
+}
+
+function selectQuizOption(btn, idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const data = QUIZ_QUESTIONS[quizIndex];
+  const all = quizOpts.querySelectorAll('.quiz-option');
+  all.forEach((b, i) => {
+    b.disabled = true;
+    if (i === data.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('wrong');
+  });
+  if (idx === data.answer) {
+    quizScore++;
+    quizScoreLabel.textContent = 'Score: ' + quizScore;
+  }
+  quizNext.classList.add('ready');
+}
+
+function advanceQuiz() {
+  if (!quizAnswered) return;
+  quizIndex++;
+  if (quizIndex >= QUIZ_QUESTIONS.length) {
+    showQuizResult();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+function showQuizResult() {
+  quizBody.style.display = 'none';
+  quizResult.style.display = 'block';
+  quizResultScore.textContent = quizScore + ' / ' + QUIZ_QUESTIONS.length;
+  const tier = QUIZ_RESULT_TIERS.find(t => quizScore >= t.min && quizScore <= t.max) || QUIZ_RESULT_TIERS[0];
+  quizResultRank.textContent = tier.rank + '-tier';
+  quizResultMsg.textContent = tier.msg;
+}
+
+function startQuiz() {
+  quizIndex = 0;
+  quizScore = 0;
+  quizBody.style.display = 'block';
+  quizResult.style.display = 'none';
+  renderQuizQuestion();
+  quizOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuiz() {
+  quizOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('trial-open').addEventListener('click', startQuiz);
+quizClose.addEventListener('click', closeQuiz);
+quizNext.addEventListener('click', advanceQuiz);
+quizRestart.addEventListener('click', startQuiz);
+quizOverlay.addEventListener('click', (e) => {
+  if (e.target === quizOverlay) closeQuiz();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
 });
 </script>
 

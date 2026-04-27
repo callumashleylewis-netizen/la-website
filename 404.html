@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 · This Text Does Not Exist · Librarians' Assembly</title>
+<meta name="description" content="The path you sought leads beyond the catalogue.">
+
+<link rel="icon" type="image/png" href="sigil.png">
+<link rel="apple-touch-icon" href="sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink-deep: #050a14;
+  --paper: #f4ead2;
+  --gold: #c79a3a;
+  --crystal: #4ad8ff;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ink-deep);
+  color: var(--paper);
+  font-family: var(--serif);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Faint hex grid backdrop */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(74, 216, 255, 0.04), transparent 40%),
+    radial-gradient(circle at 70% 80%, rgba(199, 154, 58, 0.03), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lost {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 36rem;
+}
+
+.lost-crystal {
+  width: 120px;
+  height: 138px;
+  margin: 0 auto 2rem;
+  display: block;
+  filter: drop-shadow(0 0 22px rgba(74, 216, 255, 0.3));
+}
+
+.lost-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--crystal);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.75;
+}
+
+.lost-heading {
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.4rem;
+}
+
+.lost-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.7;
+  margin-bottom: 2.4rem;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lost-action {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border: 1px solid rgba(199, 154, 58, 0.5);
+  color: var(--gold);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+}
+.lost-action:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+  color: #e6b94a;
+}
+
+.lost-footer {
+  margin-top: 4rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.35;
+}
+</style>
+</head>
+<body>
+
+<main class="lost">
+
+  <svg class="lost-crystal" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="lostFaceLight" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#a8e0ff"/>
+        <stop offset="100%" stop-color="#1e5a9c"/>
+      </linearGradient>
+      <linearGradient id="lostFaceDark" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3a7ad0"/>
+        <stop offset="100%" stop-color="#08203a"/>
+      </linearGradient>
+    </defs>
+    <g stroke="#040a18" stroke-width="0.8" transform="translate(0, 12)">
+      <polygon points="50,8 85,28 50,50" fill="url(#lostFaceLight)"/>
+      <polygon points="85,28 85,72 50,50" fill="url(#lostFaceDark)"/>
+      <polygon points="85,72 50,92 50,50" fill="url(#lostFaceLight)" opacity="0.7"/>
+      <polygon points="50,92 15,72 50,50" fill="url(#lostFaceDark)"/>
+      <polygon points="15,72 15,28 50,50" fill="url(#lostFaceLight)" opacity="0.85"/>
+      <polygon points="15,28 50,8 50,50" fill="url(#lostFaceDark)" opacity="0.9"/>
+      <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
+    </g>
+  </svg>
+
+  <div class="lost-eyebrow">· Archive 404 ·</div>
+  <h1 class="lost-heading">This text does not exist.</h1>
+  <p class="lost-body">
+    The path you sought leads beyond the catalogue. Even the most thorough
+    archives have margins; you have wandered into one of them.
+  </p>
+  <a class="lost-action" href="index.html">Return to the Index</a>
+
+  <div class="lost-footer">By patience, by record, by light</div>
+
+</main>
+
+</body>
+</html>
