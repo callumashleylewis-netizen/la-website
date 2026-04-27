@@ -9,6 +9,7 @@
 <!-- Distinctive type pairing: Cormorant Garamond (display) + JetBrains Mono (data accents) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -1392,18 +1393,26 @@ footer a:hover { color: var(--gold); }
 
 </style>
 <script>
-// Run as early as possible. Add .ready class to <html> when fonts are loaded
-// or after a 1.5s safety timeout, whichever comes first.
+// Trigger hero animations after the page has rendered its initial state.
+// Using double-rAF ensures we wait for at least one full paint cycle so the
+// browser has registered the starting opacity/transform values before we
+// flip the switch. Without this, some browsers (esp. Chromium-based) skip
+// the transition entirely.
 (function() {
-  var triggered = false;
   function arm() {
-    if (triggered) return;
-    triggered = true;
     document.documentElement.classList.add('ready');
   }
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(arm);
+  function trigger() {
+    requestAnimationFrame(function() {
+      requestAnimationFrame(arm);
+    });
   }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', trigger);
+  } else {
+    trigger();
+  }
+  // Hard fallback if something goes wrong
   setTimeout(arm, 1500);
 })();
 </script>
