@@ -261,7 +261,7 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animations only run once the .ready class is on the body (added by JS after fonts load) */
+/* Animations only run once the .ready class is on html (added by JS after fonts load) */
 .ready .eyebrow-line {
   animation: eyebrow-draw 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s forwards;
 }
@@ -1391,6 +1391,22 @@ footer a:hover { color: var(--gold); }
 }
 
 </style>
+<script>
+// Run as early as possible. Add .ready class to <html> when fonts are loaded
+// or after a 1.5s safety timeout, whichever comes first.
+(function() {
+  var triggered = false;
+  function arm() {
+    if (triggered) return;
+    triggered = true;
+    document.documentElement.classList.add('ready');
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(arm);
+  }
+  setTimeout(arm, 1500);
+})();
+</script>
 </head>
 <body>
 
@@ -1731,20 +1747,6 @@ footer a:hover { color: var(--gold); }
 </div>
 
 <script>
-// Wait for fonts to load before triggering hero animations.
-// Without this, the title flashes at full opacity when the font swaps in.
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(() => {
-    document.body.classList.add('ready');
-  });
-} else {
-  // Fallback for very old browsers
-  window.addEventListener('load', () => document.body.classList.add('ready'));
-}
-// Safety net: if fonts.ready never resolves (slow connection, blocked CDN),
-// trigger the animations anyway after 2 seconds
-setTimeout(() => document.body.classList.add('ready'), 2000);
-
 // Reveal-on-scroll for .fade-in elements
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
