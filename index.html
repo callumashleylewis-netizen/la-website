@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Librarians' Assembly · Keepers of the Archive</title>
+<meta name="description" content="A scholarly order dedicated to the preservation of Jedi knowledge.">
+
+<!-- Distinctive type pairing: Cormorant Garamond (display) + JetBrains Mono (data accents) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0a1320;
+  --ink-deep: #050a14;
+  --paper: #f4ead2;
+  --paper-warm: #e8dcb8;
+  --gold: #c79a3a;
+  --gold-bright: #e6b94a;
+  --crystal: #4ad8ff;
+  --crystal-deep: #1a8aaf;
+  --sith: #b03a2e;
+  --rule: rgba(199, 154, 58, 0.3);
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--serif);
+  background: var(--ink-deep);
+  color: var(--paper);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ========================================================================
+   ATMOSPHERIC GRAIN / NOISE OVERLAY (scholarly parchment texture)
+   ======================================================================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ========================================================================
+   STAR FIELD (ambient depth, only visible in hero)
+   ======================================================================== */
+.starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.starfield::before, .starfield::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(244, 234, 210, 0.6), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(244, 234, 210, 0.4), transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(74, 216, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(244, 234, 210, 0.5), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(244, 234, 210, 0.3), transparent),
+    radial-gradient(1px 1px at 33% 88%, rgba(74, 216, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 15% 75%, rgba(244, 234, 210, 0.5), transparent);
+  background-size: 800px 800px;
+  animation: drift 200s linear infinite;
+  opacity: 0.6;
+}
+.starfield::after {
+  background-size: 600px 600px;
+  animation-duration: 350s;
+  animation-direction: reverse;
+  opacity: 0.4;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+/* ========================================================================
+   TOP BAR / SIGIL
+   ======================================================================== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  background: linear-gradient(to bottom, rgba(5, 10, 20, 0.85), transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.sigil {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.sigil-mark {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.topnav {
+  display: flex;
+  gap: 2.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.topnav a {
+  color: var(--paper);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.3s, color 0.3s;
+}
+.topnav a:hover { opacity: 1; color: var(--gold); }
+
+@media (max-width: 720px) {
+  .topnav { display: none; }
+  .topbar { padding: 1rem 1.5rem; }
+}
+
+/* ========================================================================
+   HERO
+   ======================================================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8rem 4rem 4rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(74, 216, 255, 0.08), transparent 50%),
+    radial-gradient(ellipse at 30% 80%, rgba(199, 154, 58, 0.06), transparent 60%),
+    var(--ink-deep);
+}
+
+.hero-content {
+  max-width: 980px;
+  position: relative;
+  z-index: 2;
+  animation: rise 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--crystal);
+  margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--crystal);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--paper);
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  display: block;
+}
+
+.hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 620px;
+  margin-bottom: 3rem;
+  color: var(--paper);
+  opacity: 0.85;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 1.1rem 2.2rem;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid;
+}
+
+.btn-primary {
+  color: var(--ink);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.btn-primary:hover {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(230, 185, 74, 0.5);
+}
+
+.btn-secondary {
+  color: var(--paper);
+  background: transparent;
+  border-color: rgba(244, 234, 210, 0.3);
+}
+.btn-secondary:hover {
+  border-color: var(--paper);
+  background: rgba(244, 234, 210, 0.05);
+}
+
+/* Decorative archive-shelf graphic on the right (removed in favour of sigil watermark) */
+.hero-decor { display: none; }
+
+@media (max-width: 720px) {
+  .hero { padding: 7rem 1.5rem 3rem; }
+  .hero-decor { display: none; }
+}
+
+/* ========================================================================
+   SECTION DIVIDER MOTIF
+   ======================================================================== */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 0 2rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.divider::before, .divider::after {
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ========================================================================
+   ABOUT SECTION (asymmetric, ink-on-parchment feel)
+   ======================================================================== */
+.about {
+  padding: 6rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-top: 1px solid var(--gold);
+  padding-top: 1.5rem;
+}
+
+.about-body p {
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.about-body p:first-child::first-letter {
+  font-family: var(--serif);
+  font-size: 4.2rem;
+  font-weight: 500;
+  line-height: 1;
+  float: left;
+  margin: 0.2rem 0.8rem 0 0;
+  color: var(--gold);
+  font-style: italic;
+}
+
+.about-body em {
+  color: var(--gold-bright);
+  font-style: italic;
+}
+
+.pull-quote {
+  margin-top: 3rem;
+  padding-left: 2rem;
+  border-left: 2px solid var(--gold);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--paper);
+  opacity: 0.7;
+}
+
+@media (max-width: 920px) {
+  .about { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+}
+
+/* ========================================================================
+   PILLARS (what we do)
+   ======================================================================== */
+.pillars {
+  padding: 4rem 4rem 6rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.pillars-heading {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  line-height: 1.1;
+}
+.pillars-heading em {
+  color: var(--gold-bright);
+  font-style: italic;
+}
+
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.pillar {
+  padding: 2.5rem 2rem;
+  background: var(--ink-deep);
+  position: relative;
+  transition: background 0.4s;
+}
+.pillar:hover {
+  background: var(--ink);
+}
+.pillar:hover .pillar-num { color: var(--gold-bright); }
+
+.pillar-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  transition: color 0.4s;
+}
+
+.pillar-name {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: var(--paper);
+}
+
+.pillar-desc {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--paper);
+  opacity: 0.65;
+}
+
+@media (max-width: 720px) {
+  .pillars { padding: 2rem 1.5rem 4rem; }
+}
+
+/* ========================================================================
+   RANKS (visual ladder)
+   ======================================================================== */
+.ranks {
+  padding: 6rem 4rem;
+  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.ranks::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(74, 216, 255, 0.04), transparent 60%);
+  pointer-events: none;
+}
+
+.ranks-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ranks-heading {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.ranks-heading em { color: var(--gold-bright); font-style: italic; }
+
+.ranks-sub {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.5;
+  margin-bottom: 4rem;
+}
+
+/* Tier groups */
+.rank-tier {
+  margin-bottom: 3rem;
+}
+.tier-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--gold);
+}
+
+/* Each rank is now a button */
+.rank {
+  display: grid;
+  grid-template-columns: 60px 1fr 30px;
+  align-items: center;
+  width: 100%;
+  padding: 1.4rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: rgba(244, 234, 210, 0.015);
+  gap: 1.5rem;
+  margin-bottom: -1px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  transition: background 0.3s, border-color 0.3s, padding-left 0.3s;
+}
+.rank:hover {
+  background: rgba(199, 154, 58, 0.06);
+  border-color: rgba(199, 154, 58, 0.4);
+  padding-left: 1.7rem;
+}
+.rank:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.rank-num {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+.rank-body { display: flex; flex-direction: column; gap: 0.35rem; }
+.rank-name {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--paper);
+}
+.rank-desc {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--paper);
+  opacity: 0.6;
+  font-weight: 300;
+  line-height: 1.5;
+}
+.rank-arrow {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--gold);
+  opacity: 0.4;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.rank:hover .rank-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+@media (max-width: 720px) {
+  .ranks { padding: 4rem 1.5rem; }
+  .rank {
+    grid-template-columns: 36px 1fr 20px;
+    gap: 0.8rem;
+    padding: 1rem 0.8rem;
+  }
+  .rank-name { font-size: 1.2rem; }
+  .rank-desc { font-size: 0.85rem; }
+}
+
+/* ========================================================================
+   MODAL (rank requirements panel)
+   ======================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 2rem;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--ink);
+  border: 1px solid var(--gold);
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 3rem 2.5rem 2.5rem;
+  position: relative;
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow:
+    0 0 60px -10px rgba(199, 154, 58, 0.3),
+    0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.5rem 0.8rem;
+  opacity: 0.6;
+  transition: opacity 0.3s, color 0.3s;
+}
+.modal-close:hover { opacity: 1; color: var(--gold); }
+
+.modal-tier {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.modal-name {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--paper);
+  line-height: 1.1;
+}
+
+.modal-desc {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--paper);
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.modal-section-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.modal-reqs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.modal-reqs li {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 0.6rem 0 0.6rem 1.5rem;
+  border-bottom: 1px solid rgba(199, 154, 58, 0.1);
+  position: relative;
+  color: var(--paper);
+  opacity: 0.85;
+}
+.modal-reqs li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 500;
+}
+.modal-reqs li:last-child { border-bottom: none; }
+
+@media (max-width: 720px) {
+  .modal {
+    padding: 2.5rem 1.5rem 2rem;
+    max-height: 90vh;
+  }
+  .modal-name { font-size: 1.8rem; }
+}
+
+/* ========================================================================
+   JOIN SECTION
+   ======================================================================== */
+.join {
+  padding: 8rem 4rem;
+  text-align: center;
+  position: relative;
+  background:
+    radial-gradient(ellipse at center, rgba(199, 154, 58, 0.08), transparent 70%),
+    var(--ink-deep);
+  overflow: hidden;
+}
+
+.join::before, .join::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  top: 20%;
+}
+.join::before { left: 15%; }
+.join::after { right: 15%; }
+
+.join-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+.join h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+.join h2 em { color: var(--gold-bright); font-style: italic; }
+
+.join p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  opacity: 0.75;
+}
+
+@media (max-width: 720px) {
+  .join { padding: 5rem 1.5rem; }
+  .join::before, .join::after { display: none; }
+}
+
+/* ========================================================================
+   FOOTER
+   ======================================================================== */
+footer {
+  padding: 3rem 4rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.4;
+}
+footer a {
+  color: var(--paper);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+footer a:hover { color: var(--gold); }
+
+@media (max-width: 720px) {
+  footer { padding: 2rem 1.5rem; }
+}
+
+/* ========================================================================
+   MICRO-INTERACTIONS
+   ======================================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fade-in.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* ========================================================================
+   HOLOCRONS — flat 2D for ambient/scattered, full 3D for sentinel + hero
+   ======================================================================== */
+
+/* Shared face styling — used by both 2D and 3D variants */
+.holo-face {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
+    linear-gradient(-45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
+    linear-gradient(135deg, rgba(74, 140, 220, 0.55) 0%, rgba(40, 90, 180, 0.7) 50%, rgba(20, 60, 140, 0.65) 100%);
+  border: 3px solid #b08838;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 0 0 1px #5a4520,
+    inset 0 0 25px rgba(74, 140, 220, 0.6),
+    0 0 18px rgba(74, 140, 220, 0.3);
+}
+.holo-face::before {
+  content: '';
+  position: absolute;
+  inset: 18%;
+  border: 2px solid #b08838;
+  box-shadow: inset 0 0 0 1px #5a4520;
+  transform: rotate(45deg);
+}
+.holo-face::after {
+  content: '';
+  position: absolute;
+  inset: 28%;
+  border: 2px solid #b08838;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #5a4520, 0 0 14px rgba(180, 220, 255, 0.4);
+}
+
+/* ----- Solid variant: etched-ornament face with X diagonals + diamond + circle ----- */
+.holo-solid .holo-face {
+  background:
+    linear-gradient(45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
+    linear-gradient(-45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
+    linear-gradient(135deg, #5b9be0 0%, #2e6cc4 50%, #163d8a 100%);
+  border: 4px solid #c79a3a;
+  box-shadow:
+    inset 0 0 0 1.5px #5a4520,
+    inset 0 0 0 5px #b08838,
+    inset 0 0 35px rgba(120, 180, 255, 0.55),
+    0 0 25px rgba(74, 140, 220, 0.45);
+}
+.holo-solid .holo-face::before {
+  content: '';
+  position: absolute;
+  inset: 18%;
+  border: 2.5px solid #c79a3a;
+  box-shadow: inset 0 0 0 1px #5a4520;
+  transform: rotate(45deg);
+}
+.holo-solid .holo-face::after {
+  content: '';
+  position: absolute;
+  inset: 28%;
+  border: 2.5px solid #c79a3a;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #5a4520, 0 0 18px rgba(200, 230, 255, 0.55);
+  background: radial-gradient(circle, rgba(200, 230, 255, 0.3) 0%, transparent 70%);
+}
+
+/* ----- 3D HOLOCRON (full cube — used for sentinel + hero) ----- */
+.holo-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: holo-tumble 18s linear infinite;
+}
+.holo-3d .holo-face { width: 100%; height: 100%; }
+
+@keyframes holo-tumble {
+  0%   { transform: rotateX(-15deg) rotateY(0deg); }
+  100% { transform: rotateX(-15deg) rotateY(360deg); }
+}
+
+/* ----- 2D HOLOCRON (single face, gentle Y-rotate) ----- */
+.holo-2d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: holo-spin 14s linear infinite;
+  transform-style: preserve-3d;
+}
+.holo-2d .holo-face { width: 100%; height: 100%; }
+
+@keyframes holo-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+/* ----- AMBIENT HOLOCRONS (drifting in hero background) ----- */
+.holo-ambient {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  opacity: 0.35;
+  filter: blur(0.3px);
+}
+.holo-ambient.h1 { top: 18%; left: 8%;  animation: drift1 22s ease-in-out infinite; }
+.holo-ambient.h2 { top: 70%; left: 75%; animation: drift2 26s ease-in-out infinite; width: 50px; height: 50px; opacity: 0.25; }
+.holo-ambient.h3 { top: 35%; left: 88%; animation: drift3 30s ease-in-out infinite; width: 45px; height: 45px; opacity: 0.2; }
+.holo-ambient.h4 { top: 78%; left: 18%; animation: drift1 24s ease-in-out infinite reverse; width: 55px; height: 55px; opacity: 0.3; }
+
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(20px, -25px); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-25px, 15px); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-15px, -30px); }
+}
+
+/* ----- HERO HOLOCRON (cursor-tracking) ----- */
+.holo-hero {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 180px;
+  height: 180px;
+  perspective: 900px;
+  z-index: 1;
+  pointer-events: none;
+  display: none;  /* hidden on small screens via media query below */
+}
+.holo-hero .holo-3d {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.holo-hero .holo-face.f-front  { transform: translateZ(90px); }
+.holo-hero .holo-face.f-back   { transform: rotateY(180deg) translateZ(90px); }
+.holo-hero .holo-face.f-right  { transform: rotateY( 90deg) translateZ(90px); }
+.holo-hero .holo-face.f-left   { transform: rotateY(-90deg) translateZ(90px); }
+.holo-hero .holo-face.f-top    { transform: rotateX( 90deg) translateZ(90px); }
+.holo-hero .holo-face.f-bottom { transform: rotateX(-90deg) translateZ(90px); }
+
+@media (min-width: 1100px) {
+  .holo-hero { display: block; }
+}
+
+/* ----- CORNER SENTINEL (always-visible, clickable crystal) ----- */
+.holo-sentinel {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 90px;
+  height: 90px;
+  z-index: 90;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 0 12px rgba(120, 200, 255, 0.55));
+}
+.holo-sentinel:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 22px rgba(120, 200, 255, 0.85));
+}
+.crystal {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.holo-sentinel-hint {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(5, 10, 20, 0.85);
+  border: 1px solid var(--gold);
+  padding: 0.4rem 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.holo-sentinel:hover .holo-sentinel-hint {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-4px);
+}
+
+@media (max-width: 720px) {
+  .holo-sentinel { width: 64px; height: 64px; bottom: 1rem; right: 1rem; }
+  .holo-sentinel-hint { display: none; }
+}
+
+/* ----- SCATTERED LORE HOLOCRONS (clickable, scattered between sections) ----- */
+.holo-lore {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.holo-lore:hover {
+  transform: scale(1.15);
+}
+.holo-lore-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 4rem 2rem;
+  flex-wrap: wrap;
+}
+
+/* ----- LORE QUOTE PANEL (the modal-like reveal) ----- */
+.lore-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  padding: 2rem;
+}
+.lore-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lore-panel {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.lore-overlay.open .lore-panel { transform: translateY(0) scale(1); }
+
+.lore-holo {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 2rem;
+  filter: drop-shadow(0 0 18px rgba(120, 200, 255, 0.65));
+}
+.lore-holo .crystal {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lore-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--paper);
+  max-width: 540px;
+  margin: 0 auto 1.5rem;
+}
+.lore-text::before { content: '"'; color: var(--gold); }
+.lore-text::after  { content: '"'; color: var(--gold); }
+
+.lore-attribution {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+}
+
+.lore-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s, border-color 0.3s, color 0.3s;
+}
+.lore-close:hover {
+  opacity: 1;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Reduced motion preference — pause holocron animations for users who want it */
+@media (prefers-reduced-motion: reduce) {
+  .holo-3d, .holo-2d, .holo-ambient { animation: none; }
+}
+
+/* ========================================================================
+   HERO SIGIL WATERMARK
+   ======================================================================== */
+.hero-sigil {
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 720px;
+  height: 720px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  object-fit: contain;
+  animation: sigil-breathe 12s ease-in-out infinite;
+}
+@keyframes sigil-breathe {
+  0%, 100% { opacity: 0.06; }
+  50%      { opacity: 0.12; }
+}
+@media (max-width: 920px) {
+  .hero-sigil { right: -200px; width: 500px; height: 500px; }
+}
+@media (max-width: 720px) {
+  .hero-sigil { right: -260px; width: 420px; height: 420px; opacity: 0.04; }
+}
+
+/* ========================================================================
+   HERO CONSTELLATION (decorative, right side)
+   ======================================================================== */
+.hero-constellation {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  height: 420px;
+  color: var(--crystal);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 1;
+  animation: constellation-twinkle 8s ease-in-out infinite;
+}
+@keyframes constellation-twinkle {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.6; }
+}
+@media (max-width: 1100px) {
+  .hero-constellation { display: none; }
+}
+
+
+.topnav a {
+  position: relative;
+  padding-bottom: 4px;
+}
+.topnav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.topnav a:hover::after {
+  width: 100%;
+}
+
+/* ========================================================================
+   SECTION ATMOSPHERIC FLOURISHES
+   ======================================================================== */
+/* Pillars and ranks sections get faint hex-pattern overlays */
+.pillars, .about, .join {
+  position: relative;
+}
+.pillars::before, .about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(199, 154, 58, 0.08) 1px, transparent 1.5px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+.pillars > *, .about > *, .join > * { position: relative; z-index: 1; }
+
+/* ========================================================================
+   SECTION NUMERAL DECORATIONS
+   ======================================================================== */
+.about-label {
+  position: relative;
+}
+.about-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Pillars heading: add Roman numeral indicator */
+.pillars-heading::before {
+  content: '· II ·';
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Ranks heading: numeral above */
+.ranks-heading::before {
+  content: '· III ·';
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Join section: numeral inside the eyebrow already handled by content */
+
+/* ========================================================================
+   PILLAR CARD ENHANCEMENTS — gold corner accents on hover
+   ======================================================================== */
+.pillar {
+  position: relative;
+}
+.pillar::before, .pillar::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--gold);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0;
+  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pillar::before {
+  top: 8px;
+  left: 8px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  transform: translate(4px, 4px);
+}
+.pillar::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  transform: translate(-4px, -4px);
+}
+.pillar:hover::before, .pillar:hover::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ========================================================================
+   RANK ROW: small inset gold pip on hover
+   ======================================================================== */
+.rank {
+  position: relative;
+}
+.rank::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.rank:hover::before {
+  width: 12px;
+}
+
+/* ========================================================================
+   FOOTER MARK
+   ======================================================================== */
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.footer-mark img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* ========================================================================
+   SECTION DIVIDERS — make them feel like ornamental rules
+   ======================================================================== */
+.divider {
+  position: relative;
+}
+.divider::before, .divider::after {
+  width: 100px;
+}
+
+/* Add tiny diamond markers to dividers */
+.divider {
+  letter-spacing: 0.4em;
+  font-weight: 500;
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="sigil">
+    <img class="sigil-mark" src="sigil.png" alt="Librarians' Assembly insignia">
+    <span>Librarians' Assembly</span>
+  </div>
+  <nav class="topnav">
+    <a href="#about">Order</a>
+    <a href="#pillars">Pursuits</a>
+    <a href="#ranks">Ranks</a>
+    <a href="#join">Join</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="starfield"></div>
+  <div class="hero-decor"></div>
+
+  <!-- Large sigil watermark -->
+  <img class="hero-sigil" src="sigil.png" alt="" aria-hidden="true">
+
+  <!-- Decorative constellation -->
+  <svg class="hero-constellation" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="currentColor">
+      <circle cx="40" cy="50" r="2"/>
+      <circle cx="100" cy="80" r="1.5"/>
+      <circle cx="160" cy="60" r="2.5"/>
+      <circle cx="70" cy="140" r="1.8"/>
+      <circle cx="140" cy="160" r="2.2"/>
+      <circle cx="50" cy="220" r="1.5"/>
+      <circle cx="120" cy="240" r="2"/>
+      <circle cx="170" cy="200" r="1.6"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5">
+      <line x1="40" y1="50" x2="100" y2="80"/>
+      <line x1="100" y1="80" x2="160" y2="60"/>
+      <line x1="100" y1="80" x2="70" y2="140"/>
+      <line x1="70" y1="140" x2="140" y2="160"/>
+      <line x1="140" y1="160" x2="170" y2="200"/>
+      <line x1="70" y1="140" x2="50" y2="220"/>
+      <line x1="50" y1="220" x2="120" y2="240"/>
+      <line x1="120" y1="240" x2="170" y2="200"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Order Sanctioned · Established 25 ABY</div>
+    <h1 class="hero-title">
+      Librarians'
+      <em>Assembly</em>
+    </h1>
+    <p class="hero-tagline">
+      A specialized collective within the Jedi Order. Guardians of history,
+      philosophy, and the teachings of the Force.
+    </p>
+    <div class="hero-actions">
+      <a href="#join" class="btn btn-primary">Join the Assembly</a>
+      <a href="#about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-label">· I ·<br>The Order</div>
+  <div class="about-body fade-in">
+    <p>
+      The <em>Jedi Librarian's Assembly</em> is a specialized collective within
+      the Jedi Order, devoted to the preservation, organization, and
+      dissemination of knowledge.
+    </p>
+    <p>
+      Based in the <em>Great Jedi Archives</em> on Coruscant, these Jedi serve
+      as guardians of history, philosophy, and the teachings of the Force.
+      Members of the assembly are scholars, archivists, and researchers, whose
+      mission is to ensure that the wisdom of generations is accessible to all
+      Jedi.
+    </p>
+    <div class="pull-quote">
+      "What is preserved, endures.<br>What is taught, multiplies."
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">· Pursuits of the Order ·</div>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <h2 class="pillars-heading fade-in">
+    Four <em>disciplines</em> form the<br>foundation of our Assembly.
+  </h2>
+  <div class="pillar-grid">
+    <div class="pillar fade-in">
+      <div class="pillar-num">01 · Tenet</div>
+      <div class="pillar-name">The Archive</div>
+      <p class="pillar-desc">
+        Texts, recordings, and oral histories are gathered, indexed, and made
+        available to those who would learn. The archive is the heart of the order.
+      </p>
+    </div>
+    <div class="pillar fade-in">
+      <div class="pillar-num">02 · Tenet</div>
+      <div class="pillar-name">Instruction</div>
+      <p class="pillar-desc">
+        From basic training to advanced symposia, members teach one another openly.
+        No knowledge is hoarded; every Initiate may rise to Loremaster.
+      </p>
+    </div>
+    <div class="pillar fade-in">
+      <div class="pillar-num">03 · Tenet</div>
+      <div class="pillar-name">Discourse</div>
+      <p class="pillar-desc">
+        Through debate and assembly, contradictions in the record are weighed
+        and resolved. Truth is found in argument, not in silence.
+      </p>
+    </div>
+    <div class="pillar fade-in">
+      <div class="pillar-num">04 · Tenet</div>
+      <div class="pillar-name">Vigil</div>
+      <p class="pillar-desc">
+        We patrol our holdings, defend our archives, and bear witness when
+        history is being made. Knowledge unguarded is knowledge lost.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- RANKS -->
+<section class="ranks" id="ranks">
+  <div class="ranks-inner">
+    <h2 class="ranks-heading fade-in">The Path of <em>Ascension</em></h2>
+    <div class="ranks-sub">From newcomer to keeper. Click any rank to view its requirements.</div>
+
+    <div class="rank-tier fade-in">
+      <div class="tier-label">Low Ranks</div>
+
+      <button class="rank" data-rank="pledge">
+        <div class="rank-num">I.</div>
+        <div class="rank-body">
+          <div class="rank-name">Pledge</div>
+          <div class="rank-desc">Unofficial members who have recently passed the Librarians' Assembly application. They have one week to achieve Student.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="student">
+        <div class="rank-num">II.</div>
+        <div class="rank-body">
+          <div class="rank-name">Student</div>
+          <div class="rank-desc">The first true rank of the Assembly. Full-fledged members who may begin working toward advancement.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="librarian">
+        <div class="rank-num">III.</div>
+        <div class="rank-body">
+          <div class="rank-name">Librarian</div>
+          <div class="rank-desc">Low-ranks who have begun to prove themselves and may gear up for the rank of Intellect.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+    </div>
+
+    <div class="rank-tier fade-in">
+      <div class="tier-label">Middle Ranks</div>
+
+      <button class="rank" data-rank="intellect">
+        <div class="rank-num">IV.</div>
+        <div class="rank-body">
+          <div class="rank-name">Intellect</div>
+          <div class="rank-desc">The first official middle-rank. Trusted with knowledge and maturity sufficient to co-host training sessions.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="tutor">
+        <div class="rank-num">V.</div>
+        <div class="rank-body">
+          <div class="rank-name">Tutor</div>
+          <div class="rank-desc">Highly respected scholars who have gained deep knowledge within the Assembly. Permitted to assist the High Ranks.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+    </div>
+
+    <div class="rank-tier fade-in">
+      <div class="tier-label">High Ranks</div>
+
+      <button class="rank" data-rank="lore-keeper">
+        <div class="rank-num">VI.</div>
+        <div class="rank-body">
+          <div class="rank-name">Lore Keeper</div>
+          <div class="rank-desc">Dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="archivist">
+        <div class="rank-num">VII.</div>
+        <div class="rank-body">
+          <div class="rank-name">Archivist</div>
+          <div class="rank-desc">Senior High Ranks held to the highest standard of critical thinking and management. Mentors to the entire Assembly.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+    </div>
+
+    <div class="rank-tier fade-in">
+      <div class="tier-label">High Command</div>
+
+      <button class="rank" data-rank="historian">
+        <div class="rank-num">VIII.</div>
+        <div class="rank-body">
+          <div class="rank-name">Historian</div>
+          <div class="rank-desc">A respected rank within the Jedi Order. Assists the Curator in overseeing the High Ranks.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="curator">
+        <div class="rank-num">IX.</div>
+        <div class="rank-body">
+          <div class="rank-name">Curator of the Archives</div>
+          <div class="rank-desc">Second in command of the Librarians' Assembly. Directly oversees the High Ranks and reports to the Chief Librarian.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+
+      <button class="rank" data-rank="chief">
+        <div class="rank-num">X.</div>
+        <div class="rank-body">
+          <div class="rank-name">Chief Librarian</div>
+          <div class="rank-desc">The highest achievable rank. Oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.</div>
+        </div>
+        <div class="rank-arrow">›</div>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- REQUIREMENT MODAL (one per rank, hidden until opened) -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+    <div class="modal-tier" id="modal-tier"></div>
+    <h3 class="modal-name" id="modal-name"></h3>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-section-label">Requirements</div>
+    <ul class="modal-reqs" id="modal-reqs"></ul>
+  </div>
+</div>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="join-eyebrow">· Acceptance into the Assembly ·</div>
+  <h2>The doors are <em>open.</em></h2>
+  <p>
+    All who would learn, teach, or simply preserve are welcome. Make your case
+    before the Assembly and your path will begin.
+  </p>
+  <div class="hero-actions" style="justify-content: center;">
+    <a href="#" class="btn btn-primary">Petition for Membership</a>
+    <a href="#" class="btn btn-secondary">View Charter</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mark">
+    <img src="sigil.png" alt="" aria-hidden="true">
+    <span>Librarians' Assembly · Holocron Archives</span>
+  </div>
+  <div>By patience, by record, by light</div>
+</footer>
+
+<!-- CORNER SENTINEL -->
+<div class="holo-sentinel" id="holo-sentinel">
+  <span class="holo-sentinel-hint">Consult the Holocron</span>
+  <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cFaceLight" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#a8e0ff"/>
+        <stop offset="100%" stop-color="#1e5a9c"/>
+      </linearGradient>
+      <linearGradient id="cFaceDark" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3a7ad0"/>
+        <stop offset="100%" stop-color="#08203a"/>
+      </linearGradient>
+    </defs>
+    <g stroke="#040a18" stroke-width="0.8">
+      <polygon points="50,8 85,28 50,50" fill="url(#cFaceLight)"/>
+      <polygon points="85,28 85,72 50,50" fill="url(#cFaceDark)"/>
+      <polygon points="85,72 50,92 50,50" fill="url(#cFaceLight)" opacity="0.7"/>
+      <polygon points="50,92 15,72 50,50" fill="url(#cFaceDark)"/>
+      <polygon points="15,72 15,28 50,50" fill="url(#cFaceLight)" opacity="0.85"/>
+      <polygon points="15,28 50,8 50,50" fill="url(#cFaceDark)" opacity="0.9"/>
+      <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
+    </g>
+  </svg>
+</div>
+
+<!-- LORE QUOTE OVERLAY -->
+<div class="lore-overlay" id="lore-overlay">
+  <div class="lore-panel">
+    <button class="lore-close" id="lore-close">Close</button>
+    <div class="lore-holo">
+      <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lFaceLight" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#a8e0ff"/>
+            <stop offset="100%" stop-color="#1e5a9c"/>
+          </linearGradient>
+          <linearGradient id="lFaceDark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#3a7ad0"/>
+            <stop offset="100%" stop-color="#08203a"/>
+          </linearGradient>
+        </defs>
+        <g stroke="#040a18" stroke-width="0.8">
+          <polygon points="50,8 85,28 50,50" fill="url(#lFaceLight)"/>
+          <polygon points="85,28 85,72 50,50" fill="url(#lFaceDark)"/>
+          <polygon points="85,72 50,92 50,50" fill="url(#lFaceLight)" opacity="0.7"/>
+          <polygon points="50,92 15,72 50,50" fill="url(#lFaceDark)"/>
+          <polygon points="15,72 15,28 50,50" fill="url(#lFaceLight)" opacity="0.85"/>
+          <polygon points="15,28 50,8 50,50" fill="url(#lFaceDark)" opacity="0.9"/>
+          <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
+        </g>
+      </svg>
+    </div>
+    <p class="lore-text" id="lore-text"></p>
+    <div class="lore-attribution" id="lore-attribution"></div>
+  </div>
+</div>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('in'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ---------------------------------------------------------------------
+// Rank requirements modal
+// ---------------------------------------------------------------------
+const RANK_DATA = {
+  pledge: {
+    tier: 'Low Ranks',
+    name: 'Pledge',
+    desc: "Pledges are unofficial members of the division who have recently passed the Librarians' Assembly application. They have full access to the Librarian robes and team. Pledges have one week to achieve Student and be accepted into the Assembly as a bonafide member.",
+    reqs: [
+      "Pass the application, OR be handpicked with reason by a member of High Command.",
+    ],
+  },
+  student: {
+    tier: 'Low Ranks',
+    name: 'Student',
+    desc: "Students are full-fledged members of the Librarians' Assembly. The first of the low ranks, they may begin working towards advancing in the Assembly.",
+    reqs: [
+      "1 submission (one chance of revision will be granted).",
+      "Attend an Introductory Lecture.",
+      "Must be a member of the Consular Pathway.",
+    ],
+  },
+  librarian: {
+    tier: 'Low Ranks',
+    name: 'Librarian',
+    desc: "Librarians are low-ranks of the Assembly who have begun to prove themselves as members. They may now gear up for the rank of Intellect.",
+    reqs: [
+      "3 submissions.",
+      "Attend 4 trainings.",
+      "Have been a Student for at least 1 day.",
+    ],
+  },
+  intellect: {
+    tier: 'Middle Ranks',
+    name: 'Intellect',
+    desc: "Intellects are the first official middle-rank of the Jedi Librarians' Assembly. They have gained enough knowledge and maturity to co-host training sessions.",
+    reqs: [
+      "6 submissions.",
+      "Attend 10 trainings.",
+      "Attend a Patrol.",
+      "Attend an Advanced Introductory Lecture.",
+      "Attend 1 of: Seminar, Symposium, Debate, or Activity Push.",
+      "Have been a Librarian for at least 3 days.",
+    ],
+  },
+  tutor: {
+    tier: 'Middle Ranks',
+    name: 'Tutor',
+    desc: "Tutors are highly respected and have gained much knowledge within the Assembly. They are permitted to assist the High Ranks.",
+    reqs: [
+      "8 submissions.",
+      "Attend 16 trainings.",
+      "Co-host 5 events.",
+      "Attend 3 of: Seminar, Symposium, Debate, Activity Push, or Patrol.",
+      "Have been an Intellect for at least 5 days.",
+    ],
+  },
+  'lore-keeper': {
+    tier: 'High Ranks',
+    name: 'Lore Keeper',
+    desc: "Lore Keepers are dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom and knowledge.",
+    reqs: [
+      "10 submissions.",
+      "Attend 20 trainings.",
+      "Co-host 8 events.",
+      "Attend 4 of: Seminar, Symposium, Debate, Activity Push, or Patrol.",
+      "Receive 2 Divisional or higher Endorsements.",
+      "Become Librarian of the Week at least once.",
+      "Pass a High Command + Archivist vote to take the Trials.",
+      "Have been a Tutor for at least 1 week.",
+      "Must be a Consular AJK.",
+    ],
+  },
+  archivist: {
+    tier: 'High Ranks',
+    name: 'Archivist',
+    desc: "Archivists are the Senior High Ranks of the Assembly. Held to the highest level of critical thinking and team management, they take charge in managing both the Assembly and the High Ranks, acting as mentors to all.",
+    reqs: [
+      "Have no active strikes within TJO or LA.",
+      "Served as a Lore Keeper for two weeks (excluding the Probationary Period and any Inactivity Notices).",
+      "Host 35 events.",
+      "Review 20 submissions.",
+      "Become High Rank of the Week at least three times.",
+      "Write a 500-word minimum essay about your journey in LA and why you have stayed for so long.",
+      "In the same document as your essay, write an example of an explanation of the Assembly to a recently joined Pledge.",
+      "Pass a unanimous High Command vote.",
+    ],
+  },
+  historian: {
+    tier: 'High Command',
+    name: 'Historian',
+    desc: "The Historian is a highly respected rank within the Jedi Order, acting as a role model to those of lower rank. They assist the Curator in overseeing the High Ranks, and report directly to the Curator of the Archives and Chief Librarian.",
+    reqs: [
+      "Be handpicked by the Chief Librarian and the Curator of the Archives.",
+    ],
+  },
+  curator: {
+    tier: 'High Command',
+    name: 'Curator of the Archives',
+    desc: "Curator of the Archives is the second-in-command of the Librarians' Assembly. This person directly oversees the High Ranks and reports to the Chief Librarian.",
+    reqs: [
+      "Be handpicked by the Chief Librarian.",
+    ],
+  },
+  chief: {
+    tier: 'High Command',
+    name: 'Chief Librarian',
+    desc: "Chief Librarian is the highest achievable rank, in first command of the Librarians' Assembly. This person oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.",
+    reqs: [
+      "Be chosen by the Jedi High Council.",
+    ],
+  },
+};
+
+const overlay = document.getElementById('modal-overlay');
+const modalClose = document.getElementById('modal-close');
+const modalTier = document.getElementById('modal-tier');
+const modalName = document.getElementById('modal-name');
+const modalDesc = document.getElementById('modal-desc');
+const modalReqs = document.getElementById('modal-reqs');
+
+function openRank(key) {
+  const data = RANK_DATA[key];
+  if (!data) return;
+  modalTier.textContent = data.tier;
+  modalName.textContent = data.name;
+  modalDesc.textContent = data.desc;
+  modalReqs.innerHTML = '';
+  data.reqs.forEach(r => {
+    const li = document.createElement('li');
+    li.textContent = r;
+    modalReqs.appendChild(li);
+  });
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.rank').forEach(btn => {
+  btn.addEventListener('click', () => openRank(btn.dataset.rank));
+});
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+});
+
+// ---------------------------------------------------------------------
+// HOLOCRON SYSTEM
+// ---------------------------------------------------------------------
+
+// Original LA-flavoured maxims. Short, scholarly, unattributed where best.
+const LORE_QUOTES = [
+  // On preservation
+  { text: "What is preserved, endures. What is taught, multiplies.", attribution: "Maxim of the First Curators" },
+  { text: "Time forgets; the record remembers.", attribution: "Frieze, the Great Archive" },
+  { text: "A page unread is a page not yet written.", attribution: "Reflection of an Archivist" },
+  { text: "Dust is patient, but ink is patient longer.", attribution: "Apocrypha of the Sixth Hall" },
+  { text: "The Order does not write history. The Order keeps it.", attribution: "First Lesson of the Pledge" },
+
+  // On knowledge & wisdom
+  { text: "Knowledge unguarded is knowledge lost.", attribution: "From the Vigil's Charter" },
+  { text: "Wisdom unspoken is wisdom unproven.", attribution: "Tutor's Reflection" },
+  { text: "A scholar without a question is an archive without a key.", attribution: "Inscription, Reading Hall" },
+  { text: "To know one thing well is to suspect ten thousand things rightly.", attribution: "Saying of the Lore Keepers" },
+  { text: "Certainty is a door. Curiosity is the room beyond it.", attribution: "Margin note, Untitled Codex" },
+  { text: "The greatest archive is the one not yet catalogued.", attribution: "Curator's Lament" },
+
+  // On instruction
+  { text: "The first duty of the Librarian is to listen.", attribution: "Pledge of the Assembly" },
+  { text: "A teacher who does not learn becomes the student of their own ignorance.", attribution: "On the Practice of Instruction" },
+  { text: "We do not teach what we know. We teach what we still wonder.", attribution: "Tutor's Reflection" },
+  { text: "Every Pledge inherits the question we have not yet answered.", attribution: "Curator's Address" },
+  { text: "To instruct is to admit that one's own learning is unfinished.", attribution: "From the Tutor's Compendium" },
+
+  // On discourse & truth
+  { text: "Truth is found in argument, not in silence.", attribution: "On the Practice of Discourse" },
+  { text: "A debate well held is a record well kept.", attribution: "Symposium Notes" },
+  { text: "We do not seek to be right. We seek to be less wrong.", attribution: "Maxim of the Debate Hall" },
+  { text: "The pen that records the disagreement matters more than the voice that wins it.", attribution: "Inscription, Hall of Discourse" },
+
+  // On patience & endurance
+  { text: "By patience, by record, by light.", attribution: "Motto of the Order" },
+  { text: "The archive was not built in haste, and shall not be read in haste.", attribution: "Saying of the Curators" },
+  { text: "Slowness is the discipline of those who intend to remember.", attribution: "Reflection of an Archivist" },
+  { text: "What burns quickly is rarely worth keeping.", attribution: "Apocrypha of the Sixth Hall" },
+
+  // On duty & vigilance
+  { text: "We do not draw the saber first. We draw the record.", attribution: "Vigil's Creed" },
+  { text: "An empty shelf is the first sign of a forgotten people.", attribution: "Historian's Warning" },
+  { text: "To guard knowledge is to guard those who will need it after us.", attribution: "From the Vigil's Charter" },
+  { text: "The Assembly serves the question, not the questioner.", attribution: "First Lesson of the Pledge" },
+
+  // On the Force, framed scholarly
+  { text: "The Force is not learned. It is studied without end.", attribution: "Saying of the Lore Keepers" },
+  { text: "Light, like knowledge, multiplies when shared and dims when hoarded.", attribution: "Maxim of the First Curators" },
+  { text: "We are the candles set in the long hall of the Order.", attribution: "Address to the Assembly" },
+
+  // Aphoristic / philosophical
+  { text: "Every answer is the doorway to a better question.", attribution: "Margin note, Untitled Codex" },
+  { text: "The Galaxy is loud. The Archive is quiet. Both are necessary.", attribution: "Curator's Lament" },
+  { text: "We are not the heroes of the story. We are the ones who see that it is told.", attribution: "Historian's Reflection" },
+  { text: "What we record today, our successors will measure us by.", attribution: "Address to the Assembly" },
+];
+
+// Track recently-shown quotes so the random pick doesn't immediately repeat.
+const RECENT_QUOTES = [];
+const RECENT_BUFFER = 6;  // never show a quote that was in the last 6 picks
+
+const loreOverlay = document.getElementById('lore-overlay');
+const loreClose = document.getElementById('lore-close');
+const loreText = document.getElementById('lore-text');
+const loreAttribution = document.getElementById('lore-attribution');
+
+function showRandomQuote() {
+  // Pick an index that hasn't been shown recently
+  let idx;
+  let attempts = 0;
+  do {
+    idx = Math.floor(Math.random() * LORE_QUOTES.length);
+    attempts++;
+  } while (RECENT_QUOTES.includes(idx) && attempts < 30);
+
+  // Update the recent-buffer (FIFO)
+  RECENT_QUOTES.push(idx);
+  if (RECENT_QUOTES.length > RECENT_BUFFER) RECENT_QUOTES.shift();
+
+  const q = LORE_QUOTES[idx];
+  loreText.textContent = q.text;
+  loreAttribution.textContent = q.attribution;
+  loreOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLore() {
+  loreOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Sentinel: random quote
+document.getElementById('holo-sentinel').addEventListener('click', showRandomQuote);
+
+// Close handlers
+loreClose.addEventListener('click', closeLore);
+loreOverlay.addEventListener('click', (e) => {
+  if (e.target === loreOverlay) closeLore();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
+});
+</script>
+
+</body>
+</html>
