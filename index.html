@@ -1295,63 +1295,139 @@ footer a:hover { color: var(--gold); }
 .rank:hover::before {
   width: 12px;
 }
-
 /* ========================================================================
-   ASSEMBLY DISCORD WIDGET — live member counts
+   HIGH COMMAND
    ======================================================================== */
-.assembly-widget {
-  padding: 5rem 4rem;
+.high-command {
+  padding: 6rem 4rem;
   text-align: center;
   background: var(--ink-deep);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
+  position: relative;
 }
-.widget-eyebrow {
+.high-command::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(199, 154, 58, 0.08) 1px, transparent 1.5px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+.high-command > * { position: relative; z-index: 1; }
+
+.hc-eyebrow {
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--crystal);
-  margin-bottom: 2rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
 }
-.widget-stats {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-.widget-stat {
-  text-align: center;
-  min-width: 140px;
-}
-.widget-stat-num {
+.hc-heading {
   font-family: var(--serif);
-  font-size: clamp(2.5rem, 6vw, 3.6rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 300;
   color: var(--paper);
-  line-height: 1;
-  margin-bottom: 0.6rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
-.widget-stat-label {
+.hc-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+  font-weight: 400;
+}
+.hc-intro {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--paper);
+  opacity: 0.75;
+  max-width: 540px;
+  margin: 0 auto 4rem;
+  line-height: 1.6;
+}
+
+.hc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.hc-card {
+  background: rgba(10, 19, 32, 0.6);
+  border: 1px solid rgba(199, 154, 58, 0.2);
+  padding: 2.2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.hc-card:hover {
+  border-color: rgba(199, 154, 58, 0.5);
+  transform: translateY(-3px);
+}
+.hc-card-featured {
+  border-color: rgba(199, 154, 58, 0.45);
+  background: rgba(20, 30, 50, 0.7);
+}
+.hc-card-featured::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.hc-avatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.2rem;
+  display: block;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 8px rgba(199, 154, 58, 0.2));
+}
+
+.hc-rank {
   font-family: var(--mono);
   font-size: 0.65rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold);
-}
-.widget-divider {
-  width: 1px;
-  background: var(--rule);
-  align-self: stretch;
-}
-@media (max-width: 600px) {
-  .assembly-widget { padding: 3rem 1.5rem; }
-  .widget-stats { gap: 1.5rem; }
-  .widget-divider { display: none; }
+  margin-bottom: 0.8rem;
 }
 
+.hc-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.005em;
+}
+
+.hc-handle {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--paper);
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 600px) {
+  .high-command { padding: 4rem 1.5rem; }
+  .hc-grid { gap: 1.2rem; }
+  .hc-card { padding: 1.8rem 1rem; }
+  .hc-avatar { width: 56px; height: 56px; }
+}
 
 .footer-mark {
   display: flex;
@@ -1642,19 +1718,44 @@ footer a:hover { color: var(--gold); }
   </div>
 </div>
 
-<!-- DISCORD ACTIVITY WIDGET -->
-<section class="assembly-widget">
-  <div class="widget-eyebrow">· The Assembly Today ·</div>
-  <div class="widget-stats">
-    <div class="widget-stat">
-      <div class="widget-stat-num" id="member-total">—</div>
-      <div class="widget-stat-label">Members</div>
+<!-- HIGH COMMAND -->
+<section class="high-command">
+  <div class="hc-eyebrow">· The High Command ·</div>
+  <h2 class="hc-heading">Those who <em>steward</em> the Order</h2>
+  <p class="hc-intro">
+    The senior ranks of the Assembly. They guide instruction, preserve the
+    record, and answer for the Order's direction.
+  </p>
+  <div class="hc-grid">
+
+    <div class="hc-card">
+      <img class="hc-avatar" src="sigil.png" alt="">
+      <div class="hc-rank">Historian</div>
+      <div class="hc-name">RuDz_Shark</div>
+      <div class="hc-handle">@purplehaze9347</div>
     </div>
-    <div class="widget-divider"></div>
-    <div class="widget-stat">
-      <div class="widget-stat-num" id="member-online">—</div>
-      <div class="widget-stat-label">Online Now</div>
+
+    <div class="hc-card">
+      <img class="hc-avatar" src="sigil.png" alt="">
+      <div class="hc-rank">Historian</div>
+      <div class="hc-name">Alexsnakk</div>
+      <div class="hc-handle">@skullcruncher44</div>
     </div>
+
+    <div class="hc-card">
+      <img class="hc-avatar" src="sigil.png" alt="">
+      <div class="hc-rank">Curator of the Archives</div>
+      <div class="hc-name">PauVelaria</div>
+      <div class="hc-handle">@pauvelaria</div>
+    </div>
+
+    <div class="hc-card hc-card-featured">
+      <img class="hc-avatar" src="sigil.png" alt="">
+      <div class="hc-rank">Chief Librarian</div>
+      <div class="hc-name">Valkorion9872</div>
+      <div class="hc-handle">@valkorion9872</div>
+    </div>
+
   </div>
 </section>
 
@@ -2007,57 +2108,6 @@ loreOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
 });
-
-// ---------------------------------------------------------------------
-// DISCORD ASSEMBLY WIDGET
-// Fetches live member count from Discord's public widget API.
-// Requires server widget to be enabled in Server Settings → Widget.
-// ---------------------------------------------------------------------
-const DISCORD_GUILD_ID = '1385930651810660494';
-
-async function loadAssemblyStats() {
-  const totalEl = document.getElementById('member-total');
-  const onlineEl = document.getElementById('member-online');
-  if (!totalEl || !onlineEl) return;
-
-  try {
-    const res = await fetch(`https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`);
-    if (!res.ok) throw new Error('Widget API unavailable');
-    const data = await res.json();
-
-    // Discord widget gives presence_count directly. For total members,
-    // we have to count the array (limited to ~100) — for accurate totals
-    // we'd need a bot, so we display presence_count as the visible figure
-    // and use members.length as the broader count.
-    const online = data.presence_count || 0;
-    const total = data.members ? data.members.length : online;
-
-    // Animate count-up effect (just a small flourish)
-    animateCount(onlineEl, online);
-    animateCount(totalEl, total);
-  } catch (err) {
-    // Widget disabled or network error — just show a quiet fallback
-    totalEl.textContent = '—';
-    onlineEl.textContent = '—';
-    console.warn('Assembly widget unavailable:', err);
-  }
-}
-
-function animateCount(el, target) {
-  const duration = 900;
-  const start = performance.now();
-  function tick(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    // ease-out
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(target * eased);
-    if (progress < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-loadAssemblyStats();
 </script>
 
 </body>
