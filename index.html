@@ -187,9 +187,31 @@ body::before {
   color: var(--paper);
   text-decoration: none;
   opacity: 0.6;
+  position: relative;
+  padding-bottom: 4px;
   transition: opacity 0.3s, color 0.3s;
 }
 .topnav a:hover { opacity: 1; color: var(--gold); }
+.topnav a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
+  opacity: 0;
+}
+.topnav a.active {
+  color: var(--gold);
+  opacity: 1;
+}
+.topnav a.active::after {
+  width: 24px;
+  opacity: 1;
+}
 
 @media (max-width: 720px) {
   .topnav { display: none; }
@@ -252,6 +274,26 @@ body::before {
   font-weight: 400;
   color: var(--gold-bright);
   display: block;
+}
+
+/* Typewriter effect — hides until JS reveals letters one at a time */
+.hero-title.typewriting .typewriter-line {
+  border-right: 2px solid var(--gold);
+  animation: typewriter-cursor 0.9s steps(2, end) infinite;
+}
+.hero-title.typewriting .typewriter-line.done {
+  border-right: none;
+  animation: none;
+}
+@keyframes typewriter-cursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--gold); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title.typewriting .typewriter-line {
+    border-right: none;
+    animation: none;
+  }
 }
 
 .hero-tagline {
@@ -1560,6 +1602,39 @@ footer a:hover { color: var(--gold); }
   width: 100px;
 }
 
+/* Ornamental break between sections (small sigil flanked by gold rules) */
+.section-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  padding: 2.5rem 4rem;
+  background: var(--ink-deep);
+}
+.section-ornament::before,
+.section-ornament::after {
+  content: '';
+  flex: 0 0 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 154, 58, 0.5), transparent);
+}
+.section-ornament svg {
+  width: 22px;
+  height: 22px;
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+.section-ornament svg path,
+.section-ornament svg circle,
+.section-ornament svg line {
+  stroke: var(--gold);
+}
+@media (max-width: 720px) {
+  .section-ornament { padding: 1.8rem 1.5rem; gap: 0.9rem; }
+  .section-ornament::before,
+  .section-ornament::after { flex-basis: 50px; }
+}
+
 /* ========================================================================
    NEW SECTIONS — epigraph, archives, voices, quiz, heretic crystal
    ======================================================================== */
@@ -1919,9 +1994,9 @@ footer a:hover { color: var(--gold); }
 
   <div class="hero-content">
     <div class="hero-eyebrow">Order Sanctioned · Established 25 ABY</div>
-    <h1 class="hero-title">
-      Librarians'
-      <em>Assembly</em>
+    <h1 class="hero-title" id="hero-title">
+      <span class="typewriter-line" id="typewriter-line-1">Librarians'</span>
+      <em><span class="typewriter-line" id="typewriter-line-2">Assembly</span></em>
     </h1>
     <p class="hero-tagline">
       A specialized collective within the Jedi Order. Guardians of history,
@@ -1933,6 +2008,14 @@ footer a:hover { color: var(--gold); }
     </div>
   </div>
 </section>
+
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -1958,6 +2041,14 @@ footer a:hover { color: var(--gold); }
 
 <!-- DIVIDER -->
 <div class="divider">· Pursuits of the Order ·</div>
+
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
 
 <!-- PILLARS -->
 <section class="pillars" id="pillars">
@@ -1999,6 +2090,14 @@ footer a:hover { color: var(--gold); }
     </div>
   </div>
 </section>
+
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
 
 <!-- RANKS -->
 <section class="ranks" id="ranks">
@@ -2143,6 +2242,14 @@ footer a:hover { color: var(--gold); }
   </div>
 </div>
 
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
+
 <!-- HIGH COMMAND -->
 <section class="high-command">
   <div class="hc-eyebrow">· The High Command ·</div>
@@ -2183,6 +2290,14 @@ footer a:hover { color: var(--gold); }
 
   </div>
 </section>
+
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
 
 <!-- VOICES OF THE ASSEMBLY -->
 <section class="voices" id="voices">
@@ -2236,6 +2351,14 @@ footer a:hover { color: var(--gold); }
       <button class="quiz-restart" id="quiz-restart">Take the Trial again</button>
     </div>
   </div>
+</div>
+
+<!-- SECTION BREAK -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
 </div>
 
 <!-- JOIN -->
@@ -2948,6 +3071,114 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initLastRevised);
 } else {
   initLastRevised();
+}
+
+// ---------------------------------------------------------------------
+// TYPEWRITER — types out the hero title once on first load
+// ---------------------------------------------------------------------
+function initTypewriter() {
+  const title = document.getElementById('hero-title');
+  const line1 = document.getElementById('typewriter-line-1');
+  const line2 = document.getElementById('typewriter-line-2');
+  if (!title || !line1 || !line2) return;
+  // Respect reduced-motion preference: leave content visible, skip animation.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const text1 = line1.textContent;
+  const text2 = line2.textContent;
+  line1.textContent = '';
+  line2.textContent = '';
+  title.classList.add('typewriting');
+
+  let i = 0, j = 0;
+  const speed1 = 90;
+  const speed2 = 110;
+  const gap = 280;
+
+  function typeFirst() {
+    if (i < text1.length) {
+      line1.textContent += text1.charAt(i++);
+      setTimeout(typeFirst, speed1);
+    } else {
+      line1.classList.add('done');
+      setTimeout(typeSecond, gap);
+    }
+  }
+  function typeSecond() {
+    if (j < text2.length) {
+      line2.textContent += text2.charAt(j++);
+      setTimeout(typeSecond, speed2);
+    } else {
+      line2.classList.add('done');
+      setTimeout(() => title.classList.remove('typewriting'), 600);
+    }
+  }
+  typeFirst();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTypewriter);
+} else {
+  initTypewriter();
+}
+
+// ---------------------------------------------------------------------
+// ACTIVE NAV STATE — highlights the topnav link for the section in view
+// ---------------------------------------------------------------------
+function initActiveNav() {
+  const navLinks = Array.from(document.querySelectorAll('.topnav a[href^="#"]'));
+  if (navLinks.length === 0) return;
+
+  // Map each nav link to its target section element
+  const linkSections = navLinks
+    .map(link => {
+      const id = link.getAttribute('href').slice(1);
+      const section = id ? document.getElementById(id) : null;
+      return section ? { link, section } : null;
+    })
+    .filter(Boolean);
+  if (linkSections.length === 0) return;
+
+  function setActive(activeLink) {
+    navLinks.forEach(l => l.classList.toggle('active', l === activeLink));
+  }
+
+  // IntersectionObserver: whichever section's top edge is closest to viewport top wins.
+  const observer = new IntersectionObserver((entries) => {
+    // Find any currently-intersecting entries
+    const intersecting = linkSections.filter(({ section }) => {
+      const r = section.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (intersecting.length > 0) {
+      setActive(intersecting[intersecting.length - 1].link);
+    }
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: [0, 0.1, 0.5] });
+
+  linkSections.forEach(({ section }) => observer.observe(section));
+
+  // Also wire scroll for snappier feel (IntersectionObserver alone can lag at the top)
+  let scrollTicking = false;
+  function onScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    window.requestAnimationFrame(() => {
+      const offset = 140; // sticky topbar height + buffer
+      let current = null;
+      for (const ls of linkSections) {
+        const rect = ls.section.getBoundingClientRect();
+        if (rect.top <= offset) current = ls;
+      }
+      setActive(current ? current.link : null);
+      scrollTicking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initActiveNav);
+} else {
+  initActiveNav();
 }
 </script>
 
