@@ -171,8 +171,8 @@ body::before {
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
 }
 .sigil:hover .sigil-mark {
-  transform: rotate(8deg) scale(1.05);
-  filter: drop-shadow(0 0 6px rgba(199, 154, 58, 0.5));
+  transform: rotate(15deg) scale(1.12);
+  filter: drop-shadow(0 0 10px rgba(199, 154, 58, 0.8));
 }
 
 .topnav {
@@ -840,6 +840,17 @@ footer a {
   transition: color 0.3s;
 }
 footer a:hover { color: var(--gold); }
+
+.footer-revised {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  opacity: 0.55;
+  flex-basis: 100%;
+  text-align: center;
+  padding-top: 0.6rem;
+  border-top: 1px dotted rgba(244, 234, 210, 0.12);
+  margin-top: 0.3rem;
+}
 
 @media (max-width: 720px) {
   footer { padding: 2rem 1.5rem; }
@@ -2247,6 +2258,7 @@ footer a:hover { color: var(--gold); }
     <span>Librarians' Assembly · Holocron Archives</span>
   </div>
   <div><a href="charter.html">The Charter</a> · By patience, by record, by light</div>
+  <div class="footer-revised" id="footer-revised" hidden></div>
 </footer>
 
 <!-- CORNER SENTINEL -->
@@ -2887,7 +2899,7 @@ document.addEventListener('keydown', (e) => {
 // ---------------------------------------------------------------------
 // SCROLL PROGRESS BAR — gold line at top, fills as page is scrolled
 // ---------------------------------------------------------------------
-(function initScrollProgress() {
+function initScrollProgress() {
   const bar = document.getElementById('scroll-progress');
   if (!bar) return;
   let ticking = false;
@@ -2905,7 +2917,38 @@ document.addEventListener('keydown', (e) => {
     }
   }, { passive: true });
   update();
-})();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollProgress);
+} else {
+  initScrollProgress();
+}
+
+// ---------------------------------------------------------------------
+// LAST REVISED — fetch the most recent commit date from the GitHub repo
+// and show it in the footer. Silently hides itself on any failure.
+// ---------------------------------------------------------------------
+function initLastRevised() {
+  const el = document.getElementById('footer-revised');
+  if (!el) return;
+  fetch('https://api.github.com/repos/callumashleylewis-netizen/la-website/commits?per_page=1')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(commits => {
+      if (!Array.isArray(commits) || commits.length === 0) return;
+      const dateStr = commits[0].commit.committer.date;
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return;
+      const opts = { year: 'numeric', month: 'long', day: 'numeric' };
+      el.textContent = '· Last revised ' + d.toLocaleDateString('en-GB', opts) + ' ·';
+      el.hidden = false;
+    })
+    .catch(() => { /* silently keep the line hidden */ });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLastRevised);
+} else {
+  initLastRevised();
+}
 </script>
 
 </body>
