@@ -1530,145 +1530,6 @@ footer a:hover { color: var(--gold); }
    NEW SECTIONS — epigraph, archives, voices, quiz, heretic crystal
    ======================================================================== */
 
-/* HERO EPIGRAPH (rotating quote above the title) */
-.hero-epigraph {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: var(--paper);
-  opacity: 0.78;
-  max-width: 38rem;
-  margin: 0 auto 2.2rem;
-  text-align: center;
-  position: relative;
-  padding: 0 1rem;
-}
-.hero-epigraph .epigraph-text::before,
-.hero-epigraph .epigraph-text::after {
-  content: '"';
-  font-family: var(--serif);
-  color: var(--kyber, #7adcff);
-  opacity: 0.55;
-  font-size: 1.3em;
-  margin: 0 0.2em;
-}
-.hero-epigraph-attribution {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.45;
-  margin-top: 0.6rem;
-  font-style: normal;
-}
-.hero-epigraph-rule {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-.hero-epigraph-rule::before,
-.hero-epigraph-rule::after {
-  content: '';
-  height: 1px;
-  width: 40px;
-  background: rgba(122, 220, 255, 0.4);
-}
-.hero-epigraph-rule span {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.3em;
-  color: #7adcff;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-@media (max-width: 720px) {
-  .hero-epigraph { font-size: 0.95rem; max-width: 92%; }
-}
-
-/* FROM THE ARCHIVES */
-.archives {
-  padding: 7rem 4rem;
-  background:
-    radial-gradient(ellipse at top, rgba(199, 154, 58, 0.04), transparent 70%),
-    var(--ink);
-  text-align: center;
-  position: relative;
-}
-.archives-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  color: rgba(244, 234, 210, 0.55);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-}
-.archives-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-bottom: 1rem;
-}
-.archives-heading em { color: var(--gold-bright, var(--gold)); font-style: italic; }
-.archives-intro {
-  max-width: 32rem;
-  margin: 0 auto 3.5rem;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--paper);
-  opacity: 0.7;
-}
-.archives-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.4rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.archive-card {
-  background: rgba(10, 19, 32, 0.6);
-  border: 1px solid rgba(199, 154, 58, 0.2);
-  padding: 1.8rem 1.4rem;
-  text-align: center;
-  position: relative;
-  transition: border-color 0.3s, transform 0.3s;
-}
-.archive-card:hover {
-  border-color: rgba(199, 154, 58, 0.5);
-  transform: translateY(-3px);
-}
-.archive-volume {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.9rem;
-}
-.archive-title {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--paper);
-  margin-bottom: 0.7rem;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
-}
-.archive-desc {
-  font-size: 0.82rem;
-  line-height: 1.6;
-  color: var(--paper);
-  opacity: 0.6;
-}
-@media (max-width: 720px) {
-  .archives { padding: 4rem 1.5rem; }
-}
-
 /* VOICES OF THE ASSEMBLY */
 .voices {
   padding: 7rem 4rem;
@@ -2020,11 +1881,6 @@ footer a:hover { color: var(--gold); }
   </svg>
 
   <div class="hero-content">
-    <div class="hero-epigraph" id="hero-epigraph" hidden>
-      <div class="hero-epigraph-rule"><span>Epigraph</span></div>
-      <div class="epigraph-text" id="epigraph-text"></div>
-      <div class="hero-epigraph-attribution" id="epigraph-attribution"></div>
-    </div>
     <div class="hero-eyebrow">Order Sanctioned · Established 25 ABY</div>
     <h1 class="hero-title">
       Librarians'
@@ -2249,43 +2105,6 @@ footer a:hover { color: var(--gold); }
     <p class="modal-desc" id="hc-modal-desc"></p>
   </div>
 </div>
-
-<!-- FROM THE ARCHIVES -->
-<section class="archives" id="archives">
-  <div class="archives-eyebrow">· From the Archives ·</div>
-  <h2 class="archives-heading fade-in">Selected <em>texts</em> of the Order</h2>
-  <p class="archives-intro fade-in">
-    A small selection of the works held in the Assembly's stacks. Each is studied,
-    annotated, and passed forward.
-  </p>
-  <div class="archives-grid">
-
-    <div class="archive-card fade-in">
-      <div class="archive-volume">Vol. IV</div>
-      <div class="archive-title">On the Patience of Records</div>
-      <div class="archive-desc">A meditation on what is preserved and what is allowed to be lost.</div>
-    </div>
-
-    <div class="archive-card fade-in">
-      <div class="archive-volume">Vol. IX</div>
-      <div class="archive-title">The Vigil's Charter</div>
-      <div class="archive-desc">Foundational duties of those who keep watch over the catalogue.</div>
-    </div>
-
-    <div class="archive-card fade-in">
-      <div class="archive-volume">Vol. XII</div>
-      <div class="archive-title">Annotations on the Telosian Codex</div>
-      <div class="archive-desc">Marginalia gathered across three generations of curators.</div>
-    </div>
-
-    <div class="archive-card fade-in">
-      <div class="archive-volume">Vol. XVII</div>
-      <div class="archive-title">Of Discourse and Restraint</div>
-      <div class="archive-desc">A primer on civil disagreement and the obligations of the listener.</div>
-    </div>
-
-  </div>
-</section>
 
 <!-- HIGH COMMAND -->
 <section class="high-command">
@@ -2870,18 +2689,6 @@ const HERETIC_QUOTES = [
   { text: "An archive is a graveyard you can read.", attribution: "From an unbound manuscript" },
   { text: "The catalogue is older than its keepers, and crueler.", attribution: "Apocrypha · folio uncertain" },
 ];
-
-// ---------------------------------------------------------------------
-// HERO EPIGRAPH — random quote shown above the title each visit
-// ---------------------------------------------------------------------
-(function initEpigraph() {
-  const el = document.getElementById('hero-epigraph');
-  if (!el) return;
-  const q = LORE_QUOTES[Math.floor(Math.random() * LORE_QUOTES.length)];
-  document.getElementById('epigraph-text').textContent = q.text;
-  document.getElementById('epigraph-attribution').textContent = '— ' + q.attribution;
-  el.hidden = false;
-})();
 
 // ---------------------------------------------------------------------
 // TRIAL OF KNOWLEDGE — quiz
