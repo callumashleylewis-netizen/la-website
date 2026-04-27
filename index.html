@@ -690,6 +690,36 @@ body::before {
   .modal-name { font-size: 1.8rem; }
 }
 
+/* HC modal additions — portrait and handle */
+.hc-modal-portrait {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.5rem;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(10, 19, 32, 0.8);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  filter: drop-shadow(0 0 18px rgba(199, 154, 58, 0.25));
+}
+.hc-modal-portrait.hc-avatar-fallback {
+  object-fit: contain;
+  padding: 22px;
+  opacity: 0.85;
+}
+.hc-modal-handle {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-align: center;
+  margin: -0.5rem 0 1.5rem;
+}
+@media (max-width: 720px) {
+  .hc-modal-portrait { width: 110px; height: 110px; }
+}
+
 /* ========================================================================
    JOIN SECTION
    ======================================================================== */
@@ -1366,11 +1396,25 @@ footer a:hover { color: var(--gold); }
   padding: 2.2rem 1.5rem;
   text-align: center;
   position: relative;
-  transition: border-color 0.3s, transform 0.3s;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  /* button reset */
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
 }
 .hc-card:hover {
   border-color: rgba(199, 154, 58, 0.5);
   transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.hc-card:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(199, 154, 58, 0.35);
 }
 .hc-card-featured {
   border-color: rgba(199, 154, 58, 0.45);
@@ -1387,13 +1431,26 @@ footer a:hover { color: var(--gold); }
 }
 
 .hc-avatar {
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   margin: 0 auto 1.2rem;
   display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(10, 19, 32, 0.8);
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  filter: drop-shadow(0 0 12px rgba(199, 154, 58, 0.15));
+  transition: border-color 0.3s, filter 0.3s;
+}
+.hc-card:hover .hc-avatar {
+  border-color: rgba(199, 154, 58, 0.6);
+  filter: drop-shadow(0 0 18px rgba(199, 154, 58, 0.3));
+}
+/* If the Roblox CDN fails and we fall back to the sigil, render it small + contained instead of cropped */
+.hc-avatar.hc-avatar-fallback {
   object-fit: contain;
+  padding: 14px;
   opacity: 0.85;
-  filter: drop-shadow(0 0 8px rgba(199, 154, 58, 0.2));
 }
 
 .hc-rank {
@@ -1426,7 +1483,7 @@ footer a:hover { color: var(--gold); }
   .high-command { padding: 4rem 1.5rem; }
   .hc-grid { gap: 1.2rem; }
   .hc-card { padding: 1.8rem 1rem; }
-  .hc-avatar { width: 56px; height: 56px; }
+  .hc-avatar { width: 80px; height: 80px; }
 }
 
 .footer-mark {
@@ -1718,6 +1775,18 @@ footer a:hover { color: var(--gold); }
   </div>
 </div>
 
+<!-- HIGH COMMAND MODAL -->
+<div class="modal-overlay" id="hc-modal-overlay">
+  <div class="modal" id="hc-modal">
+    <button class="modal-close" id="hc-modal-close" aria-label="Close">×</button>
+    <img class="hc-modal-portrait" id="hc-modal-portrait" src="" alt="">
+    <div class="modal-tier" id="hc-modal-rank"></div>
+    <h3 class="modal-name" id="hc-modal-name"></h3>
+    <div class="hc-modal-handle" id="hc-modal-handle"></div>
+    <p class="modal-desc" id="hc-modal-desc"></p>
+  </div>
+</div>
+
 <!-- HIGH COMMAND -->
 <section class="high-command">
   <div class="hc-eyebrow">· The High Command ·</div>
@@ -1728,33 +1797,33 @@ footer a:hover { color: var(--gold); }
   </p>
   <div class="hc-grid">
 
-    <div class="hc-card">
-      <img class="hc-avatar" src="sigil.png" alt="">
+    <button class="hc-card" data-hc="rudz">
+      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=2645685396&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
       <div class="hc-rank">Historian</div>
       <div class="hc-name">RuDz_Shark</div>
       <div class="hc-handle">@purplehaze9347</div>
-    </div>
+    </button>
 
-    <div class="hc-card">
-      <img class="hc-avatar" src="sigil.png" alt="">
+    <button class="hc-card" data-hc="alex">
+      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=50358768&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
       <div class="hc-rank">Historian</div>
       <div class="hc-name">Alexsnakk</div>
       <div class="hc-handle">@skullcruncher44</div>
-    </div>
+    </button>
 
-    <div class="hc-card">
-      <img class="hc-avatar" src="sigil.png" alt="">
+    <button class="hc-card" data-hc="pau">
+      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=1571021558&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
       <div class="hc-rank">Curator of the Archives</div>
       <div class="hc-name">PauVelaria</div>
       <div class="hc-handle">@pauvelaria</div>
-    </div>
+    </button>
 
-    <div class="hc-card hc-card-featured">
-      <img class="hc-avatar" src="sigil.png" alt="">
+    <button class="hc-card hc-card-featured" data-hc="valk">
+      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=1118092442&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
       <div class="hc-rank">Chief Librarian</div>
       <div class="hc-name">Valkorion9872</div>
       <div class="hc-handle">@valkorion9872</div>
-    </div>
+    </button>
 
   </div>
 </section>
@@ -2003,6 +2072,84 @@ overlay.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+});
+
+// ---------------------------------------------------------------------
+// HIGH COMMAND MODAL
+// ---------------------------------------------------------------------
+const HISTORIAN_DESC = "Historians are the two junior members of the High Command team. They help oversee the daily functions, and act as mentors and firm hands for the High Rank team and the rest of the Institution. They are learning the reigns of leadership in the Assembly. They can usually help you with most issues you may have.";
+
+const HC_DATA = {
+  rudz: {
+    rank: 'Historian',
+    name: 'RuDz_Shark',
+    handle: '@purplehaze9347',
+    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=2645685396&width=420&height=420&format=png',
+    desc: HISTORIAN_DESC,
+  },
+  alex: {
+    rank: 'Historian',
+    name: 'Alexsnakk',
+    handle: '@skullcruncher44',
+    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=50358768&width=420&height=420&format=png',
+    desc: HISTORIAN_DESC,
+  },
+  pau: {
+    rank: 'Curator of the Archives',
+    name: 'PauVelaria',
+    handle: '@pauvelaria',
+    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=1571021558&width=420&height=420&format=png',
+    desc: "The Curator of the Archives serves as the Second-in-Command of the Assembly, serving as a major supporter of the Chief Librarian; being qualified enough to step up in the event that the Chief Librarian is indisposed. Any concerns regarding a High Rank should be taken to them.",
+  },
+  valk: {
+    rank: 'Chief Librarian',
+    name: 'Valkorion9872',
+    handle: '@valkorion9872',
+    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=1118092442&width=420&height=420&format=png',
+    desc: "The Chief Librarian is the Overseer and First-in-Command of the Librarians' Assembly. They serve on the Council of First Knowledge and relay the Assembly's concerns to the wider Council. Their main duty is to maintain the stability of the Assembly and lead it to a brighter future.",
+  },
+};
+
+const hcOverlay = document.getElementById('hc-modal-overlay');
+const hcClose = document.getElementById('hc-modal-close');
+const hcPortrait = document.getElementById('hc-modal-portrait');
+const hcRank = document.getElementById('hc-modal-rank');
+const hcName = document.getElementById('hc-modal-name');
+const hcHandle = document.getElementById('hc-modal-handle');
+const hcDesc = document.getElementById('hc-modal-desc');
+
+function openHC(key) {
+  const data = HC_DATA[key];
+  if (!data) return;
+  // Reset any fallback class from a previous open
+  hcPortrait.classList.remove('hc-avatar-fallback');
+  hcPortrait.src = data.avatar;
+  hcPortrait.onerror = function() {
+    this.src = 'sigil.png';
+    this.classList.add('hc-avatar-fallback');
+  };
+  hcRank.textContent = data.rank;
+  hcName.textContent = data.name;
+  hcHandle.textContent = data.handle;
+  hcDesc.textContent = data.desc;
+  hcOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHC() {
+  hcOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.hc-card').forEach(btn => {
+  btn.addEventListener('click', () => openHC(btn.dataset.hc));
+});
+hcClose.addEventListener('click', closeHC);
+hcOverlay.addEventListener('click', (e) => {
+  if (e.target === hcOverlay) closeHC();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && hcOverlay.classList.contains('open')) closeHC();
 });
 
 // ---------------------------------------------------------------------
