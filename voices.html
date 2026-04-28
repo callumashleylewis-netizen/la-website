@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voices · Librarians' Assembly</title>
+<meta name="description" content="What the keepers say of the Assembly. Voices from across the Path of Ascension.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Voices · Librarians' Assembly">
+<meta property="og:description" content="What the keepers say of the Assembly. Voices from across the Path of Ascension.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/voices.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   VOICES PAGE — testimonials grouped by Path of Ascension tier
+   ======================================================================== */
+.voices {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.voices-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.voices-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.voices-heading em { font-style: italic; color: var(--gold-bright); }
+
+.voices-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.voices-prose {
+  max-width: 32rem;
+  margin: 0 auto 4rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  opacity: 0.85;
+  text-align: center;
+}
+.voices-prose em { font-style: italic; color: var(--gold-bright); }
+
+/* Tier sections */
+.voices-tier {
+  margin-bottom: 4rem;
+  scroll-margin-top: 5rem;
+}
+.voices-tier-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+.voices-tier-rule {
+  flex: 0 0 60px;
+  height: 1px;
+  background: var(--rule);
+}
+.voices-tier-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* Voice cards */
+.voice-card {
+  position: relative;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.18);
+  padding: 2rem 2rem 1.6rem;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.voice-card:hover {
+  border-color: rgba(199, 154, 58, 0.4);
+  background: rgba(20, 35, 58, 0.55);
+}
+.voice-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--paper);
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+.voice-quote::before {
+  content: '"';
+  position: absolute;
+  top: -0.6rem;
+  left: -0.4rem;
+  color: var(--gold);
+  opacity: 0.45;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+.voice-attribution {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(199, 154, 58, 0.12);
+}
+.voice-rank { color: var(--gold); }
+.voice-name {
+  color: var(--paper);
+  opacity: 0.55;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.05em;
+  font-family: var(--serif);
+  font-size: 0.85rem;
+}
+
+/* Add your voice block */
+.voices-contribute {
+  margin: 4rem 0 2rem;
+  padding: 2.4rem 2rem;
+  background: rgba(20, 35, 58, 0.45);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.voices-contribute-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--crystal);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  opacity: 0.8;
+}
+.voices-contribute-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 1.9rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin-bottom: 1rem;
+}
+.voices-contribute-heading em { font-style: italic; color: var(--gold-bright); }
+.voices-contribute-body {
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.78;
+  max-width: 30rem;
+  margin: 0 auto 0;
+}
+
+/* Handoff cards */
+.voices-handoff {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+}
+.voices-handoff-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.handoff-card {
+  display: block;
+  padding: 1.5rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.handoff-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.handoff-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.handoff-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.handoff-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .voices { padding: 4rem 1.4rem 4rem; }
+  .voice-card { padding: 1.6rem 1.4rem 1.2rem; }
+  .voice-quote { font-size: 1.05rem; }
+  .voices-tier-rule { flex-basis: 30px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 2 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
+</header>
+
+<main class="voices">
+
+  <div class="voices-eyebrow fade-in">· Voices of the Assembly ·</div>
+  <h1 class="voices-heading fade-in">In their <em>own</em> words</h1>
+  <p class="voices-sub fade-in">What the keepers say of the Order, gathered by tier.</p>
+
+  <p class="voices-prose fade-in">
+    The Assembly is its <em>members</em>. What follows is a record of how
+    keepers across the Path of Ascension speak of the Order — the work they
+    do, the doubts they carry, what they find in the Archives that they did
+    not expect.
+  </p>
+
+  <!-- LOW RANKS -->
+  <section class="voices-tier fade-in" id="tier-low">
+    <div class="voices-tier-header">
+      <div class="voices-tier-rule"></div>
+      <div class="voices-tier-label">Low Ranks</div>
+      <div class="voices-tier-rule"></div>
+    </div>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">I joined expecting to be quiet for a long time before I had anything to add. I learned within a week that quiet is its own form of contribution, and that someone is always listening for it.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Pledge</span>
+        <span class="voice-name">A new keeper of the Assembly</span>
+      </div>
+    </article>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">My first submission came back with three pages of notes. I was braced for criticism; what I got was attention. There is a difference, and I had not understood it before the Assembly.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Student</span>
+        <span class="voice-name">A student of the Assembly</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- MIDDLE RANKS -->
+  <section class="voices-tier fade-in" id="tier-middle">
+    <div class="voices-tier-header">
+      <div class="voices-tier-rule"></div>
+      <div class="voices-tier-label">Middle Ranks</div>
+      <div class="voices-tier-rule"></div>
+    </div>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">Co-hosting changed how I read. Before, I read for myself. Now I read with the Pledge in mind who will ask me what a passage meant — and I find I understand it better when I have to be ready to explain it.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Intellect</span>
+        <span class="voice-name">An intellect of the Assembly</span>
+      </div>
+    </article>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">The Assembly is the rare place where being curious is treated as a contribution, not an interruption.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Tutor</span>
+        <span class="voice-name">A tutor of the Assembly</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- HIGH RANKS -->
+  <section class="voices-tier fade-in" id="tier-high">
+    <div class="voices-tier-header">
+      <div class="voices-tier-rule"></div>
+      <div class="voices-tier-label">High Ranks</div>
+      <div class="voices-tier-rule"></div>
+    </div>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">I came for the lore. I stayed because every conversation here teaches you something you didn't know you needed.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Lore Keeper</span>
+        <span class="voice-name">A keeper of the Assembly</span>
+      </div>
+    </article>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">There's no other corner of the Order where the questions matter as much as the answers do.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">Archivist</span>
+        <span class="voice-name">An archivist of the Assembly</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- HIGH COMMAND -->
+  <section class="voices-tier fade-in" id="tier-command">
+    <div class="voices-tier-header">
+      <div class="voices-tier-rule"></div>
+      <div class="voices-tier-label">High Command</div>
+      <div class="voices-tier-rule"></div>
+    </div>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">The work doesn't get easier the higher you go. It gets quieter. The decisions land on you alone, more often, and the people you took the path with are now the people you must answer to honestly when they ask whether you are still the right hand for the work.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">High Command</span>
+        <span class="voice-name">A senior keeper of the Assembly</span>
+      </div>
+    </article>
+
+    <article class="voice-card fade-in">
+      <p class="voice-quote">I have read every essay submitted in my tenure. Most teach me something. The ones that do not, teach me something about myself for what I had hoped to find.</p>
+      <div class="voice-attribution">
+        <span class="voice-rank">High Command</span>
+        <span class="voice-name">A senior keeper of the Assembly</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ADD YOUR VOICE -->
+  <div class="voices-contribute fade-in">
+    <div class="voices-contribute-eyebrow">· To existing keepers ·</div>
+    <h2 class="voices-contribute-heading">Add your <em>voice</em></h2>
+    <p class="voices-contribute-body">
+      The record grows with those who keep it. Members of the Assembly who
+      would contribute a voice may speak with a member of staff in the Discord.
+      What is said here is held in confidence; what appears here is held with care.
+    </p>
+  </div>
+
+  <!-- HANDOFF -->
+  <div class="voices-handoff fade-in">
+    <p class="voices-handoff-intro">If these voices speak to you, the rest of the Order awaits.</p>
+    <div class="handoff-grid">
+      <a class="handoff-card" href="path.html">
+        <div class="handoff-eyebrow">· Walk ·</div>
+        <div class="handoff-name">The Path</div>
+        <div class="handoff-desc">How one rises within the Assembly, from Pledge to Chief Librarian.</div>
+      </a>
+      <a class="handoff-card" href="charter.html">
+        <div class="handoff-eyebrow">· Read ·</div>
+        <div class="handoff-name">The Charter</div>
+        <div class="handoff-desc">The conduct expected of every member, written down and held to.</div>
+      </a>
+      <a class="handoff-card" href="apply.html">
+        <div class="handoff-eyebrow">· Begin ·</div>
+        <div class="handoff-name">Petition</div>
+        <div class="handoff-desc">What is asked of those who would seek a place in the Assembly.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// Back to top
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+</body>
+</html>
