@@ -4,1942 +4,588 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Librarians' Assembly · Keepers of the Archive</title>
-<meta name="description" content="A scholarly order dedicated to the preservation of Jedi knowledge.">
+<meta name="description" content="A specialized collective within the Jedi Order, devoted to the preservation, organization, and dissemination of knowledge.">
 
-<!-- Open Graph (Discord, Facebook, LinkedIn link unfurls) -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Librarians' Assembly">
-<meta property="og:title" content="Librarians' Assembly">
-<meta property="og:description" content="A specialised collective within the Jedi Order. Guardians of history, philosophy, and the teachings of the Force.">
-<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/">
-<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Librarians' Assembly">
-<meta name="twitter:description" content="A specialised collective within the Jedi Order.">
-<meta name="twitter:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
-
-<!-- Theme colour (mobile browser chrome) -->
-<meta name="theme-color" content="#0a1320">
-
-<!-- Favicon (browser tab icon) — uses the same sigil image -->
-<!-- Favicon set (multi-size, multi-platform) -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 
-<!-- Distinctive type pairing: Cormorant Garamond (display) + JetBrains Mono (data accents) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Librarians' Assembly · Keepers of the Archive">
+<meta property="og:description" content="A specialized collective within the Jedi Order, devoted to the preservation, organization, and dissemination of knowledge.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Librarians' Assembly · Keepers of the Archive">
+<meta name="twitter:description" content="A specialized collective within the Jedi Order, devoted to the preservation, organization, and dissemination of knowledge.">
+<meta name="twitter:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+
+<meta name="theme-color" content="#0a1320">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="theme.css">
 <style>
-:root {
-  --ink: #0a1320;
-  --ink-deep: #050a14;
-  --paper: #f4ead2;
-  --paper-warm: #e8dcb8;
-  --gold: #c79a3a;
-  --gold-bright: #e6b94a;
-  --crystal: #4ad8ff;
-  --crystal-deep: #1a8aaf;
-  --sith: #b03a2e;
-  --rule: rgba(199, 154, 58, 0.3);
+/* HOMEPAGE — gateway styles. theme.css handles palette/topbar/footer/fade-in. */
 
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-/* Scroll progress bar (gold line at very top, fills as you scroll) */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
-  z-index: 100;
-  pointer-events: none;
-  box-shadow: 0 0 8px rgba(199, 154, 58, 0.6);
-  transition: width 0.08s linear;
-}
-
-body {
-  font-family: var(--serif);
-  background: var(--ink-deep);
-  color: var(--paper);
-  font-weight: 400;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* ========================================================================
-   ATMOSPHERIC GRAIN / NOISE OVERLAY (scholarly parchment texture)
-   ======================================================================== */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ========================================================================
-   STAR FIELD (ambient depth, only visible in hero)
-   ======================================================================== */
-.starfield {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.starfield::before, .starfield::after {
-  content: '';
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(244, 234, 210, 0.6), transparent),
-    radial-gradient(1px 1px at 60% 70%, rgba(244, 234, 210, 0.4), transparent),
-    radial-gradient(2px 2px at 50% 50%, rgba(74, 216, 255, 0.3), transparent),
-    radial-gradient(1px 1px at 80% 10%, rgba(244, 234, 210, 0.5), transparent),
-    radial-gradient(1px 1px at 90% 60%, rgba(244, 234, 210, 0.3), transparent),
-    radial-gradient(1px 1px at 33% 88%, rgba(74, 216, 255, 0.4), transparent),
-    radial-gradient(2px 2px at 15% 75%, rgba(244, 234, 210, 0.5), transparent);
-  background-size: 800px 800px;
-  animation: drift 200s linear infinite;
-  opacity: 0.6;
-}
-.starfield::after {
-  background-size: 600px 600px;
-  animation-duration: 350s;
-  animation-direction: reverse;
-  opacity: 0.4;
-}
-
-@keyframes drift {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-50%, -50%); }
-}
-
-/* ========================================================================
-   TOP BAR / SIGIL
-   ======================================================================== */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 2.5rem;
-  background: linear-gradient(to bottom, rgba(5, 10, 20, 0.85), transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.sigil {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 500;
-}
-
-.sigil-mark {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  object-fit: contain;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
-}
-.sigil:hover .sigil-mark {
-  transform: rotate(15deg) scale(1.12);
-  filter: drop-shadow(0 0 10px rgba(199, 154, 58, 0.8));
-}
-
+.topbar { padding: 1rem 2.5rem; }
+.topbar-mark img { width: 36px; height: 36px; }
 .topnav {
   display: flex;
-  gap: 2.5rem;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  gap: 2rem;
+  align-items: center;
 }
 .topnav a {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
   color: var(--paper);
   text-decoration: none;
-  opacity: 0.6;
-  position: relative;
-  padding-bottom: 4px;
+  opacity: 0.7;
   transition: opacity 0.3s, color 0.3s;
 }
 .topnav a:hover { opacity: 1; color: var(--gold); }
-.topnav a::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transform: translateX(-50%);
-  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
-  opacity: 0;
+@media (max-width: 880px) {
+  .topnav { gap: 1.2rem; }
+  .topnav a { font-size: 0.65rem; letter-spacing: 0.2em; }
 }
-.topnav a.active {
-  color: var(--gold);
-  opacity: 1;
-}
-.topnav a.active::after {
-  width: 24px;
-  opacity: 1;
-}
-
 @media (max-width: 720px) {
   .topnav { display: none; }
-  .topbar { padding: 1rem 1.5rem; }
 }
 
-/* ========================================================================
-   HERO
-   ======================================================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  z-index: 100;
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* HERO */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 8rem 4rem 4rem;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
   overflow: hidden;
+}
+.starfield {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, rgba(244, 234, 210, 0.25), transparent 50%),
+    radial-gradient(1px 1px at 23% 35%, rgba(244, 234, 210, 0.2), transparent 50%),
+    radial-gradient(1.5px 1.5px at 78% 28%, rgba(244, 234, 210, 0.3), transparent 50%),
+    radial-gradient(1px 1px at 88% 60%, rgba(244, 234, 210, 0.2), transparent 50%),
+    radial-gradient(2px 2px at 45% 75%, rgba(244, 234, 210, 0.18), transparent 50%),
+    radial-gradient(1.5px 1.5px at 60% 90%, rgba(244, 234, 210, 0.22), transparent 50%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.hero-decor {
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse at 70% 30%, rgba(74, 216, 255, 0.08), transparent 50%),
-    radial-gradient(ellipse at 30% 80%, rgba(199, 154, 58, 0.06), transparent 60%),
-    var(--ink-deep);
+    radial-gradient(ellipse at 30% 40%, rgba(199, 154, 58, 0.06), transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(74, 216, 255, 0.04), transparent 50%);
+  pointer-events: none;
 }
-
+.hero-sigil {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80vw, 600px);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 0 60px rgba(199, 154, 58, 0.3));
+}
+.hero-constellation {
+  position: absolute;
+  top: 8%; right: 5%;
+  width: 200px; height: 300px;
+  color: var(--gold);
+  opacity: 0.3;
+  pointer-events: none;
+}
+@media (max-width: 720px) { .hero-constellation { display: none; } }
 .hero-content {
-  max-width: 980px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  max-width: 720px;
+  text-align: center;
 }
-
 .hero-eyebrow {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   letter-spacing: 0.4em;
+  color: var(--gold);
   text-transform: uppercase;
-  color: var(--crystal);
-  margin-bottom: 2rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 40px;
-  height: 1px;
-  background: var(--crystal);
-}
-
-.hero-title {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(3rem, 9vw, 7.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
-  color: var(--paper);
-}
-.hero-title em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--gold-bright);
-  display: block;
-}
-
-/* Typewriter effect — hides until JS reveals letters one at a time */
-.hero-title.typewriting .typewriter-line {
-  border-right: 2px solid var(--gold);
-  animation: typewriter-cursor 0.9s steps(2, end) infinite;
-}
-.hero-title.typewriting .typewriter-line.done {
-  border-right: none;
-  animation: none;
-}
-@keyframes typewriter-cursor {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: var(--gold); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-title.typewriting .typewriter-line {
-    border-right: none;
-    animation: none;
-  }
-}
-
-.hero-tagline {
-  font-family: var(--serif);
-  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-  font-weight: 300;
-  line-height: 1.5;
-  max-width: 620px;
-  margin-bottom: 3rem;
-  color: var(--paper);
   opacity: 0.85;
 }
-
+.hero-title {
+  font-size: clamp(3rem, 9vw, 6rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.hero-title em { font-style: italic; color: var(--gold-bright); }
+.typewriter-line { display: inline-block; position: relative; }
+.hero-title.typewriting .typewriter-line:not(.done)::after {
+  content: '';
+  display: inline-block;
+  width: 2px; height: 0.85em;
+  background: var(--gold);
+  margin-left: 4px;
+  vertical-align: baseline;
+  animation: caret 0.8s steps(2) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+.hero-tagline {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 auto 2.5rem;
+  opacity: 0.82;
+  font-weight: 300;
+}
 .hero-actions {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
 }
-
 .btn {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  padding: 1.1rem 2.2rem;
-  text-decoration: none;
   display: inline-block;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 0.85rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
   border: 1px solid;
 }
-
 .btn-primary {
-  color: var(--ink);
   background: var(--gold);
+  color: var(--ink-deep);
   border-color: var(--gold);
 }
 .btn-primary:hover {
   background: var(--gold-bright);
   border-color: var(--gold-bright);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(230, 185, 74, 0.5);
 }
-
 .btn-secondary {
-  color: var(--paper);
   background: transparent;
-  border-color: rgba(244, 234, 210, 0.3);
+  color: var(--gold);
+  border-color: rgba(199, 154, 58, 0.5);
 }
 .btn-secondary:hover {
-  border-color: var(--paper);
-  background: rgba(244, 234, 210, 0.05);
-}
-
-/* Decorative archive-shelf graphic on the right (removed in favour of sigil watermark) */
-.hero-decor { display: none; }
-
-@media (max-width: 720px) {
-  .hero { padding: 7rem 1.5rem 3rem; }
-  .hero-decor { display: none; }
-}
-
-/* ========================================================================
-   SECTION DIVIDER MOTIF
-   ======================================================================== */
-.divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 4rem 0 2rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.divider::before, .divider::after {
-  content: '';
-  width: 80px;
-  height: 1px;
-  background: var(--rule);
-}
-
-/* ========================================================================
-   ABOUT SECTION (asymmetric, ink-on-parchment feel)
-   ======================================================================== */
-.about {
-  padding: 6rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.about-label {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-top: 1px solid var(--gold);
-  padding-top: 1.5rem;
-}
-
-.about-body p {
-  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-  font-weight: 300;
-}
-
-.about-body p:first-child::first-letter {
-  font-family: var(--serif);
-  font-size: 4.2rem;
-  font-weight: 500;
-  line-height: 1;
-  float: left;
-  margin: 0.2rem 0.8rem 0 0;
-  color: var(--gold);
-  font-style: italic;
-}
-
-.about-body em {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
   color: var(--gold-bright);
-  font-style: italic;
 }
 
-.pull-quote {
-  margin-top: 3rem;
-  padding-left: 2rem;
-  border-left: 2px solid var(--gold);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.3rem;
-  line-height: 1.5;
-  color: var(--paper);
-  opacity: 0.7;
-}
-
-@media (max-width: 920px) {
-  .about { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
-}
-
-/* ========================================================================
-   PILLARS (what we do)
-   ======================================================================== */
-.pillars {
-  padding: 4rem 4rem 6rem;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-.pillars-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-bottom: 4rem;
-  max-width: 700px;
-  line-height: 1.1;
-}
-.pillars-heading em {
-  color: var(--gold-bright);
-  font-style: italic;
-}
-
-.pillar-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-}
-
-.pillar {
-  padding: 2.5rem 2rem;
-  background: var(--ink-deep);
-  position: relative;
-  transition: background 0.4s;
-}
-.pillar:hover {
-  background: var(--ink);
-}
-.pillar:hover .pillar-num { color: var(--gold-bright); }
-
-.pillar-num {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  margin-bottom: 1.5rem;
-  transition: color 0.4s;
-}
-
-.pillar-name {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  color: var(--paper);
-}
-
-.pillar-desc {
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: var(--paper);
-  opacity: 0.65;
-}
-
-@media (max-width: 720px) {
-  .pillars { padding: 2rem 1.5rem 4rem; }
-}
-
-/* ========================================================================
-   RANKS (visual ladder)
-   ======================================================================== */
-.ranks {
-  padding: 6rem 4rem;
-  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 100%);
-  position: relative;
-  overflow: hidden;
-}
-.ranks::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 50%, rgba(74, 216, 255, 0.04), transparent 60%);
-  pointer-events: none;
-}
-
-.ranks-inner {
-  max-width: 1100px;
-  margin: 0 auto;
+/* FRAMING */
+.framing {
+  max-width: 36rem;
+  margin: 5rem auto 6rem;
+  padding: 0 2rem;
+  text-align: center;
   position: relative;
   z-index: 1;
 }
-
-.ranks-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 400;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.ranks-heading em { color: var(--gold-bright); font-style: italic; }
-
-.ranks-sub {
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.5;
-  margin-bottom: 4rem;
-}
-
-/* Tier groups */
-.rank-tier {
-  margin-bottom: 3rem;
-}
-.tier-label {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--gold);
-}
-
-/* Each rank is now a button */
-.rank {
-  display: grid;
-  grid-template-columns: 60px 1fr 30px;
-  align-items: center;
-  width: 100%;
-  padding: 1.4rem 1.2rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  background: rgba(244, 234, 210, 0.015);
-  gap: 1.5rem;
-  margin-bottom: -1px;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
-  color: inherit;
-  transition: background 0.3s, border-color 0.3s, padding-left 0.3s;
-}
-.rank:hover {
-  background: rgba(199, 154, 58, 0.06);
-  border-color: rgba(199, 154, 58, 0.4);
-  padding-left: 1.7rem;
-}
-.rank:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.rank-num {
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-}
-.rank-body { display: flex; flex-direction: column; gap: 0.35rem; }
-.rank-name {
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--paper);
-}
-.rank-desc {
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  color: var(--paper);
-  opacity: 0.6;
-  font-weight: 300;
-  line-height: 1.5;
-}
-.rank-arrow {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  color: var(--gold);
-  opacity: 0.4;
-  transition: transform 0.3s, opacity 0.3s;
-}
-.rank:hover .rank-arrow {
-  opacity: 1;
-  transform: translateX(4px);
-}
-
-@media (max-width: 720px) {
-  .ranks { padding: 4rem 1.5rem; }
-  .rank {
-    grid-template-columns: 36px 1fr 20px;
-    gap: 0.8rem;
-    padding: 1rem 0.8rem;
-  }
-  .rank-name { font-size: 1.2rem; }
-  .rank-desc { font-size: 0.85rem; }
-}
-
-/* ========================================================================
-   MODAL (rank requirements panel)
-   ======================================================================== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 10, 20, 0.85);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  padding: 2rem;
-}
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal {
-  background: var(--ink);
-  border: 1px solid var(--gold);
-  max-width: 600px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 3rem 2.5rem 2.5rem;
-  position: relative;
-  transform: translateY(20px) scale(0.98);
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow:
-    0 0 60px -10px rgba(199, 154, 58, 0.3),
-    0 30px 80px -20px rgba(0, 0, 0, 0.8);
-}
-.modal-overlay.open .modal {
-  transform: translateY(0) scale(1);
-}
-
-.modal-close {
-  position: absolute;
-  top: 0.8rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: var(--paper);
-  font-size: 2rem;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0.5rem 0.8rem;
-  opacity: 0.6;
-  transition: opacity 0.3s, color 0.3s;
-}
-.modal-close:hover { opacity: 1; color: var(--gold); }
-
-.modal-tier {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-}
-
-.modal-name {
-  font-family: var(--serif);
-  font-size: 2.4rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: var(--paper);
-  line-height: 1.1;
-}
-
-.modal-desc {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--paper);
-  opacity: 0.8;
-  margin-bottom: 2rem;
-}
-
-.modal-section-label {
+.framing-eyebrow {
   font-family: var(--mono);
   font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--rule);
-}
-
-.modal-reqs {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.modal-reqs li {
-  font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.5;
-  padding: 0.6rem 0 0.6rem 1.5rem;
-  border-bottom: 1px solid rgba(199, 154, 58, 0.1);
-  position: relative;
-  color: var(--paper);
-  opacity: 0.85;
-}
-.modal-reqs li::before {
-  content: '›';
-  position: absolute;
-  left: 0;
-  color: var(--gold);
-  font-weight: 500;
-}
-.modal-reqs li:last-child { border-bottom: none; }
-
-@media (max-width: 720px) {
-  .modal {
-    padding: 2.5rem 1.5rem 2rem;
-    max-height: 90vh;
-  }
-  .modal-name { font-size: 1.8rem; }
-}
-
-/* HC modal additions — portrait and handle */
-.hc-modal-portrait {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 1.5rem;
-  display: block;
-  border-radius: 50%;
-  object-fit: cover;
-  background: rgba(10, 19, 32, 0.8);
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  filter: drop-shadow(0 0 18px rgba(199, 154, 58, 0.25));
-}
-.hc-modal-portrait.hc-avatar-fallback {
-  object-fit: contain;
-  padding: 22px;
-  opacity: 0.85;
-}
-.hc-modal-handle {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
-  color: var(--paper);
-  opacity: 0.55;
-  text-align: center;
-  margin: -0.5rem 0 1.5rem;
-}
-@media (max-width: 720px) {
-  .hc-modal-portrait { width: 110px; height: 110px; }
-}
-
-/* ========================================================================
-   JOIN SECTION
-   ======================================================================== */
-.join {
-  padding: 8rem 4rem;
-  text-align: center;
-  position: relative;
-  background:
-    radial-gradient(ellipse at center, rgba(199, 154, 58, 0.08), transparent 70%),
-    var(--ink-deep);
-  overflow: hidden;
-}
-
-.join::before, .join::after {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 60%;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  top: 20%;
-}
-.join::before { left: 15%; }
-.join::after { right: 15%; }
-
-.join-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.72rem;
   letter-spacing: 0.4em;
-  text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  opacity: 0.85;
+}
+.framing p {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  opacity: 0.88;
+  font-weight: 300;
+}
+.framing em { font-style: italic; color: var(--gold-bright); }
+
+.section-ornament {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto;
+  color: var(--gold);
+  opacity: 0.5;
+}
+.section-ornament svg {
+  width: 24px; height: 24px;
+  stroke: currentColor;
 }
 
-.join h2 {
+/* PILLARS */
+.pillars {
+  max-width: 1100px;
+  margin: 0 auto 5rem;
+  padding: 0 2rem;
+}
+.pillars-eyebrow {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  opacity: 0.85;
+}
+.pillars-heading {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin-bottom: 3rem;
+  line-height: 1.4;
+}
+.pillars-heading em { font-style: italic; color: var(--gold-bright); }
+
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+.pillar-card {
+  display: block;
+  padding: 2.4rem 1.8rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.2);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.4s, background 0.4s, transform 0.4s;
+}
+.pillar-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-4px);
+}
+.pillar-card-num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.9rem;
+}
+.pillar-card-name {
   font-family: var(--serif);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  line-height: 1;
+  font-style: italic;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.005em;
+  transition: color 0.3s;
 }
-.join h2 em { color: var(--gold-bright); font-style: italic; }
-
-.join p {
-  font-size: 1.2rem;
-  font-weight: 300;
-  max-width: 600px;
-  margin: 0 auto 3rem;
+.pillar-card:hover .pillar-card-name { color: var(--gold-bright); }
+.pillar-card-rule {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0.5rem auto 0.9rem;
+  opacity: 0.5;
+  transition: width 0.4s, opacity 0.4s;
+}
+.pillar-card:hover .pillar-card-rule { width: 50px; opacity: 1; }
+.pillar-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
   opacity: 0.75;
 }
 
-@media (max-width: 720px) {
-  .join { padding: 5rem 1.5rem; }
-  .join::before, .join::after { display: none; }
-}
-
-/* ========================================================================
-   FOOTER
-   ======================================================================== */
-footer {
-  padding: 3rem 4rem;
-  border-top: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.4;
-}
-footer a {
-  color: var(--paper);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-footer a:hover { color: var(--gold); }
-
-.footer-revised {
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  opacity: 0.55;
-  flex-basis: 100%;
+/* DAILY READING (inline excerpt) */
+.todays-reading {
+  max-width: 38rem;
+  margin: 0 auto 5rem;
+  padding: 4rem 2rem;
   text-align: center;
-  padding-top: 0.6rem;
-  border-top: 1px dotted rgba(244, 234, 210, 0.12);
+}
+.todays-reading-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--crystal);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  opacity: 0.8;
+}
+.todays-reading-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+.todays-reading-rule {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 1.6rem;
+  opacity: 0.7;
+}
+.todays-reading-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  line-height: 1.55;
+  margin-bottom: 1.4rem;
+  padding: 0 1rem;
+}
+.todays-reading-quote::before, .todays-reading-quote::after {
+  content: '"';
+  color: var(--gold);
+  opacity: 0.55;
+  margin: 0 0.18em;
+  font-size: 1.3em;
+}
+.todays-reading-attribution {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.todays-reading-link {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--crystal);
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(74, 216, 255, 0.4);
+  padding: 0.55rem 1.2rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.todays-reading-link:hover {
+  border-color: var(--crystal);
+  background: rgba(74, 216, 255, 0.08);
+}
+
+/* OTHER ROOMS */
+.other-rooms {
+  max-width: 700px;
+  margin: 0 auto 5rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.other-rooms-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+.other-rooms-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.4rem 2.2rem;
+}
+.other-room {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+.other-room-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--paper);
+  letter-spacing: -0.005em;
+  border-bottom: 1px dotted rgba(199, 154, 58, 0.3);
+  padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.other-room:hover .other-room-name {
+  color: var(--gold-bright);
+  border-bottom-color: var(--gold-bright);
+}
+.other-room-desc {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  opacity: 0.6;
+  text-transform: uppercase;
   margin-top: 0.3rem;
 }
+
+/* FOOTER */
+footer {
+  margin-top: 0;
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+}
+.footer-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+.footer-mark img { width: 28px; height: 28px; opacity: 0.55; }
+.footer-mark-text {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+.footer-links {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  line-height: 2;
+}
+.footer-links a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(244, 234, 210, 0.25);
+  margin: 0 0.4rem;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-revised {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--paper);
+  opacity: 0.45;
+  text-transform: uppercase;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px dotted rgba(244, 234, 210, 0.12);
+}
 .footer-update {
+  font-family: var(--mono);
   font-size: 0.6rem;
   letter-spacing: 0.18em;
-  opacity: 0.5;
-  flex-basis: 100%;
-  text-align: center;
-  font-family: var(--mono);
-  text-transform: none;
-  font-style: italic;
   color: rgba(122, 220, 255, 0.7);
-  margin-top: 0.1rem;
+  font-style: italic;
+  text-transform: none;
+  margin-top: 0.3rem;
   padding: 0 1rem;
 }
 .footer-update::before { content: '· '; opacity: 0.5; }
 .footer-update::after { content: ' ·'; opacity: 0.5; }
 
-@media (max-width: 720px) {
-  footer { padding: 2rem 1.5rem; }
-}
-
-/* ========================================================================
-   MICRO-INTERACTIONS
-   ======================================================================== */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.fade-in.in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-::selection {
-  background: var(--gold);
-  color: var(--ink);
-}
-
-/* ========================================================================
-   HOLOCRONS — flat 2D for ambient/scattered, full 3D for sentinel + hero
-   ======================================================================== */
-
-/* Shared face styling — used by both 2D and 3D variants */
-.holo-face {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
-    linear-gradient(-45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
-    linear-gradient(135deg, rgba(74, 140, 220, 0.55) 0%, rgba(40, 90, 180, 0.7) 50%, rgba(20, 60, 140, 0.65) 100%);
-  border: 3px solid #b08838;
-  box-sizing: border-box;
-  box-shadow:
-    inset 0 0 0 1px #5a4520,
-    inset 0 0 25px rgba(74, 140, 220, 0.6),
-    0 0 18px rgba(74, 140, 220, 0.3);
-}
-.holo-face::before {
-  content: '';
-  position: absolute;
-  inset: 18%;
-  border: 2px solid #b08838;
-  box-shadow: inset 0 0 0 1px #5a4520;
-  transform: rotate(45deg);
-}
-.holo-face::after {
-  content: '';
-  position: absolute;
-  inset: 28%;
-  border: 2px solid #b08838;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px #5a4520, 0 0 14px rgba(180, 220, 255, 0.4);
-}
-
-/* ----- Solid variant: etched-ornament face with X diagonals + diamond + circle ----- */
-.holo-solid .holo-face {
-  background:
-    linear-gradient(45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
-    linear-gradient(-45deg, transparent 47%, #8a6a2c 47%, #c79a3a 50%, #8a6a2c 53%, transparent 53%),
-    linear-gradient(135deg, #5b9be0 0%, #2e6cc4 50%, #163d8a 100%);
-  border: 4px solid #c79a3a;
-  box-shadow:
-    inset 0 0 0 1.5px #5a4520,
-    inset 0 0 0 5px #b08838,
-    inset 0 0 35px rgba(120, 180, 255, 0.55),
-    0 0 25px rgba(74, 140, 220, 0.45);
-}
-.holo-solid .holo-face::before {
-  content: '';
-  position: absolute;
-  inset: 18%;
-  border: 2.5px solid #c79a3a;
-  box-shadow: inset 0 0 0 1px #5a4520;
-  transform: rotate(45deg);
-}
-.holo-solid .holo-face::after {
-  content: '';
-  position: absolute;
-  inset: 28%;
-  border: 2.5px solid #c79a3a;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px #5a4520, 0 0 18px rgba(200, 230, 255, 0.55);
-  background: radial-gradient(circle, rgba(200, 230, 255, 0.3) 0%, transparent 70%);
-}
-
-/* ----- 3D HOLOCRON (full cube — used for sentinel + hero) ----- */
-.holo-3d {
-  position: relative;
-  transform-style: preserve-3d;
-  animation: holo-tumble 18s linear infinite;
-}
-.holo-3d .holo-face { width: 100%; height: 100%; }
-
-@keyframes holo-tumble {
-  0%   { transform: rotateX(-15deg) rotateY(0deg); }
-  100% { transform: rotateX(-15deg) rotateY(360deg); }
-}
-
-/* ----- 2D HOLOCRON (single face, gentle Y-rotate) ----- */
-.holo-2d {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  animation: holo-spin 14s linear infinite;
-  transform-style: preserve-3d;
-}
-.holo-2d .holo-face { width: 100%; height: 100%; }
-
-@keyframes holo-spin {
-  from { transform: rotateY(0deg); }
-  to   { transform: rotateY(360deg); }
-}
-
-/* ----- AMBIENT HOLOCRONS (drifting in hero background) ----- */
-.holo-ambient {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  pointer-events: none;
-  opacity: 0.35;
-  filter: blur(0.3px);
-}
-.holo-ambient.h1 { top: 18%; left: 8%;  animation: drift1 22s ease-in-out infinite; }
-.holo-ambient.h2 { top: 70%; left: 75%; animation: drift2 26s ease-in-out infinite; width: 50px; height: 50px; opacity: 0.25; }
-.holo-ambient.h3 { top: 35%; left: 88%; animation: drift3 30s ease-in-out infinite; width: 45px; height: 45px; opacity: 0.2; }
-.holo-ambient.h4 { top: 78%; left: 18%; animation: drift1 24s ease-in-out infinite reverse; width: 55px; height: 55px; opacity: 0.3; }
-
-@keyframes drift1 {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(20px, -25px); }
-}
-@keyframes drift2 {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-25px, 15px); }
-}
-@keyframes drift3 {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-15px, -30px); }
-}
-
-/* ----- HERO HOLOCRON (cursor-tracking) ----- */
-.holo-hero {
-  position: absolute;
-  top: 50%;
-  right: 10%;
-  width: 180px;
-  height: 180px;
-  perspective: 900px;
-  z-index: 1;
-  pointer-events: none;
-  display: none;  /* hidden on small screens via media query below */
-}
-.holo-hero .holo-3d {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.holo-hero .holo-face.f-front  { transform: translateZ(90px); }
-.holo-hero .holo-face.f-back   { transform: rotateY(180deg) translateZ(90px); }
-.holo-hero .holo-face.f-right  { transform: rotateY( 90deg) translateZ(90px); }
-.holo-hero .holo-face.f-left   { transform: rotateY(-90deg) translateZ(90px); }
-.holo-hero .holo-face.f-top    { transform: rotateX( 90deg) translateZ(90px); }
-.holo-hero .holo-face.f-bottom { transform: rotateX(-90deg) translateZ(90px); }
-
-@media (min-width: 1100px) {
-  .holo-hero { display: block; }
-}
-
-/* ----- CORNER SENTINEL (always-visible, clickable crystal) ----- */
+/* HOLOCRON SENTINEL */
 .holo-sentinel {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  width: 90px;
-  height: 90px;
-  z-index: 90;
+  bottom: 1.6rem;
+  right: 1.6rem;
+  width: 76px;
+  height: 76px;
   cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  filter: drop-shadow(0 0 12px rgba(120, 200, 255, 0.55));
+  z-index: 50;
+  filter: drop-shadow(0 0 16px rgba(74, 216, 255, 0.5));
+  transition: filter 0.4s, transform 0.4s;
+  user-select: none;
 }
 .holo-sentinel:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 22px rgba(120, 200, 255, 0.85));
+  filter: drop-shadow(0 0 24px rgba(74, 216, 255, 0.9));
+  transform: scale(1.06);
 }
-.crystal {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
+.holo-sentinel .crystal { width: 100%; height: 100%; }
 .holo-sentinel-hint {
   position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 0.5rem;
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.25em;
+  color: var(--crystal);
   text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(5, 10, 20, 0.85);
-  border: 1px solid var(--gold);
-  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
   opacity: 0;
+  transition: opacity 0.25s;
   pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
 }
-.holo-sentinel:hover .holo-sentinel-hint {
-  opacity: 1;
-  transform: translateY(-50%) translateX(-4px);
-}
-
+.holo-sentinel:hover .holo-sentinel-hint { opacity: 0.9; }
 @media (max-width: 720px) {
   .holo-sentinel { width: 64px; height: 64px; bottom: 1rem; right: 1rem; }
   .holo-sentinel-hint { display: none; }
 }
 
-/* ----- SCATTERED LORE HOLOCRONS (clickable, scattered between sections) ----- */
-.holo-lore {
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-  margin: 0 auto;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.holo-lore:hover {
-  transform: scale(1.15);
-}
-.holo-lore-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-  padding: 4rem 2rem;
-  flex-wrap: wrap;
-}
-
-/* ----- LORE QUOTE PANEL (the modal-like reveal) ----- */
-.lore-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 10, 20, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 250;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  padding: 2rem;
-}
-.lore-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lore-panel {
-  max-width: 600px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  transform: translateY(20px) scale(0.96);
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.lore-overlay.open .lore-panel { transform: translateY(0) scale(1); }
-
-.lore-holo {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 2rem;
-  filter: drop-shadow(0 0 18px rgba(120, 200, 255, 0.65));
-}
-.lore-holo .crystal {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.lore-text {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  font-weight: 300;
-  line-height: 1.4;
-  color: var(--paper);
-  max-width: 540px;
-  margin: 0 auto 1.5rem;
-}
-.lore-text::before { content: '"'; color: var(--gold); }
-.lore-text::after  { content: '"'; color: var(--gold); }
-
-.lore-attribution {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.75;
-}
-
-.lore-close {
-  position: absolute;
-  top: -3rem;
-  right: 0;
-  background: none;
-  border: 1px solid var(--rule);
-  color: var(--paper);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.3s, border-color 0.3s, color 0.3s;
-}
-.lore-close:hover {
-  opacity: 1;
-  color: var(--gold);
-  border-color: var(--gold);
-}
-
-/* Reduced motion preference — pause holocron animations for users who want it */
-@media (prefers-reduced-motion: reduce) {
-  .holo-3d, .holo-2d, .holo-ambient { animation: none; }
-}
-
-/* ========================================================================
-   HERO SIGIL WATERMARK
-   ======================================================================== */
-.hero-sigil {
-  position: absolute;
-  right: -120px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 720px;
-  height: 720px;
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 0;
-  object-fit: contain;
-  animation: sigil-breathe 12s ease-in-out infinite;
-}
-@keyframes sigil-breathe {
-  0%, 100% { opacity: 0.06; }
-  50%      { opacity: 0.12; }
-}
-@media (max-width: 920px) {
-  .hero-sigil { right: -200px; width: 500px; height: 500px; }
-}
-@media (max-width: 720px) {
-  .hero-sigil { right: -260px; width: 420px; height: 420px; opacity: 0.04; }
-}
-
-/* ========================================================================
-   HERO CONSTELLATION (decorative, right side)
-   ======================================================================== */
-.hero-constellation {
-  position: absolute;
-  right: 8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 280px;
-  height: 420px;
-  color: var(--crystal);
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: 1;
-  animation: constellation-twinkle 8s ease-in-out infinite;
-}
-@keyframes constellation-twinkle {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.6; }
-}
-@media (max-width: 1100px) {
-  .hero-constellation { display: none; }
-}
-
-
-.topnav a {
-  position: relative;
-  padding-bottom: 4px;
-}
-.topnav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.topnav a:hover::after {
-  width: 100%;
-}
-
-/* ========================================================================
-   SECTION ATMOSPHERIC FLOURISHES
-   ======================================================================== */
-/* Pillars and ranks sections get faint hex-pattern overlays */
-.pillars, .about, .join {
-  position: relative;
-}
-.pillars::before, .about::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(199, 154, 58, 0.08) 1px, transparent 1.5px);
-  background-size: 32px 32px;
-  pointer-events: none;
-  opacity: 0.5;
-  z-index: 0;
-}
-.pillars > *, .about > *, .join > * { position: relative; z-index: 1; }
-
-/* ========================================================================
-   SECTION NUMERAL DECORATIONS
-   ======================================================================== */
-.about-label {
-  position: relative;
-}
-.about-label::before {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--gold);
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-/* Pillars heading: add Roman numeral indicator */
-.pillars-heading::before {
-  content: '· II ·';
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Ranks heading: numeral above */
-.ranks-heading::before {
-  content: '· III ·';
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Join section: numeral inside the eyebrow already handled by content */
-
-/* ========================================================================
-   PILLAR CARD ENHANCEMENTS — gold corner accents on hover
-   ======================================================================== */
-.pillar {
-  position: relative;
-}
-.pillar::before, .pillar::after {
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-color: var(--gold);
-  border-style: solid;
-  border-width: 0;
-  opacity: 0;
-  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.pillar::before {
-  top: 8px;
-  left: 8px;
-  border-top-width: 1px;
-  border-left-width: 1px;
-  transform: translate(4px, 4px);
-}
-.pillar::after {
-  bottom: 8px;
-  right: 8px;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
-  transform: translate(-4px, -4px);
-}
-.pillar:hover::before, .pillar:hover::after {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-/* ========================================================================
-   RANK ROW: small inset gold pip on hover
-   ======================================================================== */
-.rank {
-  position: relative;
-}
-.rank::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.rank:hover::before {
-  width: 12px;
-}
-/* ========================================================================
-   HIGH COMMAND
-   ======================================================================== */
-.high-command {
-  padding: 6rem 4rem;
-  text-align: center;
-  background: var(--ink-deep);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  position: relative;
-}
-.high-command::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(199, 154, 58, 0.08) 1px, transparent 1.5px);
-  background-size: 32px 32px;
-  pointer-events: none;
-  opacity: 0.5;
-  z-index: 0;
-}
-.high-command > * { position: relative; z-index: 1; }
-
-.hc-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.5rem;
-}
-.hc-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 300;
-  color: var(--paper);
-  margin-bottom: 1.2rem;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-}
-.hc-heading em {
-  font-style: italic;
-  color: var(--gold-bright);
-  font-weight: 400;
-}
-.hc-intro {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 300;
-  color: var(--paper);
-  opacity: 0.75;
-  max-width: 540px;
-  margin: 0 auto 4rem;
-  line-height: 1.6;
-}
-
-.hc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-.hc-card {
-  background: rgba(10, 19, 32, 0.6);
-  border: 1px solid rgba(199, 154, 58, 0.2);
-  padding: 2.2rem 1.5rem;
-  text-align: center;
-  position: relative;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  /* button reset */
-  display: block;
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  cursor: pointer;
-  text-align: center;
-}
-.hc-card:hover {
-  border-color: rgba(199, 154, 58, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-.hc-card:focus-visible {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(199, 154, 58, 0.35);
-}
-.hc-card-featured {
-  border-color: rgba(199, 154, 58, 0.45);
-  background: rgba(20, 30, 50, 0.7);
-}
-.hc-card-featured::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  height: 2px;
-  background: var(--gold);
-}
-
-.hc-avatar {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 1.2rem;
-  display: block;
-  border-radius: 50%;
-  object-fit: cover;
-  background: rgba(10, 19, 32, 0.8);
-  border: 1px solid rgba(199, 154, 58, 0.3);
-  filter: drop-shadow(0 0 12px rgba(199, 154, 58, 0.15));
-  transition: border-color 0.3s, filter 0.3s;
-}
-.hc-card:hover .hc-avatar {
-  border-color: rgba(199, 154, 58, 0.6);
-  filter: drop-shadow(0 0 18px rgba(199, 154, 58, 0.3));
-}
-/* If the Roblox CDN fails and we fall back to the sigil, render it small + contained instead of cropped */
-.hc-avatar.hc-avatar-fallback {
-  object-fit: contain;
-  padding: 14px;
-  opacity: 0.85;
-}
-
-.hc-rank {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.8rem;
-}
-
-.hc-name {
-  font-family: var(--serif);
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--paper);
-  margin-bottom: 0.3rem;
-  letter-spacing: -0.005em;
-}
-
-.hc-handle {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--paper);
-  opacity: 0.5;
-  letter-spacing: 0.05em;
-}
-
-@media (max-width: 600px) {
-  .high-command { padding: 4rem 1.5rem; }
-  .hc-grid { gap: 1.2rem; }
-  .hc-card { padding: 1.8rem 1rem; }
-  .hc-avatar { width: 80px; height: 80px; }
-}
-
-.footer-mark {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-.footer-mark img {
-  width: 22px;
-  height: 22px;
-  opacity: 0.7;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-/* ========================================================================
-   SECTION DIVIDERS — make them feel like ornamental rules
-   ======================================================================== */
-.divider {
-  position: relative;
-}
-.divider::before, .divider::after {
-  width: 100px;
-}
-
-/* Ornamental break between sections (small sigil flanked by gold rules) */
-.section-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.4rem;
-  padding: 2.5rem 4rem;
-  background: var(--ink-deep);
-}
-.section-ornament::before,
-.section-ornament::after {
-  content: '';
-  flex: 0 0 80px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(199, 154, 58, 0.5), transparent);
-}
-.section-ornament svg {
-  width: 22px;
-  height: 22px;
-  opacity: 0.55;
-  flex-shrink: 0;
-}
-.section-ornament svg path,
-.section-ornament svg circle,
-.section-ornament svg line {
-  stroke: var(--gold);
-}
-@media (max-width: 720px) {
-  .section-ornament { padding: 1.8rem 1.5rem; gap: 0.9rem; }
-  .section-ornament::before,
-  .section-ornament::after { flex-basis: 50px; }
-}
-
-/* ========================================================================
-   NEW SECTIONS — epigraph, archives, voices, quiz, heretic crystal
-   ======================================================================== */
-
-/* VOICES OF THE ASSEMBLY */
-.voices {
-  padding: 7rem 4rem;
-  background: var(--ink-deep);
-  text-align: center;
-}
-.voices-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  color: rgba(244, 234, 210, 0.55);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-}
-.voices-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-bottom: 3.5rem;
-}
-.voices-heading em { color: var(--gold-bright, var(--gold)); font-style: italic; }
-.voices-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.4rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.voice-card {
-  background: rgba(20, 30, 50, 0.55);
-  border: 1px solid rgba(199, 154, 58, 0.18);
-  padding: 2rem 1.6rem;
-  text-align: left;
-  position: relative;
-}
-.voice-quote-mark {
-  font-family: var(--serif);
-  font-size: 2.4rem;
-  color: var(--gold);
-  line-height: 1;
-  opacity: 0.5;
-  margin-bottom: 0.4rem;
-}
-.voice-text {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--paper);
-  opacity: 0.88;
-  margin-bottom: 1.4rem;
-}
-.voice-rank {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
-}
-.voice-name {
-  font-family: var(--serif);
-  font-size: 1rem;
-  color: var(--paper);
-}
-@media (max-width: 720px) {
-  .voices { padding: 4rem 1.5rem; }
-}
-
-/* TRIAL OF KNOWLEDGE button */
-.trial-cta {
-  margin-top: 3rem;
-  text-align: center;
-}
-.trial-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.8rem 1.8rem;
-  background: transparent;
-  border: 1px solid rgba(122, 220, 255, 0.4);
-  color: #7adcff;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border-color 0.3s, background 0.3s, color 0.3s;
-}
-.trial-btn:hover {
-  border-color: #7adcff;
-  background: rgba(122, 220, 255, 0.08);
-  color: #b0eaff;
-}
-.trial-btn::before {
-  content: '◆';
-  font-size: 0.6rem;
-  opacity: 0.7;
-}
-
-/* QUIZ MODAL (uses generic .modal-overlay base, adds quiz-specific bits) */
-.quiz-progress {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  margin-bottom: 1.8rem;
-}
-.quiz-progress .pip {
-  width: 22px;
-  height: 4px;
-  background: rgba(199, 154, 58, 0.22);
-  transition: background 0.3s;
-}
-.quiz-progress .pip.done { background: var(--gold); }
-.quiz-progress .pip.current { background: rgba(199, 154, 58, 0.6); }
-.quiz-question-label {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 0.7rem;
-}
-.quiz-question {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--paper);
-  text-align: center;
-  line-height: 1.4;
-  margin-bottom: 1.6rem;
-}
-.quiz-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.4rem;
-}
-.quiz-option {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.85rem 1rem;
-  background: rgba(20, 35, 58, 0.4);
-  border: 1px solid rgba(199, 154, 58, 0.25);
-  color: var(--paper);
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  transition: border-color 0.2s, background 0.2s;
-}
-.quiz-option:hover:not(:disabled) {
-  border-color: rgba(199, 154, 58, 0.7);
-  background: rgba(20, 35, 58, 0.65);
-}
-.quiz-option .quiz-letter {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--gold);
-  min-width: 1.4rem;
-}
-.quiz-option.selected {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.08);
-}
-.quiz-option.correct {
-  border-color: #7adcff;
-  background: rgba(122, 220, 255, 0.08);
-}
-.quiz-option.wrong {
-  border-color: #c4504e;
-  background: rgba(196, 80, 78, 0.08);
-}
-.quiz-option:disabled { cursor: default; }
-.quiz-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.2rem;
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  color: rgba(244, 234, 210, 0.45);
-  text-transform: uppercase;
-}
-.quiz-next-btn {
-  background: transparent;
-  border: 1px solid rgba(199, 154, 58, 0.5);
-  color: var(--gold);
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  padding: 0.55rem 1.1rem;
-  cursor: pointer;
-  opacity: 0.4;
-  pointer-events: none;
-  transition: opacity 0.2s, background 0.2s;
-}
-.quiz-next-btn.ready {
-  opacity: 1;
-  pointer-events: auto;
-}
-.quiz-next-btn.ready:hover {
-  background: rgba(199, 154, 58, 0.1);
-}
-.quiz-result {
-  text-align: center;
-}
-.quiz-result-score {
-  font-family: var(--serif);
-  font-size: 3rem;
-  color: var(--gold);
-  margin: 1rem 0 0.4rem;
-  font-weight: 400;
-}
-.quiz-result-rank {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-.quiz-result-msg {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--paper);
-  opacity: 0.85;
-  margin-bottom: 1.6rem;
-  line-height: 1.5;
-}
-.quiz-restart {
-  background: transparent;
-  border: 1px solid rgba(122, 220, 255, 0.4);
-  color: #7adcff;
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  padding: 0.55rem 1.4rem;
-  cursor: pointer;
-  transition: border-color 0.3s, background 0.3s;
-}
-.quiz-restart:hover {
-  border-color: #7adcff;
-  background: rgba(122, 220, 255, 0.08);
-}
-
-/* HERETIC CRYSTAL (easter egg — top-left, hidden until activated) */
+/* HERETIC CRYSTAL */
 .holo-heretic {
   position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  width: 64px;
-  height: 64px;
-  z-index: 80;
+  top: 1.4rem;
+  left: 1.4rem;
+  width: 56px;
+  height: 56px;
   cursor: pointer;
-  filter: drop-shadow(0 0 14px rgba(199, 154, 58, 0.5));
+  z-index: 50;
+  filter: drop-shadow(0 0 12px rgba(199, 154, 58, 0.5));
+  transition: filter 0.4s, transform 0.4s, opacity 0.6s;
+  user-select: none;
   opacity: 0;
-  transform: scale(0.4) rotate(-30deg);
   pointer-events: none;
-  transition: opacity 0.9s ease-out, transform 0.9s ease-out, filter 0.3s;
+  transform: scale(0.7);
 }
 .holo-heretic.revealed {
-  opacity: 1;
-  transform: scale(1) rotate(0);
+  opacity: 0.95;
   pointer-events: auto;
+  transform: scale(1);
 }
 .holo-heretic:hover {
-  filter: drop-shadow(0 0 22px rgba(199, 154, 58, 0.8));
+  filter: drop-shadow(0 0 22px rgba(199, 154, 58, 0.9));
+  transform: scale(1.08);
 }
 .holo-heretic .crystal { width: 100%; height: 100%; }
 .holo-heretic-hint {
   position: absolute;
-  top: 50%;
-  left: calc(100% + 0.8rem);
-  transform: translateY(-50%);
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.55rem;
   letter-spacing: 0.25em;
   color: var(--gold);
   text-transform: uppercase;
@@ -1954,209 +600,113 @@ footer a:hover { color: var(--gold); }
   .holo-heretic-hint { display: none; }
 }
 
-/* ========================================================================
-   OATH GENERATOR — homepage section
-   ======================================================================== */
-.oath {
-  padding: 7rem 4rem;
-  background:
-    radial-gradient(ellipse at center, rgba(199, 154, 58, 0.05), transparent 70%),
-    var(--ink);
-  text-align: center;
-}
-.oath-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.4em;
-  color: rgba(244, 234, 210, 0.55);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-}
-.oath-heading {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-bottom: 1rem;
-}
-.oath-heading em { color: var(--gold-bright); font-style: italic; }
-.oath-intro {
-  max-width: 36rem;
-  margin: 0 auto 2.5rem;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--paper);
-  opacity: 0.7;
-}
-.oath-form {
-  max-width: 28rem;
-  margin: 0 auto;
+/* LORE OVERLAY */
+.lore-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 100;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
   align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  padding: 2rem;
 }
-.oath-input {
-  width: 100%;
-  background: rgba(10, 19, 32, 0.6);
-  border: 1px solid rgba(199, 154, 58, 0.3);
-  color: var(--paper);
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  padding: 0.85rem 1.1rem;
-  text-align: center;
-  letter-spacing: 0.02em;
-  transition: border-color 0.3s, background 0.3s;
-}
-.oath-input:focus {
-  outline: none;
-  border-color: var(--gold);
-  background: rgba(20, 35, 58, 0.7);
-}
-.oath-input::placeholder { color: rgba(244, 234, 210, 0.35); font-style: italic; }
-.oath-btn {
-  background: transparent;
-  border: 1px solid rgba(199, 154, 58, 0.5);
-  color: var(--gold);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  padding: 0.75rem 1.6rem;
-  cursor: pointer;
-  transition: border-color 0.3s, background 0.3s, color 0.3s;
-}
-.oath-btn:hover {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.1);
-  color: var(--gold-bright);
-}
-.oath-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-/* Oath card output */
-.oath-card {
-  margin: 3rem auto 0;
-  max-width: 32rem;
-  background: rgba(10, 19, 32, 0.85);
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  padding: 3rem 2.5rem;
+.lore-overlay.open { opacity: 1; pointer-events: auto; }
+.lore-panel {
+  max-width: 520px;
   text-align: center;
   position: relative;
-  display: none;
 }
-.oath-card.shown { display: block; }
-.oath-card::before, .oath-card::after {
-  content: '';
+.lore-close {
   position: absolute;
-  left: 1.5rem;
-  right: 1.5rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(199, 154, 58, 0.6), transparent);
-}
-.oath-card::before { top: 1rem; }
-.oath-card::after { bottom: 1rem; }
-.oath-card-eyebrow {
+  top: -3rem;
+  right: 0;
+  background: transparent;
+  border: 1px solid rgba(244, 234, 210, 0.3);
+  color: var(--paper);
   font-family: var(--mono);
   font-size: 0.65rem;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 1.2rem;
-}
-.oath-card-body {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  line-height: 1.75;
-  color: var(--paper);
-  margin-bottom: 1.6rem;
-}
-.oath-card-body em { font-style: italic; color: var(--gold-bright); }
-.oath-card-name {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.35rem;
-  color: var(--gold-bright);
-  margin: 1.2rem 0 0.4rem;
-}
-.oath-card-rule {
-  width: 50px;
-  height: 1px;
-  background: var(--gold);
-  margin: 0.6rem auto 0.8rem;
-  opacity: 0.6;
-}
-.oath-card-mark {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  color: rgba(244, 234, 210, 0.5);
-  text-transform: uppercase;
-}
-.oath-card-actions {
-  margin-top: 1.4rem;
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.oath-mini-btn {
-  background: transparent;
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  color: var(--gold);
-  font-family: var(--mono);
-  font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: border-color 0.3s, background 0.3s;
+  transition: border-color 0.3s, color 0.3s;
 }
-.oath-mini-btn:hover {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.08);
+.lore-close:hover { border-color: var(--gold); color: var(--gold); }
+.lore-holo {
+  width: 100px; height: 100px;
+  margin: 0 auto 2rem;
+  filter: drop-shadow(0 0 24px rgba(74, 216, 255, 0.6));
 }
-@media (max-width: 720px) {
-  .oath { padding: 4rem 1.5rem; }
-  .oath-card { padding: 2.2rem 1.5rem; }
-  .oath-card-body { font-size: 1rem; }
+.lore-holo .crystal { width: 100%; height: 100%; }
+.lore-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  line-height: 1.5;
+  color: var(--paper);
+  margin-bottom: 1.4rem;
+}
+.lore-text::before, .lore-text::after {
+  content: '"';
+  color: var(--gold);
+  opacity: 0.55;
+  font-size: 1.2em;
+  margin: 0 0.15em;
+}
+.lore-attribution {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
-/* ========================================================================
-   CHARTER MARGINALIA OVERLAY (easter egg on the charter page)
-   This CSS is included on the homepage too in case the user lands here first.
-   ======================================================================== */
-/* (charter-only — defined in charter.html) */
+@media (max-width: 600px) {
+  .topbar { padding: 0.8rem 1.2rem; }
+  .topbar-mark span { display: none; }
+  .pillars { padding: 0 1.4rem; }
+  .pillars-heading { font-size: 1.5rem; }
+  .framing { margin: 3rem auto 4rem; padding: 0 1.4rem; }
+  .framing p { font-size: 1.05rem; }
+  .todays-reading { padding: 3rem 1.4rem; }
+  .other-rooms { padding: 2.2rem 1rem; }
+  .other-rooms-grid { gap: 1rem 1.4rem; }
+}
 
+::selection {
+  background: var(--gold);
+  color: var(--ink-deep);
+}
 </style>
 </head>
 <body>
 
-<!-- Scroll progress bar -->
 <div class="scroll-progress" id="scroll-progress"></div>
 
-<!-- TOP BAR -->
 <header class="topbar">
-  <div class="sigil">
-    <img class="sigil-mark" src="sigil.png" alt="Librarians' Assembly insignia">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
     <span>Librarians' Assembly</span>
-  </div>
-  <nav class="topnav">
-    <a href="#about">Order</a>
-    <a href="#pillars">Pursuits</a>
-    <a href="#ranks">Ranks</a>
-    <a href="#join">Join</a>
+  </a>
+  <nav class="topnav" aria-label="Primary">
+    <a href="order.html">Order</a>
+    <a href="path.html">Path</a>
+    <a href="command.html">Command</a>
+    <a href="charter.html">Charter</a>
+    <a href="apply.html">Petition</a>
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="starfield"></div>
   <div class="hero-decor"></div>
-
-  <!-- Large sigil watermark -->
   <img class="hero-sigil" src="sigil.png" alt="" aria-hidden="true">
-
-  <!-- Decorative constellation -->
   <svg class="hero-constellation" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g fill="currentColor">
       <circle cx="40" cy="50" r="2"/>
@@ -2191,13 +741,12 @@ footer a:hover { color: var(--gold); }
       philosophy, and the teachings of the Force.
     </p>
     <div class="hero-actions">
-      <a href="#join" class="btn btn-primary">Join the Assembly</a>
+      <a href="apply.html" class="btn btn-primary">Petition for Membership</a>
       <a href="charter.html" class="btn btn-secondary">Read the Charter</a>
     </div>
   </div>
 </section>
 
-<!-- SECTION BREAK -->
 <div class="section-ornament" aria-hidden="true">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
     <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
@@ -2205,442 +754,108 @@ footer a:hover { color: var(--gold); }
   </svg>
 </div>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-label">· I ·<br>The Order</div>
-  <div class="about-body fade-in">
-    <p>
-      The <em>Jedi Librarian's Assembly</em> is a specialized collective within
-      the Jedi Order, devoted to the preservation, organization, and
-      dissemination of knowledge.
-    </p>
-    <p>
-      Based in the <em>Great Jedi Archives</em> on Coruscant, these Jedi serve
-      as guardians of history, philosophy, and the teachings of the Force.
-      Members of the assembly are scholars, archivists, and researchers, whose
-      mission is to ensure that the wisdom of generations is accessible to all
-      Jedi.
-    </p>
-    <div class="pull-quote">
-      "What is preserved, endures.<br>What is taught, multiplies."
-    </div>
-    <p style="text-align: center; margin-top: 2rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;">
-      <a href="order.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(199, 154, 58, 0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s;">Read on the Order →</a>
-    </p>
-  </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="divider">· Pursuits of the Order ·</div>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- PILLARS -->
-<section class="pillars" id="pillars">
-  <h2 class="pillars-heading fade-in">
-    Four <em>disciplines</em> form the<br>foundation of our Assembly.
-  </h2>
-  <div class="pillar-grid">
-    <div class="pillar fade-in">
-      <div class="pillar-num">01 · Tenet</div>
-      <div class="pillar-name">The Archive</div>
-      <p class="pillar-desc">
-        Texts, recordings, and oral histories are gathered, indexed, and made
-        available to those who would learn. The archive is the heart of the order.
-      </p>
-    </div>
-    <div class="pillar fade-in">
-      <div class="pillar-num">02 · Tenet</div>
-      <div class="pillar-name">Instruction</div>
-      <p class="pillar-desc">
-        From basic training to advanced symposia, members teach one another openly.
-        No knowledge is hoarded; every Initiate may rise to Loremaster.
-      </p>
-    </div>
-    <div class="pillar fade-in">
-      <div class="pillar-num">03 · Tenet</div>
-      <div class="pillar-name">Discourse</div>
-      <p class="pillar-desc">
-        Through debate and assembly, contradictions in the record are weighed
-        and resolved. Truth is found in argument, not in silence.
-      </p>
-    </div>
-    <div class="pillar fade-in">
-      <div class="pillar-num">04 · Tenet</div>
-      <div class="pillar-name">Vigil</div>
-      <p class="pillar-desc">
-        We patrol our holdings, defend our archives, and bear witness when
-        history is being made. Knowledge unguarded is knowledge lost.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- RANKS -->
-<section class="ranks" id="ranks">
-  <div class="ranks-inner">
-    <h2 class="ranks-heading fade-in">The Path of <em>Ascension</em></h2>
-    <div class="ranks-sub">From newcomer to keeper. Click any rank to view its requirements.</div>
-
-    <div class="rank-tier fade-in">
-      <div class="tier-label">Low Ranks</div>
-
-      <button class="rank" data-rank="pledge">
-        <div class="rank-num">I.</div>
-        <div class="rank-body">
-          <div class="rank-name">Pledge</div>
-          <div class="rank-desc">Unofficial members who have recently passed the Librarians' Assembly application. They have one week to achieve Student.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="student">
-        <div class="rank-num">II.</div>
-        <div class="rank-body">
-          <div class="rank-name">Student</div>
-          <div class="rank-desc">The first true rank of the Assembly. Full-fledged members who may begin working toward advancement.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="librarian">
-        <div class="rank-num">III.</div>
-        <div class="rank-body">
-          <div class="rank-name">Librarian</div>
-          <div class="rank-desc">Low-ranks who have begun to prove themselves and may gear up for the rank of Intellect.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-    </div>
-
-    <div class="rank-tier fade-in">
-      <div class="tier-label">Middle Ranks</div>
-
-      <button class="rank" data-rank="intellect">
-        <div class="rank-num">IV.</div>
-        <div class="rank-body">
-          <div class="rank-name">Intellect</div>
-          <div class="rank-desc">The first official middle-rank. Trusted with knowledge and maturity sufficient to co-host training sessions.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="tutor">
-        <div class="rank-num">V.</div>
-        <div class="rank-body">
-          <div class="rank-name">Tutor</div>
-          <div class="rank-desc">Highly respected scholars who have gained deep knowledge within the Assembly. Permitted to assist the High Ranks.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-    </div>
-
-    <div class="rank-tier fade-in">
-      <div class="tier-label">High Ranks</div>
-
-      <button class="rank" data-rank="lore-keeper">
-        <div class="rank-num">VI.</div>
-        <div class="rank-body">
-          <div class="rank-name">Lore Keeper</div>
-          <div class="rank-desc">Dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="archivist">
-        <div class="rank-num">VII.</div>
-        <div class="rank-body">
-          <div class="rank-name">Archivist</div>
-          <div class="rank-desc">Senior High Ranks held to the highest standard of critical thinking and management. Mentors to the entire Assembly.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-    </div>
-
-    <div class="rank-tier fade-in">
-      <div class="tier-label">High Command</div>
-
-      <button class="rank" data-rank="historian">
-        <div class="rank-num">VIII.</div>
-        <div class="rank-body">
-          <div class="rank-name">Historian</div>
-          <div class="rank-desc">A respected rank within the Jedi Order. Assists the Curator in overseeing the High Ranks.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="curator">
-        <div class="rank-num">IX.</div>
-        <div class="rank-body">
-          <div class="rank-name">Curator of the Archives</div>
-          <div class="rank-desc">Second in command of the Librarians' Assembly. Directly oversees the High Ranks and reports to the Chief Librarian.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-
-      <button class="rank" data-rank="chief">
-        <div class="rank-num">X.</div>
-        <div class="rank-body">
-          <div class="rank-name">Chief Librarian</div>
-          <div class="rank-desc">The highest achievable rank. Oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.</div>
-        </div>
-        <div class="rank-arrow">›</div>
-      </button>
-    </div>
-
-    <div class="trial-cta fade-in">
-      <button class="trial-btn" id="trial-open">Trial of Knowledge</button>
-    </div>
-
-    <p style="text-align: center; margin-top: 2.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;">
-      <a href="path.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(199, 154, 58, 0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s;">Read on the Path →</a>
-    </p>
-
-  </div>
-</section>
-
-<!-- REQUIREMENT MODAL (one per rank, hidden until opened) -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal">
-    <button class="modal-close" id="modal-close" aria-label="Close">×</button>
-    <div class="modal-tier" id="modal-tier"></div>
-    <h3 class="modal-name" id="modal-name"></h3>
-    <p class="modal-desc" id="modal-desc"></p>
-    <div class="modal-section-label">Requirements</div>
-    <ul class="modal-reqs" id="modal-reqs"></ul>
-  </div>
-</div>
-
-<!-- HIGH COMMAND MODAL -->
-<div class="modal-overlay" id="hc-modal-overlay">
-  <div class="modal" id="hc-modal">
-    <button class="modal-close" id="hc-modal-close" aria-label="Close">×</button>
-    <img class="hc-modal-portrait" id="hc-modal-portrait" src="" alt="">
-    <div class="modal-tier" id="hc-modal-rank"></div>
-    <h3 class="modal-name" id="hc-modal-name"></h3>
-    <div class="hc-modal-handle" id="hc-modal-handle"></div>
-    <p class="modal-desc" id="hc-modal-desc"></p>
-  </div>
-</div>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- HIGH COMMAND -->
-<section class="high-command">
-  <div class="hc-eyebrow">· The High Command ·</div>
-  <h2 class="hc-heading">Those who <em>steward</em> the Order</h2>
-  <p class="hc-intro">
-    The senior ranks of the Assembly. They guide instruction, preserve the
-    record, and answer for the Order's direction.
-  </p>
-  <div class="hc-grid">
-
-    <button class="hc-card" data-hc="rudz">
-      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=2645685396&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
-      <div class="hc-rank">Historian</div>
-      <div class="hc-name">RuDz_Shark</div>
-      <div class="hc-handle">@purplehaze9347</div>
-    </button>
-
-    <button class="hc-card" data-hc="alex">
-      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=50358768&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
-      <div class="hc-rank">Historian</div>
-      <div class="hc-name">Alexsnakk</div>
-      <div class="hc-handle">@skullcruncher44</div>
-    </button>
-
-    <button class="hc-card" data-hc="pau">
-      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=1571021558&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
-      <div class="hc-rank">Curator of the Archives</div>
-      <div class="hc-name">PauVelaria</div>
-      <div class="hc-handle">@pauvelaria</div>
-    </button>
-
-    <button class="hc-card hc-card-featured" data-hc="valk">
-      <img class="hc-avatar" src="https://www.roblox.com/headshot-thumbnail/image?userId=1118092442&width=180&height=180&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('hc-avatar-fallback');">
-      <div class="hc-rank">Chief Librarian</div>
-      <div class="hc-name">Valkorion9872</div>
-      <div class="hc-handle">@valkorion9872</div>
-    </button>
-
-  </div>
-
-  <p style="text-align: center; margin-top: 2.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;">
-    <a href="command.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(199, 154, 58, 0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s;">Read on the High Command →</a>
-  </p>
-</section>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- VOICES OF THE ASSEMBLY -->
-<section class="voices" id="voices">
-  <div class="voices-eyebrow">· Voices of the Assembly ·</div>
-  <h2 class="voices-heading fade-in">In their <em>own</em> words</h2>
-  <div class="voices-grid">
-
-    <div class="voice-card fade-in">
-      <div class="voice-quote-mark">"</div>
-      <p class="voice-text">I came for the lore. I stayed because every conversation here teaches you something you didn't know you needed.</p>
-      <div class="voice-rank">Lore Keeper</div>
-      <div class="voice-name">A keeper of the Assembly</div>
-    </div>
-
-    <div class="voice-card fade-in">
-      <div class="voice-quote-mark">"</div>
-      <p class="voice-text">The Assembly is the rare place where being curious is treated as a contribution, not an interruption.</p>
-      <div class="voice-rank">Tutor</div>
-      <div class="voice-name">A tutor of the Assembly</div>
-    </div>
-
-    <div class="voice-card fade-in">
-      <div class="voice-quote-mark">"</div>
-      <p class="voice-text">There's no other corner of the Order where the questions matter as much as the answers do.</p>
-      <div class="voice-rank">Archivist</div>
-      <div class="voice-name">An archivist of the Assembly</div>
-    </div>
-
-  </div>
-
-  <p style="text-align: center; margin-top: 2.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;">
-    <a href="voices.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(199, 154, 58, 0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s;">Read on the Voices →</a>
-  </p>
-</section>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- OATH GENERATOR -->
-<section class="oath" id="oath">
-  <div class="oath-eyebrow">· The Pledge ·</div>
-  <h2 class="oath-heading fade-in">Take your <em>oath</em></h2>
-  <p class="oath-intro fade-in">
-    A keepsake for those who would walk the Assembly's path.
-    Inscribe your name and receive your oath.
-  </p>
-  <div class="oath-form">
-    <input
-      class="oath-input"
-      id="oath-input"
-      type="text"
-      maxlength="40"
-      placeholder="Enter your chosen name..."
-      autocomplete="off">
-    <button class="oath-btn" id="oath-submit">Inscribe</button>
-  </div>
-
-  <article class="oath-card" id="oath-card" aria-live="polite">
-    <div class="oath-card-eyebrow">· Oath of the Keeper ·</div>
-    <p class="oath-card-body">
-      <em>I,</em>
-    </p>
-    <div class="oath-card-name" id="oath-card-name">—</div>
-    <div class="oath-card-rule"></div>
-    <p class="oath-card-body">
-      do pledge to keep the record by patience, by record, by light;<br>
-      to teach what I have learned, and to learn what I have not;<br>
-      to hold the Archive above convenience,<br>
-      and the Order above myself.
-    </p>
-    <div class="oath-card-mark">· So sealed beneath the sigil ·</div>
-    <div class="oath-card-actions">
-      <button class="oath-mini-btn" id="oath-copy">Copy as text</button>
-      <button class="oath-mini-btn" id="oath-reset">Take another</button>
-    </div>
-  </article>
-
-  <p style="text-align: center; margin-top: 2.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;">
-    <a href="oath.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(199, 154, 58, 0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s;">Read on the Oath →</a>
-  </p>
-</section>
-
-<!-- QUIZ MODAL -->
-<div class="modal-overlay" id="quiz-overlay">
-  <div class="modal" id="quiz-modal">
-    <button class="modal-close" id="quiz-close" aria-label="Close">×</button>
-    <div id="quiz-body">
-      <div class="quiz-progress" id="quiz-progress"></div>
-      <div class="quiz-question-label" id="quiz-question-label">Question I</div>
-      <h3 class="quiz-question" id="quiz-question"></h3>
-      <div class="quiz-options" id="quiz-options"></div>
-      <div class="quiz-footer">
-        <span id="quiz-score-label">Score: 0</span>
-        <button class="quiz-next-btn" id="quiz-next">Next →</button>
-      </div>
-    </div>
-    <div id="quiz-result" class="quiz-result" style="display:none;">
-      <div class="modal-tier">Trial Complete</div>
-      <div class="quiz-result-score" id="quiz-result-score">—</div>
-      <div class="quiz-result-rank" id="quiz-result-rank"></div>
-      <p class="quiz-result-msg" id="quiz-result-msg"></p>
-      <button class="quiz-restart" id="quiz-restart">Take the Trial again</button>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION BREAK -->
-<div class="section-ornament" aria-hidden="true">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
-    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-</div>
-
-<!-- JOIN -->
-<section class="join" id="join">
-  <div class="join-eyebrow">· Acceptance into the Assembly ·</div>
-  <h2>The doors are <em>open.</em></h2>
+<section class="framing fade-in">
+  <div class="framing-eyebrow">· The Order ·</div>
   <p>
-    All who would learn, teach, or simply preserve are welcome. Make your case
-    before the Assembly and your path will begin.
+    The <em>Jedi Librarian's Assembly</em> is the keeper of the Order's record.
+    Based in the <em>Great Jedi Archives</em> on Coruscant, our members are
+    scholars, archivists, and tutors — Jedi whose blade is the index and whose
+    meditation is the catalogue. The work is patient, the standard high, the
+    welcome real.
   </p>
-  <div class="hero-actions" style="justify-content: center;">
-    <a href="apply.html" class="btn btn-primary">Petition for Membership</a>
+</section>
+
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
+
+<section class="pillars">
+  <div class="pillars-eyebrow fade-in">· Where to begin ·</div>
+  <h2 class="pillars-heading fade-in">Choose your <em>way in</em></h2>
+  <div class="pillar-grid">
+    <a class="pillar-card fade-in" href="order.html">
+      <div class="pillar-card-num">· I ·</div>
+      <div class="pillar-card-name">The Order</div>
+      <div class="pillar-card-rule"></div>
+      <div class="pillar-card-desc">What we are, and the four disciplines that bind us.</div>
+    </a>
+    <a class="pillar-card fade-in" href="path.html">
+      <div class="pillar-card-num">· II ·</div>
+      <div class="pillar-card-name">The Path</div>
+      <div class="pillar-card-rule"></div>
+      <div class="pillar-card-desc">Ten ranks across four tiers, from Pledge to Chief Librarian.</div>
+    </a>
+    <a class="pillar-card fade-in" href="command.html">
+      <div class="pillar-card-num">· III ·</div>
+      <div class="pillar-card-name">High Command</div>
+      <div class="pillar-card-rule"></div>
+      <div class="pillar-card-desc">The senior ranks of the Assembly. Those who steward the Order.</div>
+    </a>
+    <a class="pillar-card fade-in" href="charter.html">
+      <div class="pillar-card-num">· IV ·</div>
+      <div class="pillar-card-name">The Charter</div>
+      <div class="pillar-card-rule"></div>
+      <div class="pillar-card-desc">The conduct expected of every member, written down and held to.</div>
+    </a>
+    <a class="pillar-card fade-in" href="apply.html">
+      <div class="pillar-card-num">· V ·</div>
+      <div class="pillar-card-name">Petition</div>
+      <div class="pillar-card-rule"></div>
+      <div class="pillar-card-desc">What is asked of those who would seek a place in the Assembly.</div>
+    </a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="section-ornament" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.2">
+    <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>
+</div>
+
+<section class="todays-reading fade-in">
+  <div class="todays-reading-eyebrow">· The Daily Reading ·</div>
+  <div class="todays-reading-date" id="todays-reading-date">—</div>
+  <div class="todays-reading-rule"></div>
+  <blockquote class="todays-reading-quote" id="todays-reading-quote">—</blockquote>
+  <div class="todays-reading-attribution" id="todays-reading-attribution">—</div>
+  <a class="todays-reading-link" href="reading.html">Read on its own page →</a>
+</section>
+
+<section class="other-rooms fade-in">
+  <div class="other-rooms-eyebrow">· Other rooms ·</div>
+  <div class="other-rooms-grid">
+    <a class="other-room" href="oath.html">
+      <div class="other-room-name">The Oath</div>
+      <div class="other-room-desc">By what we are sworn</div>
+    </a>
+    <a class="other-room" href="voices.html">
+      <div class="other-room-name">Voices</div>
+      <div class="other-room-desc">In their own words</div>
+    </a>
+    <a class="other-room" href="reading.html">
+      <div class="other-room-name">Daily Reading</div>
+      <div class="other-room-desc">A passage from the holocron</div>
+    </a>
+  </div>
+</section>
+
 <footer>
   <div class="footer-mark">
-    <img src="sigil.png" alt="" aria-hidden="true">
-    <span>Librarians' Assembly · Holocron Archives</span>
+    <img src="sigil.png" alt="">
+    <div class="footer-mark-text">Librarians' Assembly · Holocron Archives</div>
   </div>
-  <div><a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a> · By patience, by record, by light</div>
+  <div class="footer-links">
+    <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a>
+  </div>
+  <div class="footer-mark-text" style="opacity: 0.4; margin-top: 0.6rem;">By patience, by record, by light</div>
   <div class="footer-revised" id="footer-revised" hidden></div>
   <div class="footer-update" id="footer-update" hidden></div>
 </footer>
 
-<!-- CORNER SENTINEL -->
 <div class="holo-sentinel" id="holo-sentinel">
   <span class="holo-sentinel-hint">Consult the Holocron</span>
   <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -2666,7 +881,6 @@ footer a:hover { color: var(--gold); }
   </svg>
 </div>
 
-<!-- HERETIC CRYSTAL (easter egg — top-left, hidden until activated) -->
 <div class="holo-heretic" id="holo-heretic" aria-hidden="true">
   <span class="holo-heretic-hint">A Lost Holocron</span>
   <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -2692,29 +906,18 @@ footer a:hover { color: var(--gold); }
   </svg>
 </div>
 
-<!-- LORE QUOTE OVERLAY -->
 <div class="lore-overlay" id="lore-overlay">
   <div class="lore-panel">
     <button class="lore-close" id="lore-close">Close</button>
     <div class="lore-holo">
       <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="lFaceLight" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#a8e0ff"/>
-            <stop offset="100%" stop-color="#1e5a9c"/>
-          </linearGradient>
-          <linearGradient id="lFaceDark" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#3a7ad0"/>
-            <stop offset="100%" stop-color="#08203a"/>
-          </linearGradient>
-        </defs>
         <g stroke="#040a18" stroke-width="0.8">
-          <polygon points="50,8 85,28 50,50" fill="url(#lFaceLight)"/>
-          <polygon points="85,28 85,72 50,50" fill="url(#lFaceDark)"/>
-          <polygon points="85,72 50,92 50,50" fill="url(#lFaceLight)" opacity="0.7"/>
-          <polygon points="50,92 15,72 50,50" fill="url(#lFaceDark)"/>
-          <polygon points="15,72 15,28 50,50" fill="url(#lFaceLight)" opacity="0.85"/>
-          <polygon points="15,28 50,8 50,50" fill="url(#lFaceDark)" opacity="0.9"/>
+          <polygon points="50,8 85,28 50,50" fill="url(#cFaceLight)"/>
+          <polygon points="85,28 85,72 50,50" fill="url(#cFaceDark)"/>
+          <polygon points="85,72 50,92 50,50" fill="url(#cFaceLight)" opacity="0.7"/>
+          <polygon points="50,92 15,72 50,50" fill="url(#cFaceDark)"/>
+          <polygon points="15,72 15,28 50,50" fill="url(#cFaceLight)" opacity="0.85"/>
+          <polygon points="15,28 50,8 50,50" fill="url(#cFaceDark)" opacity="0.9"/>
           <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
         </g>
       </svg>
@@ -2725,373 +928,80 @@ footer a:hover { color: var(--gold); }
 </div>
 
 <script>
-// Reveal-on-scroll for .fade-in elements
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('in'), i * 80);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
+// Reveal-on-scroll
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+// Scroll progress bar
+(function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  let ticking = false;
+  function update() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = pct + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+})();
 
-// ---------------------------------------------------------------------
-// Rank requirements modal
-// ---------------------------------------------------------------------
-const RANK_DATA = {
-  pledge: {
-    tier: 'Low Ranks',
-    name: 'Pledge',
-    desc: "Pledges are unofficial members of the division who have recently passed the Librarians' Assembly application. They have full access to the Librarian robes and team. Pledges have one week to achieve Student and be accepted into the Assembly as a bonafide member.",
-    reqs: [
-      "Pass the application, OR be handpicked with reason by a member of High Command.",
-    ],
-  },
-  student: {
-    tier: 'Low Ranks',
-    name: 'Student',
-    desc: "Students are full-fledged members of the Librarians' Assembly. The first of the low ranks, they may begin working towards advancing in the Assembly.",
-    reqs: [
-      "1 submission (one chance of revision will be granted).",
-      "Pass the orientation quiz.",
-      "Must be a member of the Consular Pathway.",
-    ],
-  },
-  librarian: {
-    tier: 'Low Ranks',
-    name: 'Librarian',
-    desc: "Librarians are low-ranks of the Assembly who have begun to prove themselves as members. They may now gear up for the rank of Intellect.",
-    reqs: [
-      "3 submissions.",
-      "Attend 4 trainings.",
-      "Have been a Student for at least 1 day.",
-    ],
-  },
-  intellect: {
-    tier: 'Middle Ranks',
-    name: 'Intellect',
-    desc: "Intellects are the first official middle-rank of the Jedi Librarians' Assembly. They have gained enough knowledge and maturity to co-host training sessions.",
-    reqs: [
-      "6 submissions.",
-      "Attend 10 trainings.",
-      "Attend a Patrol.",
-      "Attend an Advanced Introductory Lecture.",
-      "Attend 1 of: Seminar, Symposium, Debate, or Activity Push.",
-      "Have been a Librarian for at least 3 days.",
-    ],
-  },
-  tutor: {
-    tier: 'Middle Ranks',
-    name: 'Tutor',
-    desc: "Tutors are highly respected and have gained much knowledge within the Assembly. They are permitted to assist the High Ranks.",
-    reqs: [
-      "8 submissions.",
-      "Attend 16 trainings.",
-      "Co-host 5 events.",
-      "Attend 3 of: Seminar, Symposium, Debate, Activity Push, or Patrol.",
-      "Have been an Intellect for at least 5 days.",
-    ],
-  },
-  'lore-keeper': {
-    tier: 'High Ranks',
-    name: 'Lore Keeper',
-    desc: "Lore Keepers are dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom and knowledge.",
-    reqs: [
-      "10 submissions.",
-      "Attend 20 trainings.",
-      "Co-host 8 events.",
-      "Attend 4 of: Seminar, Symposium, Debate, Activity Push, or Patrol.",
-      "Receive 2 Divisional or higher Endorsements.",
-      "Become Librarian of the Week at least once.",
-      "Pass a High Command + Archivist vote to take the Trials.",
-      "Have been a Tutor for at least 1 week.",
-      "Must be a Consular AJK.",
-    ],
-  },
-  archivist: {
-    tier: 'High Ranks',
-    name: 'Archivist',
-    desc: "Archivists are the Senior High Ranks of the Assembly. Held to the highest level of critical thinking and team management, they take charge in managing both the Assembly and the High Ranks, acting as mentors to all.",
-    reqs: [
-      "Have no active strikes within TJO or LA.",
-      "Served as a Lore Keeper for two weeks (excluding the Probationary Period and any Inactivity Notices).",
-      "Host 35 events.",
-      "Review 20 submissions.",
-      "Become High Rank of the Week at least three times.",
-      "Write a 500-word minimum essay about your journey in LA and why you have stayed for so long.",
-      "In the same document as your essay, write an example of an explanation of the Assembly to a recently joined Pledge.",
-      "Pass a unanimous High Command vote.",
-    ],
-  },
-  historian: {
-    tier: 'High Command',
-    name: 'Historian',
-    desc: "The Historian is a highly respected rank within the Jedi Order, acting as a role model to those of lower rank. They assist the Curator in overseeing the High Ranks, and report directly to the Curator of the Archives and Chief Librarian.",
-    reqs: [
-      "Be handpicked by the Chief Librarian and the Curator of the Archives.",
-    ],
-  },
-  curator: {
-    tier: 'High Command',
-    name: 'Curator of the Archives',
-    desc: "Curator of the Archives is the second-in-command of the Librarians' Assembly. This person directly oversees the High Ranks and reports to the Chief Librarian.",
-    reqs: [
-      "Be handpicked by the Chief Librarian.",
-    ],
-  },
-  chief: {
-    tier: 'High Command',
-    name: 'Chief Librarian',
-    desc: "Chief Librarian is the highest achievable rank, in first command of the Librarians' Assembly. This person oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.",
-    reqs: [
-      "Be chosen by the Jedi High Council.",
-    ],
-  },
-};
-
-const overlay = document.getElementById('modal-overlay');
-const modalClose = document.getElementById('modal-close');
-const modalTier = document.getElementById('modal-tier');
-const modalName = document.getElementById('modal-name');
-const modalDesc = document.getElementById('modal-desc');
-const modalReqs = document.getElementById('modal-reqs');
-
-function openRank(key) {
-  const data = RANK_DATA[key];
-  if (!data) return;
-  modalTier.textContent = data.tier;
-  modalName.textContent = data.name;
-  modalDesc.textContent = data.desc;
-  modalReqs.innerHTML = '';
-  data.reqs.forEach(r => {
-    const li = document.createElement('li');
-    li.textContent = r;
-    modalReqs.appendChild(li);
-  });
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.querySelectorAll('.rank').forEach(btn => {
-  btn.addEventListener('click', () => openRank(btn.dataset.rank));
-});
-modalClose.addEventListener('click', closeModal);
-overlay.addEventListener('click', (e) => {
-  if (e.target === overlay) closeModal();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-});
-
-// ---------------------------------------------------------------------
-// HIGH COMMAND MODAL
-// ---------------------------------------------------------------------
-const HISTORIAN_DESC = "Historians are the two junior members of the High Command team. They help oversee the daily functions, and act as mentors and firm hands for the High Rank team and the rest of the Institution. They are learning the reigns of leadership in the Assembly. They can usually help you with most issues you may have.";
-
-const HC_DATA = {
-  rudz: {
-    rank: 'Historian',
-    name: 'RuDz_Shark',
-    handle: '@purplehaze9347',
-    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=2645685396&width=420&height=420&format=png',
-    desc: HISTORIAN_DESC,
-  },
-  alex: {
-    rank: 'Historian',
-    name: 'Alexsnakk',
-    handle: '@skullcruncher44',
-    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=50358768&width=420&height=420&format=png',
-    desc: HISTORIAN_DESC,
-  },
-  pau: {
-    rank: 'Curator of the Archives',
-    name: 'PauVelaria',
-    handle: '@pauvelaria',
-    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=1571021558&width=420&height=420&format=png',
-    desc: "The Curator of the Archives serves as the Second-in-Command of the Assembly, serving as a major supporter of the Chief Librarian; being qualified enough to step up in the event that the Chief Librarian is indisposed. Any concerns regarding a High Rank should be taken to them.",
-  },
-  valk: {
-    rank: 'Chief Librarian',
-    name: 'Valkorion9872',
-    handle: '@valkorion9872',
-    avatar: 'https://www.roblox.com/headshot-thumbnail/image?userId=1118092442&width=420&height=420&format=png',
-    desc: "The Chief Librarian is the Overseer and First-in-Command of the Librarians' Assembly. They serve on the Council of First Knowledge and relay the Assembly's concerns to the wider Council. Their main duty is to maintain the stability of the Assembly and lead it to a brighter future.",
-  },
-};
-
-const hcOverlay = document.getElementById('hc-modal-overlay');
-const hcClose = document.getElementById('hc-modal-close');
-const hcPortrait = document.getElementById('hc-modal-portrait');
-const hcRank = document.getElementById('hc-modal-rank');
-const hcName = document.getElementById('hc-modal-name');
-const hcHandle = document.getElementById('hc-modal-handle');
-const hcDesc = document.getElementById('hc-modal-desc');
-
-function openHC(key) {
-  const data = HC_DATA[key];
-  if (!data) return;
-  // Reset any fallback class from a previous open
-  hcPortrait.classList.remove('hc-avatar-fallback');
-  hcPortrait.src = data.avatar;
-  hcPortrait.onerror = function() {
-    this.src = 'sigil.png';
-    this.classList.add('hc-avatar-fallback');
-  };
-  hcRank.textContent = data.rank;
-  hcName.textContent = data.name;
-  hcHandle.textContent = data.handle;
-  hcDesc.textContent = data.desc;
-  hcOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeHC() {
-  hcOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.querySelectorAll('.hc-card').forEach(btn => {
-  btn.addEventListener('click', () => openHC(btn.dataset.hc));
-});
-hcClose.addEventListener('click', closeHC);
-hcOverlay.addEventListener('click', (e) => {
-  if (e.target === hcOverlay) closeHC();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && hcOverlay.classList.contains('open')) closeHC();
-});
-
-// ---------------------------------------------------------------------
-// HOLOCRON SYSTEM
-// ---------------------------------------------------------------------
-
-// Original LA-flavoured maxims. Short, scholarly, unattributed where best.
+// LORE QUOTE POOL
 const LORE_QUOTES = [
-  // On preservation
   { text: "What is preserved, endures. What is taught, multiplies.", attribution: "Maxim of the First Curators" },
   { text: "Time forgets; the record remembers.", attribution: "Frieze, the Great Archive" },
   { text: "A page unread is a page not yet written.", attribution: "Reflection of an Archivist" },
   { text: "Dust is patient, but ink is patient longer.", attribution: "Apocrypha of the Sixth Hall" },
   { text: "The Order does not write history. The Order keeps it.", attribution: "First Lesson of the Pledge" },
-
-  // On knowledge & wisdom
   { text: "Knowledge unguarded is knowledge lost.", attribution: "From the Vigil's Charter" },
   { text: "Wisdom unspoken is wisdom unproven.", attribution: "Tutor's Reflection" },
   { text: "A scholar without a question is an archive without a key.", attribution: "Inscription, Reading Hall" },
   { text: "To know one thing well is to suspect ten thousand things rightly.", attribution: "Saying of the Lore Keepers" },
   { text: "Certainty is a door. Curiosity is the room beyond it.", attribution: "Margin note, Untitled Codex" },
   { text: "The greatest archive is the one not yet catalogued.", attribution: "Curator's Lament" },
-
-  // On instruction
   { text: "The first duty of the Librarian is to listen.", attribution: "Pledge of the Assembly" },
   { text: "A teacher who does not learn becomes the student of their own ignorance.", attribution: "On the Practice of Instruction" },
   { text: "We do not teach what we know. We teach what we still wonder.", attribution: "Tutor's Reflection" },
   { text: "Every Pledge inherits the question we have not yet answered.", attribution: "Curator's Address" },
   { text: "To instruct is to admit that one's own learning is unfinished.", attribution: "From the Tutor's Compendium" },
-
-  // On discourse & truth
   { text: "Truth is found in argument, not in silence.", attribution: "On the Practice of Discourse" },
   { text: "A debate well held is a record well kept.", attribution: "Symposium Notes" },
   { text: "We do not seek to be right. We seek to be less wrong.", attribution: "Maxim of the Debate Hall" },
   { text: "The pen that records the disagreement matters more than the voice that wins it.", attribution: "Inscription, Hall of Discourse" },
-
-  // On patience & endurance
   { text: "By patience, by record, by light.", attribution: "Motto of the Order" },
   { text: "The archive was not built in haste, and shall not be read in haste.", attribution: "Saying of the Curators" },
   { text: "Slowness is the discipline of those who intend to remember.", attribution: "Reflection of an Archivist" },
   { text: "What burns quickly is rarely worth keeping.", attribution: "Apocrypha of the Sixth Hall" },
-
-  // On duty & vigilance
   { text: "We do not draw the saber first. We draw the record.", attribution: "Vigil's Creed" },
   { text: "An empty shelf is the first sign of a forgotten people.", attribution: "Historian's Warning" },
   { text: "To guard knowledge is to guard those who will need it after us.", attribution: "From the Vigil's Charter" },
   { text: "The Assembly serves the question, not the questioner.", attribution: "First Lesson of the Pledge" },
-
-  // On the Force, framed scholarly
   { text: "The Force is not learned. It is studied without end.", attribution: "Saying of the Lore Keepers" },
   { text: "Light, like knowledge, multiplies when shared and dims when hoarded.", attribution: "Maxim of the First Curators" },
   { text: "We are the candles set in the long hall of the Order.", attribution: "Address to the Assembly" },
-
-  // Aphoristic / philosophical
   { text: "Every answer is the doorway to a better question.", attribution: "Margin note, Untitled Codex" },
   { text: "The Galaxy is loud. The Archive is quiet. Both are necessary.", attribution: "Curator's Lament" },
   { text: "We are not the heroes of the story. We are the ones who see that it is told.", attribution: "Historian's Reflection" },
   { text: "What we record today, our successors will measure us by.", attribution: "Address to the Assembly" },
 ];
 
-// Track recently-shown quotes so the random pick doesn't immediately repeat.
-const RECENT_QUOTES = [];
-const RECENT_BUFFER = 6;  // never show a quote that was in the last 6 picks
-
-const loreOverlay = document.getElementById('lore-overlay');
-const loreClose = document.getElementById('lore-close');
-const loreText = document.getElementById('lore-text');
-const loreAttribution = document.getElementById('lore-attribution');
-
-function showRandomQuote(pool) {
-  pool = pool || LORE_QUOTES;
-  // Pick an index that hasn't been shown recently
-  let idx;
-  let attempts = 0;
-  do {
-    idx = Math.floor(Math.random() * pool.length);
-    attempts++;
-  } while (RECENT_QUOTES.includes(pool === LORE_QUOTES ? idx : 'h' + idx) && attempts < 30);
-
-  // Update the recent-buffer (FIFO) — namespace heretic indices with 'h' prefix
-  RECENT_QUOTES.push(pool === LORE_QUOTES ? idx : 'h' + idx);
-  if (RECENT_QUOTES.length > RECENT_BUFFER) RECENT_QUOTES.shift();
-
-  const q = pool[idx];
-  loreText.textContent = q.text;
-  loreAttribution.textContent = q.attribution;
-  loreOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLore() {
-  loreOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// Sentinel: random quote + easter-egg click counter
-let SENTINEL_CLICK_COUNT = 0;
-let HERETIC_REVEALED = false;
-const heretic = document.getElementById('holo-heretic');
-
-function handleSentinelClick() {
-  SENTINEL_CLICK_COUNT++;
-  if (SENTINEL_CLICK_COUNT >= 7 && !HERETIC_REVEALED) {
-    HERETIC_REVEALED = true;
-    heretic.classList.add('revealed');
-    heretic.setAttribute('aria-hidden', 'false');
-  }
-  showRandomQuote(LORE_QUOTES);
-}
-document.getElementById('holo-sentinel').addEventListener('click', handleSentinelClick);
-
-// Heretic crystal: heretic quote pool
-heretic.addEventListener('click', () => showRandomQuote(HERETIC_QUOTES));
-
-// Close handlers
-loreClose.addEventListener('click', closeLore);
-loreOverlay.addEventListener('click', (e) => {
-  if (e.target === loreOverlay) closeLore();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
-});
-
-// ---------------------------------------------------------------------
-// HERETIC QUOTE POOL — appears only after the easter egg is unlocked
-// ---------------------------------------------------------------------
 const HERETIC_QUOTES = [
   { text: "The archive remembers what the archivist would forget.", attribution: "Apocrypha · folio uncertain" },
   { text: "Truth is what survives the burning.", attribution: "Marginalia · unsigned" },
@@ -3107,206 +1017,74 @@ const HERETIC_QUOTES = [
   { text: "The catalogue is older than its keepers, and crueler.", attribution: "Apocrypha · folio uncertain" },
 ];
 
-// ---------------------------------------------------------------------
-// TRIAL OF KNOWLEDGE — quiz
-// ---------------------------------------------------------------------
-const QUIZ_QUESTIONS = [
-  {
-    q: "On which Council does the Chief Librarian serve?",
-    options: ["The High Council", "The Council of Reconciliation", "The Council of First Knowledge", "The Council of Reassignment"],
-    answer: 2,
-  },
-  {
-    q: "What position does the Curator of the Archives hold within the Assembly?",
-    options: ["Senior High Rank", "Second-in-Command", "Honorary Advisor", "Equal of the Chief Librarian"],
-    answer: 1,
-  },
-  {
-    q: "How many tiers comprise the Path of Ascension?",
-    options: ["Three", "Four", "Five", "Six"],
-    answer: 1,
-  },
-  {
-    q: "Which rank immediately precedes Historian on the Path of Ascension?",
-    options: ["Tutor", "Lore Keeper", "Archivist", "Curator of the Archives"],
-    answer: 2,
-  },
-  {
-    q: "Who handpicks the Curator of the Archives?",
-    options: ["The Jedi High Council", "The Chief Librarian", "A vote of all High Ranks", "The retiring Curator"],
-    answer: 1,
-  },
-  {
-    q: "How long does a Pledge have to achieve Student?",
-    options: ["Three days", "One week", "Two weeks", "One month"],
-    answer: 1,
-  },
-  {
-    q: "Who chooses the Chief Librarian?",
-    options: ["The Curator of the Archives", "The retiring Chief Librarian", "The Jedi High Council", "A vote of the Assembly"],
-    answer: 2,
-  },
-  {
-    q: "Which Jedi class must a Lore Keeper hold?",
-    options: ["Sentinel AJK", "Guardian AJK", "Consular AJK", "Any class"],
-    answer: 2,
-  },
-];
+// TODAY'S DAILY READING — same deterministic-by-date logic as reading.html
+(function initTodaysReading() {
+  const quoteEl = document.getElementById('todays-reading-quote');
+  const attrEl = document.getElementById('todays-reading-attribution');
+  const dateEl = document.getElementById('todays-reading-date');
+  if (!quoteEl || !attrEl || !dateEl) return;
+  const now = new Date();
+  const epoch = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const days = Math.floor(epoch / (1000 * 60 * 60 * 24));
+  const idx = days % LORE_QUOTES.length;
+  const q = LORE_QUOTES[idx];
+  quoteEl.textContent = q.text;
+  attrEl.textContent = '— ' + q.attribution;
+  dateEl.textContent = now.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+})();
 
-const QUIZ_RESULT_TIERS = [
-  { min: 0, max: 2, rank: "Pledge", msg: "The first steps of any keeper are uncertain. The Archive is patient." },
-  { min: 3, max: 4, rank: "Student", msg: "A foundation is laid. With study, every text yields its meaning in time." },
-  { min: 5, max: 5, rank: "Intellect", msg: "A respectable showing. The shape of the Order is becoming clear to you." },
-  { min: 6, max: 6, rank: "Tutor", msg: "Confidently familiar. You could already begin teaching others what you know." },
-  { min: 7, max: 7, rank: "Lore Keeper", msg: "The lore is in good hands. Few outside the Assembly answer this well." },
-  { min: 8, max: 8, rank: "Chief Librarian", msg: "Flawless. The catalogue itself could not have answered better." },
-];
+// HOLOCRON SENTINEL + lore overlay
+const RECENT_QUOTES = [];
+const RECENT_BUFFER = 6;
+const loreOverlay = document.getElementById('lore-overlay');
+const loreClose = document.getElementById('lore-close');
+const loreText = document.getElementById('lore-text');
+const loreAttribution = document.getElementById('lore-attribution');
 
-const quizOverlay = document.getElementById('quiz-overlay');
-const quizClose = document.getElementById('quiz-close');
-const quizBody = document.getElementById('quiz-body');
-const quizResult = document.getElementById('quiz-result');
-const quizProgress = document.getElementById('quiz-progress');
-const quizQLabel = document.getElementById('quiz-question-label');
-const quizQ = document.getElementById('quiz-question');
-const quizOpts = document.getElementById('quiz-options');
-const quizScoreLabel = document.getElementById('quiz-score-label');
-const quizNext = document.getElementById('quiz-next');
-const quizResultScore = document.getElementById('quiz-result-score');
-const quizResultRank = document.getElementById('quiz-result-rank');
-const quizResultMsg = document.getElementById('quiz-result-msg');
-const quizRestart = document.getElementById('quiz-restart');
-
-let quizIndex = 0;
-let quizScore = 0;
-let quizAnswered = false;
-
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
-
-function renderQuizProgress() {
-  quizProgress.innerHTML = '';
-  for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
-    const pip = document.createElement('div');
-    pip.className = 'pip';
-    if (i < quizIndex) pip.classList.add('done');
-    else if (i === quizIndex) pip.classList.add('current');
-    quizProgress.appendChild(pip);
-  }
-}
-
-function renderQuizQuestion() {
-  quizAnswered = false;
-  const data = QUIZ_QUESTIONS[quizIndex];
-  quizQLabel.textContent = 'Question ' + ROMAN[quizIndex];
-  quizQ.textContent = data.q;
-  quizOpts.innerHTML = '';
-  data.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-option';
-    btn.innerHTML = '<span class="quiz-letter">' + String.fromCharCode(65 + i) + '.</span><span>' + opt + '</span>';
-    btn.addEventListener('click', () => selectQuizOption(btn, i));
-    quizOpts.appendChild(btn);
-  });
-  quizScoreLabel.textContent = 'Score: ' + quizScore;
-  quizNext.classList.remove('ready');
-  quizNext.textContent = quizIndex === QUIZ_QUESTIONS.length - 1 ? 'See result →' : 'Next →';
-  renderQuizProgress();
-}
-
-function selectQuizOption(btn, idx) {
-  if (quizAnswered) return;
-  quizAnswered = true;
-  const data = QUIZ_QUESTIONS[quizIndex];
-  const all = quizOpts.querySelectorAll('.quiz-option');
-  all.forEach((b, i) => {
-    b.disabled = true;
-    if (i === data.answer) b.classList.add('correct');
-    else if (i === idx) b.classList.add('wrong');
-  });
-  if (idx === data.answer) {
-    quizScore++;
-    quizScoreLabel.textContent = 'Score: ' + quizScore;
-  }
-  quizNext.classList.add('ready');
-}
-
-function advanceQuiz() {
-  if (!quizAnswered) return;
-  quizIndex++;
-  if (quizIndex >= QUIZ_QUESTIONS.length) {
-    showQuizResult();
-  } else {
-    renderQuizQuestion();
-  }
-}
-
-function showQuizResult() {
-  quizBody.style.display = 'none';
-  quizResult.style.display = 'block';
-  quizResultScore.textContent = quizScore + ' / ' + QUIZ_QUESTIONS.length;
-  const tier = QUIZ_RESULT_TIERS.find(t => quizScore >= t.min && quizScore <= t.max) || QUIZ_RESULT_TIERS[0];
-  quizResultRank.textContent = tier.rank + '-tier';
-  quizResultMsg.textContent = tier.msg;
-}
-
-function startQuiz() {
-  quizIndex = 0;
-  quizScore = 0;
-  quizBody.style.display = 'block';
-  quizResult.style.display = 'none';
-  renderQuizQuestion();
-  quizOverlay.classList.add('open');
+function showRandomQuote(pool) {
+  pool = pool || LORE_QUOTES;
+  let idx, attempts = 0;
+  do {
+    idx = Math.floor(Math.random() * pool.length);
+    attempts++;
+  } while (RECENT_QUOTES.includes(pool === LORE_QUOTES ? idx : 'h' + idx) && attempts < 30);
+  RECENT_QUOTES.push(pool === LORE_QUOTES ? idx : 'h' + idx);
+  if (RECENT_QUOTES.length > RECENT_BUFFER) RECENT_QUOTES.shift();
+  const q = pool[idx];
+  loreText.textContent = q.text;
+  loreAttribution.textContent = q.attribution;
+  loreOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
-function closeQuiz() {
-  quizOverlay.classList.remove('open');
+function closeLore() {
+  loreOverlay.classList.remove('open');
   document.body.style.overflow = '';
 }
 
-document.getElementById('trial-open').addEventListener('click', startQuiz);
-quizClose.addEventListener('click', closeQuiz);
-quizNext.addEventListener('click', advanceQuiz);
-quizRestart.addEventListener('click', startQuiz);
-quizOverlay.addEventListener('click', (e) => {
-  if (e.target === quizOverlay) closeQuiz();
+let SENTINEL_CLICK_COUNT = 0;
+let HERETIC_REVEALED = false;
+const heretic = document.getElementById('holo-heretic');
+
+document.getElementById('holo-sentinel').addEventListener('click', () => {
+  SENTINEL_CLICK_COUNT++;
+  if (SENTINEL_CLICK_COUNT >= 7 && !HERETIC_REVEALED) {
+    HERETIC_REVEALED = true;
+    heretic.classList.add('revealed');
+    heretic.setAttribute('aria-hidden', 'false');
+  }
+  showRandomQuote(LORE_QUOTES);
+});
+heretic.addEventListener('click', () => showRandomQuote(HERETIC_QUOTES));
+
+loreClose.addEventListener('click', closeLore);
+loreOverlay.addEventListener('click', (e) => {
+  if (e.target === loreOverlay) closeLore();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
+  if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
 });
 
-// ---------------------------------------------------------------------
-// SCROLL PROGRESS BAR — gold line at top, fills as page is scrolled
-// ---------------------------------------------------------------------
-function initScrollProgress() {
-  const bar = document.getElementById('scroll-progress');
-  if (!bar) return;
-  let ticking = false;
-  function update() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = pct + '%';
-    ticking = false;
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(update);
-      ticking = true;
-    }
-  }, { passive: true });
-  update();
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initScrollProgress);
-} else {
-  initScrollProgress();
-}
-
-// ---------------------------------------------------------------------
-// LAST REVISED — fetch the most recent commit date from the GitHub repo
-// and show it in the footer. Silently hides itself on any failure.
-// ---------------------------------------------------------------------
+// LAST REVISED + WHAT'S NEW (footer)
 function initLastRevised() {
   const el = document.getElementById('footer-revised');
   const updEl = document.getElementById('footer-update');
@@ -3324,9 +1102,7 @@ function initLastRevised() {
         el.hidden = false;
       }
       if (updEl) {
-        // Keep just the first line / first sentence of the commit message; trim length.
         let msg = (c.message || '').split('\n')[0].trim();
-        // Strip common conventional-commit prefixes that look noisy in a footer.
         msg = msg.replace(/^(feat|fix|chore|docs|style|refactor|test|build|ci|perf)(\([^)]*\))?:\s*/i, '');
         if (!msg) return;
         if (msg.length > 80) msg = msg.slice(0, 77).replace(/\s+\S*$/, '') + '…';
@@ -3334,7 +1110,7 @@ function initLastRevised() {
         updEl.hidden = false;
       }
     })
-    .catch(() => { /* silently keep the lines hidden */ });
+    .catch(() => {});
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initLastRevised);
@@ -3342,28 +1118,20 @@ if (document.readyState === 'loading') {
   initLastRevised();
 }
 
-// ---------------------------------------------------------------------
-// TYPEWRITER — types out the hero title once on first load
-// ---------------------------------------------------------------------
+// TYPEWRITER
 function initTypewriter() {
   const title = document.getElementById('hero-title');
   const line1 = document.getElementById('typewriter-line-1');
   const line2 = document.getElementById('typewriter-line-2');
   if (!title || !line1 || !line2) return;
-  // Respect reduced-motion preference: leave content visible, skip animation.
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   const text1 = line1.textContent;
   const text2 = line2.textContent;
   line1.textContent = '';
   line2.textContent = '';
   title.classList.add('typewriting');
-
   let i = 0, j = 0;
-  const speed1 = 90;
-  const speed2 = 110;
-  const gap = 280;
-
+  const speed1 = 90, speed2 = 110, gap = 280;
   function typeFirst() {
     if (i < text1.length) {
       line1.textContent += text1.charAt(i++);
@@ -3388,161 +1156,6 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initTypewriter);
 } else {
   initTypewriter();
-}
-
-// ---------------------------------------------------------------------
-// ACTIVE NAV STATE — highlights the topnav link for the section in view
-// ---------------------------------------------------------------------
-function initActiveNav() {
-  const navLinks = Array.from(document.querySelectorAll('.topnav a[href^="#"]'));
-  if (navLinks.length === 0) return;
-
-  // Map each nav link to its target section element
-  const linkSections = navLinks
-    .map(link => {
-      const id = link.getAttribute('href').slice(1);
-      const section = id ? document.getElementById(id) : null;
-      return section ? { link, section } : null;
-    })
-    .filter(Boolean);
-  if (linkSections.length === 0) return;
-
-  function setActive(activeLink) {
-    navLinks.forEach(l => l.classList.toggle('active', l === activeLink));
-  }
-
-  // IntersectionObserver: whichever section's top edge is closest to viewport top wins.
-  const observer = new IntersectionObserver((entries) => {
-    // Find any currently-intersecting entries
-    const intersecting = linkSections.filter(({ section }) => {
-      const r = section.getBoundingClientRect();
-      return r.top <= 120 && r.bottom > 120;
-    });
-    if (intersecting.length > 0) {
-      setActive(intersecting[intersecting.length - 1].link);
-    }
-  }, { rootMargin: '-100px 0px -60% 0px', threshold: [0, 0.1, 0.5] });
-
-  linkSections.forEach(({ section }) => observer.observe(section));
-
-  // Also wire scroll for snappier feel (IntersectionObserver alone can lag at the top)
-  let scrollTicking = false;
-  function onScroll() {
-    if (scrollTicking) return;
-    scrollTicking = true;
-    window.requestAnimationFrame(() => {
-      const offset = 140; // sticky topbar height + buffer
-      let current = null;
-      for (const ls of linkSections) {
-        const rect = ls.section.getBoundingClientRect();
-        if (rect.top <= offset) current = ls;
-      }
-      setActive(current ? current.link : null);
-      scrollTicking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initActiveNav);
-} else {
-  initActiveNav();
-}
-
-// ---------------------------------------------------------------------
-// OATH GENERATOR — accepts a name, displays styled oath card
-// ---------------------------------------------------------------------
-function initOath() {
-  const input = document.getElementById('oath-input');
-  const submit = document.getElementById('oath-submit');
-  const card = document.getElementById('oath-card');
-  const cardName = document.getElementById('oath-card-name');
-  const copyBtn = document.getElementById('oath-copy');
-  const resetBtn = document.getElementById('oath-reset');
-  if (!input || !submit || !card || !cardName) return;
-
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  function inscribe() {
-    const raw = (input.value || '').trim();
-    if (!raw) {
-      input.focus();
-      return;
-    }
-    cardName.textContent = raw;
-    card.classList.add('shown');
-    // Smooth scroll the card into view
-    setTimeout(() => {
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 50);
-  }
-
-  submit.addEventListener('click', inscribe);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      inscribe();
-    }
-  });
-
-  if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
-      const name = cardName.textContent;
-      const txt = [
-        '~ Oath of the Keeper ~',
-        '',
-        'I, ' + name + ',',
-        'do pledge to keep the record by patience, by record, by light;',
-        'to teach what I have learned, and to learn what I have not;',
-        'to hold the Archive above convenience,',
-        'and the Order above myself.',
-        '',
-        '— So sealed beneath the sigil —',
-      ].join('\n');
-      const showCopied = () => {
-        const orig = copyBtn.textContent;
-        copyBtn.textContent = 'Copied ✓';
-        setTimeout(() => { copyBtn.textContent = orig; }, 1500);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(txt).then(showCopied).catch(() => {
-          // Fallback: textarea + execCommand
-          fallbackCopy(txt, showCopied);
-        });
-      } else {
-        fallbackCopy(txt, showCopied);
-      }
-    });
-  }
-  function fallbackCopy(txt, cb) {
-    const ta = document.createElement('textarea');
-    ta.value = txt;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); cb && cb(); } catch (_) {}
-    document.body.removeChild(ta);
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      card.classList.remove('shown');
-      input.value = '';
-      input.focus();
-      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  }
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initOath);
-} else {
-  initOath();
 }
 </script>
 
