@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome · Librarians' Assembly</title>
+<meta name="description" content="A short introduction to the Librarians' Assembly. What we are, what we do, and how to begin.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Welcome to the Librarians' Assembly">
+<meta property="og:description" content="A short introduction to the Order. What we are, what we do, and how to begin.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/welcome.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   WELCOME PAGE
+   Minimal layout. No topnav, no footer. Threshold not hub.
+   ======================================================================== */
+
+/* Hide the topbar entirely on this page */
+.topbar { display: none; }
+
+.welcome {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+}
+
+/* Compact hero */
+.welcome-hero {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+}
+.welcome-sigil {
+  width: 64px;
+  height: 64px;
+  opacity: 0.85;
+  margin-bottom: 1.6rem;
+  filter: drop-shadow(0 0 24px rgba(199, 154, 58, 0.4));
+}
+.welcome-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+.welcome-title {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 1.2rem;
+}
+.welcome-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.welcome-sub {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.78;
+  max-width: 32rem;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* Section ornament reused */
+.welcome-ornament {
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+  color: var(--gold);
+  opacity: 0.5;
+}
+.welcome-ornament svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.2;
+}
+
+/* What is this section — three short prose paragraphs */
+.welcome-prose {
+  max-width: 36rem;
+  margin: 0 auto 5rem;
+}
+.welcome-prose-eyebrow {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  opacity: 0.85;
+}
+.welcome-prose p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  opacity: 0.88;
+  margin-bottom: 1.4rem;
+  font-weight: 300;
+}
+.welcome-prose em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+/* What's inside — 5 small cards */
+.welcome-inside {
+  margin-bottom: 5rem;
+}
+.welcome-inside-eyebrow {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  opacity: 0.85;
+}
+.welcome-inside-heading {
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin-bottom: 2.5rem;
+}
+.welcome-inside-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.welcome-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+.welcome-card {
+  display: block;
+  padding: 1.6rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.2);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.4s, background 0.4s, transform 0.4s;
+}
+.welcome-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.welcome-card-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+.welcome-card:hover .welcome-card-name {
+  color: var(--gold-bright);
+}
+.welcome-card-rule {
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0.4rem auto 0.7rem;
+  opacity: 0.5;
+  transition: width 0.4s, opacity 0.4s;
+}
+.welcome-card:hover .welcome-card-rule {
+  width: 40px;
+  opacity: 1;
+}
+.welcome-card-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+/* A Voice — pulled quote from voices.html as social proof */
+.welcome-voice {
+  max-width: 36rem;
+  margin: 0 auto 5rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.welcome-voice-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  opacity: 0.7;
+}
+.welcome-voice-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.4rem);
+  line-height: 1.55;
+  margin-bottom: 1.4rem;
+  padding: 0 1rem;
+}
+.welcome-voice-quote::before, .welcome-voice-quote::after {
+  content: '"';
+  color: var(--gold);
+  opacity: 0.55;
+  margin: 0 0.18em;
+  font-size: 1.3em;
+}
+.welcome-voice-attribution {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+/* Two CTAs */
+.welcome-actions {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.welcome-actions-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  opacity: 0.85;
+}
+.welcome-btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.welcome-btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid;
+}
+.welcome-btn-primary {
+  background: var(--gold);
+  color: var(--ink-deep);
+  border-color: var(--gold);
+}
+.welcome-btn-primary:hover {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+  transform: translateY(-2px);
+}
+.welcome-btn-secondary {
+  background: transparent;
+  color: var(--gold);
+  border-color: rgba(199, 154, 58, 0.5);
+}
+.welcome-btn-secondary:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+  color: var(--gold-bright);
+}
+
+/* Just look around escape hatch */
+.welcome-browse {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.welcome-browse a {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--paper);
+  opacity: 0.55;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(244, 234, 210, 0.25);
+  padding-bottom: 2px;
+  transition: color 0.3s, opacity 0.3s, border-color 0.3s;
+}
+.welcome-browse a:hover {
+  opacity: 1;
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* Subtle motto at the very bottom */
+.welcome-motto {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--paper);
+  opacity: 0.4;
+  text-transform: uppercase;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px dotted rgba(244, 234, 210, 0.12);
+}
+
+@media (max-width: 600px) {
+  .welcome { padding: 3rem 1.4rem 3rem; }
+  .welcome-prose { padding: 0 0.5rem; }
+  .welcome-voice { padding: 2.4rem 1rem; }
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink-deep);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar"></header>
+
+<main class="welcome">
+
+  <div class="welcome-hero">
+    <img class="welcome-sigil" src="sigil.png" alt="">
+    <div class="welcome-eyebrow">· Welcome to the Archives ·</div>
+    <h1 class="welcome-title">The <em>Librarians' Assembly</em></h1>
+    <p class="welcome-sub">A specialised collective within the Jedi Order. Keepers of the record, scholars of the Force.</p>
+  </div>
+
+  <div class="welcome-ornament" aria-hidden="true">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="2"/>
+    </svg>
+  </div>
+
+  <section class="welcome-prose">
+    <div class="welcome-prose-eyebrow">· What this is ·</div>
+    <p>
+      The <em>Librarians' Assembly</em> is a community within the wider Jedi
+      Order roleplay. We are a writing-focused guild, organised around the
+      preservation of knowledge, the practice of teaching, and the keeping
+      of careful record. Where other Orders train for combat, we train for
+      the catalogue.
+    </p>
+    <p>
+      Membership is small and the standard high. Pledges are admitted by
+      written application, mentored by Tutors, advanced by submission.
+      Every keeper from Pledge to Chief Librarian holds to the same
+      Charter. The work is patient. The welcome is real.
+    </p>
+    <p>
+      What follows is the Order's record of itself. Read what interests you.
+      If you would join, the petition is at the bottom.
+    </p>
+  </section>
+
+  <div class="welcome-ornament" aria-hidden="true">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="2"/>
+    </svg>
+  </div>
+
+  <section class="welcome-inside">
+    <div class="welcome-inside-eyebrow">· What is inside ·</div>
+    <h2 class="welcome-inside-heading">A short <em>tour</em></h2>
+    <div class="welcome-card-grid">
+      <a class="welcome-card" href="order.html">
+        <div class="welcome-card-name">The Order</div>
+        <div class="welcome-card-rule"></div>
+        <div class="welcome-card-desc">What we are, in our own words.</div>
+      </a>
+      <a class="welcome-card" href="path.html">
+        <div class="welcome-card-name">The Path</div>
+        <div class="welcome-card-rule"></div>
+        <div class="welcome-card-desc">Ten ranks, four tiers, one direction.</div>
+      </a>
+      <a class="welcome-card" href="charter.html">
+        <div class="welcome-card-name">The Charter</div>
+        <div class="welcome-card-rule"></div>
+        <div class="welcome-card-desc">Nine articles. The conduct expected of every keeper.</div>
+      </a>
+      <a class="welcome-card" href="voices.html">
+        <div class="welcome-card-name">Voices</div>
+        <div class="welcome-card-rule"></div>
+        <div class="welcome-card-desc">What members say of the Assembly, in their own words.</div>
+      </a>
+      <a class="welcome-card" href="apply.html">
+        <div class="welcome-card-name">Petition</div>
+        <div class="welcome-card-rule"></div>
+        <div class="welcome-card-desc">What is asked of those who would join.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="welcome-voice">
+    <div class="welcome-voice-eyebrow">· A voice from within ·</div>
+    <blockquote class="welcome-voice-quote">I joined expecting to be quiet for a long time before I had anything to add. I learned within a week that quiet is its own form of contribution, and that someone is always listening for it.</blockquote>
+    <div class="welcome-voice-attribution">A Pledge of the Assembly</div>
+  </section>
+
+  <section class="welcome-actions">
+    <div class="welcome-actions-eyebrow">· If you would begin ·</div>
+    <div class="welcome-btn-group">
+      <a class="welcome-btn welcome-btn-primary" href="apply.html">Petition for Membership</a>
+      <a class="welcome-btn welcome-btn-secondary" href="charter.html">Read the Charter first</a>
+    </div>
+  </section>
+
+  <div class="welcome-browse">
+    <a href="index.html">Or just look around &rarr;</a>
+  </div>
+
+  <div class="welcome-motto">By patience, by record, by light</div>
+
+</main>
+
+<script src="search.js" defer></script>
+<script src="sound.js" defer></script>
+<script src="atmosphere.js" defer></script>
+<script src="glossary.js" defer></script>
+</body>
+</html>

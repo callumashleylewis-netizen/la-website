@@ -28,7 +28,7 @@
     { pattern: 'Curator of the Archives', def: "Second-in-Command of the Assembly. Major supporter of the Chief Librarian; qualified to step up if the Chief Librarian is indisposed." },
     { pattern: 'Chief Librarian', def: "Overseer and First-in-Command of the Assembly. Holds a seat on the Council of First Knowledge." },
     { pattern: 'Lore Keeper', def: "High-rank position. The first true scholars of the Order. Requires a Consular pathway and the Assembly Jedi Knight rank." },
-    { pattern: 'the Archive', def: "The collected records of the Order — texts, recordings, oral histories, gathered and held in the Great Jedi Archives on Coruscant. The heart of the Assembly's work." },
+    { pattern: 'the Archive', def: "The collected records of the Order, texts, recordings, oral histories, gathered and held in the Great Jedi Archives on Coruscant. The heart of the Assembly's work." },
     { pattern: 'Pursuits', def: "The four disciplines of the Assembly: the Archive, Instruction, Discourse, and Vigil. Together they describe what the Order does and why." },
     { pattern: 'Discourse', def: "One of the four Pursuits. The practice of structured argument and disagreement. The Assembly believes truth is found in argument, not silence." },
     { pattern: 'Charter', def: "The Assembly's nine articles of conduct, read once at admission and held to thereafter. A code of trust, applied upward through the hierarchy as well as downward." },
@@ -152,7 +152,7 @@
       span.setAttribute('data-term', term.pattern);
       span.setAttribute('tabindex', '0');
       span.setAttribute('role', 'button');
-      span.setAttribute('aria-label', matched + ' — definition available');
+      span.setAttribute('aria-label', matched + ', definition available');
       const beforeNode = document.createTextNode(before);
       const afterNode = document.createTextNode(after);
       parent.replaceChild(afterNode, textNode);

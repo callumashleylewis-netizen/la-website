@@ -822,7 +822,7 @@ footer {
   <p>
     The <em>Jedi Librarian's Assembly</em> is the keeper of the Order's record.
     Based in the <em>Great Jedi Archives</em> on Coruscant, our members are
-    scholars, archivists, and tutors — Jedi whose blade is the index and whose
+    scholars, archivists, and tutors. Jedi whose blade is the index and whose
     meditation is the catalogue. The work is patient, the standard high, the
     welcome real.
   </p>
@@ -1107,7 +1107,7 @@ const HERETIC_QUOTES = [
   const idx = days % LORE_QUOTES.length;
   const q = LORE_QUOTES[idx];
   quoteEl.textContent = q.text;
-  attrEl.textContent = '— ' + q.attribution;
+  attrEl.textContent = '· ' + q.attribution;
   dateEl.textContent = now.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 })();
 

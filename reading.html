@@ -217,7 +217,7 @@ function dailyIndex() {
 const idx = dailyIndex();
 const q = LORE_QUOTES[idx];
 document.getElementById('reading-quote').textContent = q.text;
-document.getElementById('reading-attribution').textContent = '— ' + q.attribution;
+document.getElementById('reading-attribution').textContent = ', ' + q.attribution;
 
 const today = new Date();
 const opts = { year: 'numeric', month: 'long', day: 'numeric' };
