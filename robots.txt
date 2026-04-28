@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://callumashleylewis-netizen.github.io/la-website/sitemap.xml

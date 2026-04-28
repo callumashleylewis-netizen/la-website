@@ -157,6 +157,38 @@
 .pursuit-name em {
   color: var(--gold-bright);
 }
+.pursuit:target .pursuit-name { color: var(--gold-bright); }
+.pursuit:target .pursuit-tenet { color: var(--gold-bright); }
+.section-permalink {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.25s, color 0.25s;
+  vertical-align: middle;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.pursuit:hover .section-permalink,
+.pursuit:focus-within .section-permalink {
+  opacity: 0.55;
+}
+.section-permalink:hover { opacity: 1 !important; color: var(--gold-bright); }
+.section-permalink.copied { opacity: 1 !important; }
+.section-permalink.copied::after {
+  content: ' link copied';
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-left: 0.4rem;
+}
 .pursuit-rule {
   width: 50px;
   height: 1px;
@@ -289,7 +321,7 @@
 
   <article class="pursuit fade-in" id="pursuit-archive">
     <div class="pursuit-tenet">01 · Tenet</div>
-    <div class="pursuit-name"><em>The Archive</em></div>
+    <div class="pursuit-name"><em>The Archive</em> <button type="button" class="section-permalink" data-target="pursuit-archive" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
     <div class="pursuit-body">
       <p>
@@ -309,7 +341,7 @@
 
   <article class="pursuit fade-in" id="pursuit-instruction">
     <div class="pursuit-tenet">02 · Tenet</div>
-    <div class="pursuit-name"><em>Instruction</em></div>
+    <div class="pursuit-name"><em>Instruction</em> <button type="button" class="section-permalink" data-target="pursuit-instruction" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
     <div class="pursuit-body">
       <p>
@@ -329,7 +361,7 @@
 
   <article class="pursuit fade-in" id="pursuit-discourse">
     <div class="pursuit-tenet">03 · Tenet</div>
-    <div class="pursuit-name"><em>Discourse</em></div>
+    <div class="pursuit-name"><em>Discourse</em> <button type="button" class="section-permalink" data-target="pursuit-discourse" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
     <div class="pursuit-body">
       <p>
@@ -350,7 +382,7 @@
 
   <article class="pursuit fade-in" id="pursuit-vigil">
     <div class="pursuit-tenet">04 · Tenet</div>
-    <div class="pursuit-name"><em>Vigil</em></div>
+    <div class="pursuit-name"><em>Vigil</em> <button type="button" class="section-permalink" data-target="pursuit-vigil" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
     <div class="pursuit-body">
       <p>
@@ -435,6 +467,43 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   update();
+})();
+
+// Section permalinks — click ¶ to copy deep link
+(function initSectionPermalinks() {
+  const buttons = document.querySelectorAll('.section-permalink');
+  if (buttons.length === 0) return;
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        resolve();
+      } catch (e) { reject(e); }
+    });
+  }
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-target');
+      if (!id) return;
+      const url = window.location.origin + window.location.pathname + '#' + id;
+      try { history.replaceState(null, '', '#' + id); } catch (_) {}
+      copyText(url).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      }).catch(() => {});
+    });
+  });
 })();
 </script>
 

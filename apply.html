@@ -107,6 +107,41 @@
   font-style: italic;
   color: var(--gold-bright);
 }
+
+/* Permalink pilcrow next to section titles */
+.apply-section { scroll-margin-top: 5rem; }
+.apply-section:target .apply-section-title { color: var(--gold-bright); }
+.apply-section:target .apply-section-num { color: var(--gold-bright); }
+.section-permalink {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.25s, color 0.25s;
+  vertical-align: middle;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.apply-section:hover .section-permalink,
+.apply-section:focus-within .section-permalink {
+  opacity: 0.55;
+}
+.section-permalink:hover { opacity: 1 !important; color: var(--gold-bright); }
+.section-permalink.copied { opacity: 1 !important; }
+.section-permalink.copied::after {
+  content: ' link copied';
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-left: 0.4rem;
+}
 .apply-section p {
   font-size: 1rem;
   line-height: 1.75;
@@ -291,9 +326,9 @@ footer a:hover { color: var(--gold); }
     follows is what is asked of you, and what you may ask of us.
   </p>
 
-  <section class="apply-section fade-in">
+  <section class="apply-section fade-in" id="section-i">
     <div class="apply-section-num">· I ·</div>
-    <h2 class="apply-section-title">What is <em>asked</em> of you</h2>
+    <h2 class="apply-section-title">What is <em>asked</em> of you <button type="button" class="section-permalink" data-target="section-i" aria-label="Copy link to this section" title="Copy link to this section">¶</button></h2>
     <p>
       Membership in the Assembly is granted by application — not by request, and not by chance.
       Before you petition, you must meet the following:
@@ -312,9 +347,9 @@ footer a:hover { color: var(--gold); }
     </p>
   </section>
 
-  <section class="apply-section fade-in">
+  <section class="apply-section fade-in" id="section-ii">
     <div class="apply-section-num">· II ·</div>
-    <h2 class="apply-section-title">The <em>application</em></h2>
+    <h2 class="apply-section-title">The <em>application</em> <button type="button" class="section-permalink" data-target="section-ii" aria-label="Copy link to this section" title="Copy link to this section">¶</button></h2>
     <p>
       The application is more than a single essay. It is a structured form that asks
       you to declare yourself, to reflect on what you bring to the Assembly, and to
@@ -341,9 +376,9 @@ footer a:hover { color: var(--gold); }
     </p>
   </section>
 
-  <section class="apply-section fade-in">
+  <section class="apply-section fade-in" id="section-iii">
     <div class="apply-section-num">· III ·</div>
-    <h2 class="apply-section-title">What follows the <em>petition</em></h2>
+    <h2 class="apply-section-title">What follows the <em>petition</em> <button type="button" class="section-permalink" data-target="section-iii" aria-label="Copy link to this section" title="Copy link to this section">¶</button></h2>
     <div class="apply-steps">
       <div class="apply-step">
         <div class="apply-step-num">i.</div>
@@ -372,9 +407,9 @@ footer a:hover { color: var(--gold); }
     </div>
   </section>
 
-  <section class="apply-section fade-in">
+  <section class="apply-section fade-in" id="section-iv">
     <div class="apply-section-num">· IV ·</div>
-    <h2 class="apply-section-title">What you may ask of <em>us</em></h2>
+    <h2 class="apply-section-title">What you may ask of <em>us</em> <button type="button" class="section-permalink" data-target="section-iv" aria-label="Copy link to this section" title="Copy link to this section">¶</button></h2>
     <p>
       The Charter binds the Assembly to its members as much as its members
       to the Assembly. As a Pledge, and at every rank thereafter, you are owed:
@@ -449,6 +484,43 @@ footer a:hover { color: var(--gold); }
     });
   }, { threshold: 0.15 });
   els.forEach(el => observer.observe(el));
+})();
+
+// Section permalinks — click ¶ to copy deep link
+(function initSectionPermalinks() {
+  const buttons = document.querySelectorAll('.section-permalink');
+  if (buttons.length === 0) return;
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        resolve();
+      } catch (e) { reject(e); }
+    });
+  }
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-target');
+      if (!id) return;
+      const url = window.location.origin + window.location.pathname + '#' + id;
+      try { history.replaceState(null, '', '#' + id); } catch (_) {}
+      copyText(url).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      }).catch(() => {});
+    });
+  });
 })();
 </script>
 
