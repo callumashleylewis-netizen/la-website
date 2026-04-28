@@ -507,6 +507,124 @@
   .rank-card-name { font-size: 1.35rem; }
   .path-tier-rule { flex-basis: 30px; }
 }
+
+/* ========================================================================
+   HONOURED FAILURES — easter egg revealed by holding H for 3 seconds
+   ======================================================================== */
+.rank-failure {
+  display: none;
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.1rem;
+  background: rgba(40, 25, 12, 0.18);
+  border-left: 2px solid rgba(199, 154, 58, 0.35);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(244, 234, 210, 0.7);
+  position: relative;
+}
+.rank-failure::before {
+  content: '†';
+  position: absolute;
+  left: -0.55rem;
+  top: 0.7rem;
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: 1rem;
+  color: var(--gold);
+  background: var(--ink-deep);
+  padding: 0 4px;
+  opacity: 0.85;
+}
+body.failures-active .rank-failure {
+  display: block;
+  animation: failureFadeIn 0.6s ease-out;
+}
+@keyframes failureFadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rank-failure-attribution {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* The hint that appears after 30s of inactivity */
+.failures-hint {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease-out;
+  background: rgba(5, 10, 20, 0.85);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  z-index: 40;
+  text-align: center;
+}
+.failures-hint.visible { opacity: 0.7; }
+body.failures-active .failures-hint { display: none; }
+
+/* The hold-progress indicator (shows while H is being held) */
+.failures-progress {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: rgba(199, 154, 58, 0.15);
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 41;
+}
+.failures-progress.active { opacity: 1; }
+.failures-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.05s linear;
+}
+
+/* Once active, a small dismiss link sits at the bottom */
+.failures-dismiss {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  background: rgba(5, 10, 20, 0.85);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.7;
+  z-index: 40;
+  transition: opacity 0.3s;
+}
+body.failures-active .failures-dismiss { display: block; }
+.failures-dismiss:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -552,6 +670,7 @@
         <ul class="rank-card-reqs">
           <li>Pass the application, OR be handpicked with reason by a member of High Command.</li>
         </ul>
+        <aside class="rank-failure">I do not know what they were waiting for me to write. I do not know what I was waiting for. The week passed. I had drafted three pieces, none I would have wanted read. None were read.<span class="rank-failure-attribution">· From a Pledge's correspondence, year unknown ·</span></aside>
       </div>
     </div>
 
@@ -622,6 +741,7 @@
           <li>Attend 3 of: Seminar, Symposium, Debate, Activity Push, or Patrol.</li>
           <li>Have been an Intellect for at least 5 days.</li>
         </ul>
+        <aside class="rank-failure">I had thought patience would be the difficulty. It was not. The difficulty was being needed unevenly. Two of my Pledges asked everything; one asked nothing; I gave the silent one too little and the others too much, and I knew I was doing it as I did it. I asked to be returned to study.<span class="rank-failure-attribution">· Reflection of a former Tutor ·</span></aside>
       </div>
     </div>
   </section>
@@ -651,6 +771,7 @@
           <li>Have been a Tutor for at least 1 week.</li>
           <li>Must be a Consular AJK.</li>
         </ul>
+        <aside class="rank-failure">I made Lore Keeper in my fourth year and held the standing for eleven months. I taught no Pledges in that time, which is the licence the rank confers, and I read more than I had ever read. By the end of the eleventh month I had stopped wondering at any of it. The Curator did not refuse my request to return to Tutor. I was glad to have Pledges again.<span class="rank-failure-attribution">· Reflection of a former Lore Keeper ·</span></aside>
       </div>
     </div>
 
@@ -691,6 +812,7 @@
         <ul class="rank-card-reqs">
           <li>Be handpicked by the Chief Librarian and the Curator of the Archives.</li>
         </ul>
+        <aside class="rank-failure">Eight months. Long enough to know the work and to know I could not bear its weight without resentment. Better to step down well than to remain badly. The Assembly is not a stage; one need not exit on cue.<span class="rank-failure-attribution">· From a Historian's letter of resignation ·</span></aside>
       </div>
     </div>
 
@@ -715,6 +837,7 @@
         <ul class="rank-card-reqs">
           <li>Be chosen by the Jedi High Council.</li>
         </ul>
+        <aside class="rank-failure">I held the office for fourteen months. The Council asked me to remain. I declined. The Order is not preserved by those who cannot leave it. I trust my successor more than I trusted myself.<span class="rank-failure-attribution">· Vael Orin, 11th Chief Librarian, on stepping down ·</span></aside>
       </div>
     </div>
   </section>
@@ -958,6 +1081,95 @@ quizOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
 });
+
+// HONOURED FAILURES — hold H for 3 seconds to reveal failure notes on rank cards
+(function initHonouredFailures() {
+  const HOLD_MS = 3000;
+  const HINT_DELAY_MS = 30000;
+  let isHolding = false;
+  let holdStart = 0;
+  let rafId = null;
+  let dismissed = false;
+
+  // Build hint, progress bar, and dismiss button
+  const hint = document.createElement('div');
+  hint.className = 'failures-hint';
+  hint.textContent = 'Hold H to read the honoured failures';
+  document.body.appendChild(hint);
+
+  const progress = document.createElement('div');
+  progress.className = 'failures-progress';
+  progress.innerHTML = '<div class="failures-progress-fill" id="failures-progress-fill"></div>';
+  document.body.appendChild(progress);
+  const fill = document.getElementById('failures-progress-fill');
+
+  const dismiss = document.createElement('button');
+  dismiss.className = 'failures-dismiss';
+  dismiss.type = 'button';
+  dismiss.textContent = 'Hide failures';
+  dismiss.addEventListener('click', () => {
+    document.body.classList.remove('failures-active');
+    dismissed = true;
+  });
+  document.body.appendChild(dismiss);
+
+  // Show hint after delay if user hasn't activated
+  setTimeout(() => {
+    if (!document.body.classList.contains('failures-active') && !dismissed) {
+      hint.classList.add('visible');
+      // Auto-fade after 8s if still not activated
+      setTimeout(() => hint.classList.remove('visible'), 8000);
+    }
+  }, HINT_DELAY_MS);
+
+  function startHold() {
+    if (isHolding || document.body.classList.contains('failures-active')) return;
+    isHolding = true;
+    holdStart = Date.now();
+    progress.classList.add('active');
+    hint.classList.remove('visible');
+    tick();
+  }
+
+  function endHold() {
+    if (!isHolding) return;
+    isHolding = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    progress.classList.remove('active');
+    fill.style.width = '0%';
+  }
+
+  function tick() {
+    if (!isHolding) return;
+    const elapsed = Date.now() - holdStart;
+    const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
+    fill.style.width = pct + '%';
+    if (elapsed >= HOLD_MS) {
+      // Activate
+      document.body.classList.add('failures-active');
+      endHold();
+      return;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    // Only respond if H is held in lowercase, no modifiers, not in an input
+    if (e.key !== 'h' && e.key !== 'H') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (e.repeat) return; // ignore key-repeat events
+    e.preventDefault();
+    startHold();
+  });
+  document.addEventListener('keyup', (e) => {
+    if (e.key !== 'h' && e.key !== 'H') return;
+    endHold();
+  });
+  // Cancel hold if user blurs window or alt-tabs away
+  window.addEventListener('blur', endHold);
+})();
 </script>
 
 <script src="search.js" defer></script>

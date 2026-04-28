@@ -28,6 +28,7 @@
     'apply-section': 'Petition',
     'oath-section': 'Oath',
     'voice': 'Voice',
+    'failure': 'Honoured Failure',
   };
 
   // -----------------------------------------------------------------
