@@ -705,9 +705,24 @@ footer {
 .lore-holo {
   width: 100px; height: 100px;
   margin: 0 auto 2rem;
-  filter: drop-shadow(0 0 24px rgba(74, 216, 255, 0.6));
 }
 .lore-holo .crystal { width: 100%; height: 100%; }
+
+/* Kyber variant: shown by default (sentinel triggered), blue glow */
+.lore-holo-kyber {
+  display: block;
+  filter: drop-shadow(0 0 24px rgba(74, 216, 255, 0.6));
+}
+.lore-holo-heretic {
+  display: none;
+  filter: drop-shadow(0 0 24px rgba(199, 154, 58, 0.7));
+}
+
+/* When overlay is in heretic mode, swap which crystal shows */
+.lore-overlay.heretic .lore-holo-kyber { display: none; }
+.lore-overlay.heretic .lore-holo-heretic { display: block; }
+/* Heretic mode also tints the attribution to gold (already gold, but ensures consistency) */
+
 .lore-text {
   font-family: var(--serif);
   font-style: italic;
@@ -989,7 +1004,7 @@ footer {
 <div class="lore-overlay" id="lore-overlay">
   <div class="lore-panel">
     <button class="lore-close" id="lore-close">Close</button>
-    <div class="lore-holo">
+    <div class="lore-holo lore-holo-kyber" id="lore-holo-kyber">
       <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <g stroke="#040a18" stroke-width="0.8">
           <polygon points="50,8 85,28 50,50" fill="url(#cFaceLight)"/>
@@ -999,6 +1014,19 @@ footer {
           <polygon points="15,72 15,28 50,50" fill="url(#cFaceLight)" opacity="0.85"/>
           <polygon points="15,28 50,8 50,50" fill="url(#cFaceDark)" opacity="0.9"/>
           <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(220,240,255,0.55)" stroke="#040a18" stroke-width="0.6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lore-holo lore-holo-heretic" id="lore-holo-heretic">
+      <svg class="crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#1a0e02" stroke-width="0.8">
+          <polygon points="50,8 85,28 50,50" fill="url(#hFaceLight)"/>
+          <polygon points="85,28 85,72 50,50" fill="url(#hFaceDark)"/>
+          <polygon points="85,72 50,92 50,50" fill="url(#hFaceLight)" opacity="0.7"/>
+          <polygon points="50,92 15,72 50,50" fill="url(#hFaceDark)"/>
+          <polygon points="15,72 15,28 50,50" fill="url(#hFaceLight)" opacity="0.85"/>
+          <polygon points="15,28 50,8 50,50" fill="url(#hFaceDark)" opacity="0.9"/>
+          <polygon points="50,28 65,40 65,60 50,72 35,60 35,40" fill="rgba(255,230,160,0.6)" stroke="#1a0e02" stroke-width="0.6"/>
         </g>
       </svg>
     </div>
@@ -1222,6 +1250,12 @@ function showRandomQuote(pool) {
   const q = pool[idx];
   loreText.textContent = q.text;
   loreAttribution.textContent = q.attribution;
+  // Switch the crystal variant shown in the overlay based on the source pool
+  if (pool === HERETIC_QUOTES) {
+    loreOverlay.classList.add('heretic');
+  } else {
+    loreOverlay.classList.remove('heretic');
+  }
   loreOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
