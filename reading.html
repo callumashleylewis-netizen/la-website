@@ -25,82 +25,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="theme.css">
 <style>
-:root {
-  --ink: #0a1320;
-  --ink-deep: #050a14;
-  --paper: #f4ead2;
-  --gold: #c79a3a;
-  --gold-bright: #e6b94a;
-  --crystal: #4ad8ff;
-  --rule: rgba(199, 154, 58, 0.3);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--ink-deep);
-  color: var(--paper);
-  font-family: var(--serif);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-  overflow-x: hidden;
-}
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 30% 20%, rgba(74, 216, 255, 0.04), transparent 40%),
-    radial-gradient(circle at 70% 80%, rgba(199, 154, 58, 0.04), transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(5, 10, 20, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2.5rem;
-}
-.topbar-mark {
-  display: flex; align-items: center; gap: 0.7rem;
-  text-decoration: none; color: var(--paper);
-}
-.topbar-mark img { width: 32px; height: 32px; opacity: 0.85; transition: transform 0.6s, filter 0.4s; }
-.topbar-mark:hover img { transform: rotate(15deg) scale(1.12); filter: drop-shadow(0 0 10px rgba(199, 154, 58, 0.8)); }
-.topbar-mark span {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-.topbar-back {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  padding: 0.55rem 1.1rem;
-  transition: border-color 0.3s, background 0.3s;
-}
-.topbar-back:hover {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.08);
-}
 
 main.reading {
   flex: 1;
@@ -225,7 +151,7 @@ footer a:hover { color: var(--gold); }
 </header>
 
 <main class="reading">
-  <div class="reading-card">
+  <div class="reading-card fade-in">
     <div class="reading-date" id="reading-date">—</div>
     <div class="reading-eyebrow">· The Daily Reading ·</div>
     <h1 class="reading-heading">A passage from the <em>holocron</em></h1>
@@ -296,6 +222,51 @@ document.getElementById('reading-attribution').textContent = '— ' + q.attribut
 const today = new Date();
 const opts = { year: 'numeric', month: 'long', day: 'numeric' };
 document.getElementById('reading-date').textContent = today.toLocaleDateString('en-GB', opts);
+</script>
+
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
 </script>
 
 </body>

@@ -17,43 +17,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="theme.css">
 <style>
-:root {
-  --ink-deep: #050a14;
-  --paper: #f4ead2;
-  --gold: #c79a3a;
-  --crystal: #4ad8ff;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: var(--ink-deep);
-  color: var(--paper);
-  font-family: var(--serif);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Faint hex grid backdrop */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 30% 20%, rgba(74, 216, 255, 0.04), transparent 40%),
-    radial-gradient(circle at 70% 80%, rgba(199, 154, 58, 0.03), transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
 
 .lost {
   position: relative;

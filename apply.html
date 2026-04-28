@@ -25,98 +25,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="theme.css">
 <style>
-:root {
-  --ink: #0a1320;
-  --ink-deep: #050a14;
-  --paper: #f4ead2;
-  --paper-warm: #e8dcb8;
-  --gold: #c79a3a;
-  --gold-bright: #e6b94a;
-  --rule: rgba(199, 154, 58, 0.3);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--ink-deep);
-  color: var(--paper);
-  font-family: var(--serif);
-  font-size: 18px;
-  line-height: 1.7;
-  font-weight: 300;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Top bar */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(5, 10, 20, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2.5rem;
-}
-.topbar-mark {
-  display: flex; align-items: center; gap: 0.7rem;
-  text-decoration: none; color: var(--paper);
-}
-.topbar-mark img {
-  width: 32px; height: 32px; opacity: 0.85;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
-}
-.topbar-mark:hover img {
-  transform: rotate(15deg) scale(1.12);
-  filter: drop-shadow(0 0 10px rgba(199, 154, 58, 0.8));
-}
-.topbar-mark span {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.75;
-}
-.topbar-back {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  padding: 0.55rem 1.1rem;
-  transition: border-color 0.3s, background 0.3s;
-}
-.topbar-back:hover {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.08);
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.reading-time {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.55;
-}
-@media (max-width: 600px) {
-  .topbar-right { gap: 0.6rem; }
-  .reading-time { display: none; }
-}
 
 .apply {
   max-width: 760px;
@@ -370,18 +280,18 @@ footer a:hover { color: var(--gold); }
 
 <main class="apply">
 
-  <div class="apply-eyebrow">· Petition for Membership ·</div>
-  <h1 class="apply-heading">So you would <em>join</em> the Assembly</h1>
-  <p class="apply-sub">Read this before you petition. The Order owes its applicants honesty about what it asks of them.</p>
+  <div class="apply-eyebrow fade-in">· Petition for Membership ·</div>
+  <h1 class="apply-heading fade-in">So you would <em>join</em> the Assembly</h1>
+  <p class="apply-sub fade-in">Read this before you petition. The Order owes its applicants honesty about what it asks of them.</p>
 
-  <p class="apply-preamble">
+  <p class="apply-preamble fade-in">
     The Librarians' Assembly is not a casual collective. It is a working
     body of scholars, archivists, and tutors. Those who pass through these
     doors are expected to learn, to teach, and to keep the record. What
     follows is what is asked of you, and what you may ask of us.
   </p>
 
-  <section class="apply-section">
+  <section class="apply-section fade-in">
     <div class="apply-section-num">· I ·</div>
     <h2 class="apply-section-title">What is <em>asked</em> of you</h2>
     <p>
@@ -402,7 +312,7 @@ footer a:hover { color: var(--gold); }
     </p>
   </section>
 
-  <section class="apply-section">
+  <section class="apply-section fade-in">
     <div class="apply-section-num">· II ·</div>
     <h2 class="apply-section-title">The <em>application</em></h2>
     <p>
@@ -431,7 +341,7 @@ footer a:hover { color: var(--gold); }
     </p>
   </section>
 
-  <section class="apply-section">
+  <section class="apply-section fade-in">
     <div class="apply-section-num">· III ·</div>
     <h2 class="apply-section-title">What follows the <em>petition</em></h2>
     <div class="apply-steps">
@@ -462,7 +372,7 @@ footer a:hover { color: var(--gold); }
     </div>
   </section>
 
-  <section class="apply-section">
+  <section class="apply-section fade-in">
     <div class="apply-section-num">· IV ·</div>
     <h2 class="apply-section-title">What you may ask of <em>us</em></h2>
     <p>
@@ -481,7 +391,7 @@ footer a:hover { color: var(--gold); }
     </p>
   </section>
 
-  <div class="apply-petition">
+  <div class="apply-petition fade-in">
     <div class="apply-petition-title">Ready to petition?</div>
     <div class="apply-petition-sub">
       The Discord is the threshold. From there you will be guided to the application form
@@ -496,6 +406,51 @@ footer a:hover { color: var(--gold); }
 <footer>
   <a href="index.html">Return to the Index</a> · <a href="charter.html">The Charter</a> · <a href="reading.html">Daily Reading</a>
 </footer>
+
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+</script>
 
 </body>
 </html>

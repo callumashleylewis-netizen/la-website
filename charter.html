@@ -25,98 +25,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="theme.css">
 <style>
-:root {
-  --ink: #0a1320;
-  --ink-deep: #050a14;
-  --paper: #f4ead2;
-  --paper-warm: #e8dcb8;
-  --gold: #c79a3a;
-  --gold-bright: #e6b94a;
-  --rule: rgba(199, 154, 58, 0.3);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--ink-deep);
-  color: var(--paper);
-  font-family: var(--serif);
-  font-size: 18px;
-  line-height: 1.7;
-  font-weight: 300;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Top bar — matches main site */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(5, 10, 20, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2.5rem;
-}
-.topbar-mark {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  text-decoration: none;
-  color: var(--paper);
-}
-.topbar-mark img {
-  width: 32px;
-  height: 32px;
-  opacity: 0.85;
-}
-.topbar-mark span {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.75;
-}
-.topbar-back {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
-  border: 1px solid rgba(199, 154, 58, 0.4);
-  padding: 0.55rem 1.1rem;
-  transition: border-color 0.3s, background 0.3s;
-}
-.topbar-back:hover {
-  border-color: var(--gold);
-  background: rgba(199, 154, 58, 0.08);
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.reading-time {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0.55;
-}
-@media (max-width: 600px) {
-  .topbar-right { gap: 0.6rem; }
-  .reading-time { display: none; }
-}
 
 /* Page content */
 .charter {
@@ -436,17 +346,17 @@ body.marginalia-active .marginalia-banner {
 
 <main class="charter">
 
-  <div class="charter-eyebrow">· The Charter ·</div>
-  <h1 class="charter-heading">By what we are <em>bound</em></h1>
-  <p class="charter-sub">The conduct expected of every member of the Assembly, from Pledge to Chief Librarian.</p>
+  <div class="charter-eyebrow fade-in">· The Charter ·</div>
+  <h1 class="charter-heading fade-in">By what we are <em>bound</em></h1>
+  <p class="charter-sub fade-in">The conduct expected of every member of the Assembly, from Pledge to Chief Librarian.</p>
 
-  <p class="charter-preamble">
+  <p class="charter-preamble fade-in">
     The Charter is read once at admission and held to thereafter. It is not a
     code of punishment but a code of trust. To pass through these doors is to
     take its words upon yourself.
   </p>
 
-  <div class="article" id="article-i">
+  <div class="article fade-in" id="article-i">
     <div class="article-num">I.</div>
     <div>
       <div class="article-name">Of the Record <button type="button" class="article-permalink" data-target="article-i" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -455,7 +365,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-ii">
+  <div class="article fade-in" id="article-ii">
     <div class="article-num">II.</div>
     <div>
       <div class="article-name">Of Discourse <button type="button" class="article-permalink" data-target="article-ii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -464,7 +374,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-iii">
+  <div class="article fade-in" id="article-iii">
     <div class="article-num">III.</div>
     <div>
       <div class="article-name">Of Instruction <button type="button" class="article-permalink" data-target="article-iii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -473,7 +383,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-iv">
+  <div class="article fade-in" id="article-iv">
     <div class="article-num">IV.</div>
     <div>
       <div class="article-name">Of the Pledge <button type="button" class="article-permalink" data-target="article-iv" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -482,7 +392,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-v">
+  <div class="article fade-in" id="article-v">
     <div class="article-num">V.</div>
     <div>
       <div class="article-name">Of Conduct <button type="button" class="article-permalink" data-target="article-v" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -491,7 +401,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-vi">
+  <div class="article fade-in" id="article-vi">
     <div class="article-num">VI.</div>
     <div>
       <div class="article-name">Of Privacy <button type="button" class="article-permalink" data-target="article-vi" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -500,7 +410,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-vii">
+  <div class="article fade-in" id="article-vii">
     <div class="article-num">VII.</div>
     <div>
       <div class="article-name">Of the Hierarchy <button type="button" class="article-permalink" data-target="article-vii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -509,7 +419,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-viii">
+  <div class="article fade-in" id="article-viii">
     <div class="article-num">VIII.</div>
     <div>
       <div class="article-name">Of the Trial <button type="button" class="article-permalink" data-target="article-viii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -518,7 +428,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="article" id="article-ix">
+  <div class="article fade-in" id="article-ix">
     <div class="article-num">IX.</div>
     <div>
       <div class="article-name">Of Departure <button type="button" class="article-permalink" data-target="article-ix" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
@@ -527,7 +437,7 @@ body.marginalia-active .marginalia-banner {
     </div>
   </div>
 
-  <div class="charter-coda">
+  <div class="charter-coda fade-in">
     <p class="charter-coda-text">By patience, by record, by light.</p>
     <div class="charter-coda-mark">· Sealed under the hand of the Chief Librarian ·</div>
   </div>
@@ -655,6 +565,51 @@ body.marginalia-active .marginalia-banner {
       }).catch(() => { /* fail quietly */ });
     });
   });
+})();
+</script>
+
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
 })();
 </script>
 
