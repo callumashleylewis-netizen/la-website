@@ -100,6 +100,24 @@ body {
   background: rgba(199, 154, 58, 0.08);
 }
 
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.reading-time {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.55;
+}
+@media (max-width: 600px) {
+  .topbar-right { gap: 0.6rem; }
+  .reading-time { display: none; }
+}
+
 /* Page content */
 .charter {
   max-width: 720px;
@@ -184,6 +202,48 @@ body {
   color: var(--paper);
   margin-bottom: 0.5rem;
   letter-spacing: -0.005em;
+}
+
+.article {
+  scroll-margin-top: 5rem; /* clears sticky topbar when deep-linked */
+}
+
+.article-permalink {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.25s, color 0.25s;
+  vertical-align: middle;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.article:hover .article-permalink,
+.article:focus-within .article-permalink {
+  opacity: 0.55;
+}
+.article-permalink:hover { opacity: 1 !important; color: var(--gold-bright); }
+.article-permalink.copied { opacity: 1 !important; }
+.article-permalink.copied::after {
+  content: ' link copied';
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-left: 0.4rem;
+}
+/* Highlight an article when scroll-targeted via URL hash */
+.article:target .article-name {
+  color: var(--gold-bright);
+}
+.article:target .article-num {
+  color: var(--gold-bright);
 }
 
 .article-body {
@@ -368,7 +428,10 @@ body.marginalia-active .marginalia-banner {
     <img src="sigil.png" alt="">
     <span>Librarians' Assembly</span>
   </a>
-  <a href="index.html" class="topbar-back">← Return to the index</a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 2 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
 </header>
 
 <main class="charter">
@@ -383,82 +446,82 @@ body.marginalia-active .marginalia-banner {
     take its words upon yourself.
   </p>
 
-  <div class="article">
+  <div class="article" id="article-i">
     <div class="article-num">I.</div>
     <div>
-      <div class="article-name">Of the Record</div>
+      <div class="article-name">Of the Record <button type="button" class="article-permalink" data-target="article-i" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">No member shall fabricate, distort, or knowingly omit truth from the Archive. The record stands above convenience. To falsify is to forfeit one's standing.</div>
       <aside class="article-marginalia">"I have struck two members in my tenure for breach of this article. Neither returned." — Calex, 19th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-ii">
     <div class="article-num">II.</div>
     <div>
-      <div class="article-name">Of Discourse</div>
+      <div class="article-name">Of Discourse <button type="button" class="article-permalink" data-target="article-ii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Disagreement is welcome; contempt is not. All voices are heard before a verdict is taken. A member shall criticise an idea without diminishing the one who held it.</div>
       <aside class="article-marginalia">"Read this slowly. Most who err here believe themselves the exception." — Thallor, 14th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-iii">
     <div class="article-num">III.</div>
     <div>
-      <div class="article-name">Of Instruction</div>
+      <div class="article-name">Of Instruction <button type="button" class="article-permalink" data-target="article-iii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Knowledge is held in trust, not in private. What you have learned, you are obligated to teach when asked. To hoard understanding is to misuse the standing the Assembly has granted you.</div>
       <aside class="article-marginalia">"The greatest tutors I have known were those who feared most that they had nothing to teach." — Vael Orin, 11th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-iv">
     <div class="article-num">IV.</div>
     <div>
-      <div class="article-name">Of the Pledge</div>
+      <div class="article-name">Of the Pledge <button type="button" class="article-permalink" data-target="article-iv" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Newcomers are owed mentorship, not impatience. Every member of the Assembly was once a Pledge. Treat them as you would have wished to be treated, and the Order is preserved.</div>
       <aside class="article-marginalia">"I joined trembling, certain I would be turned away. The keeper who received me has since taught hundreds." — Anonymous, margin of the 7th edition</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-v">
     <div class="article-num">V.</div>
     <div>
-      <div class="article-name">Of Conduct</div>
+      <div class="article-name">Of Conduct <button type="button" class="article-permalink" data-target="article-v" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">All standards of The Jedi Order apply within the Assembly. Harassment, prejudice, and conduct unbecoming a Jedi are not tolerated under any rank or pretext.</div>
       <aside class="article-marginalia">"The robe does not excuse. It binds." — Calex, 19th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-vi">
     <div class="article-num">VI.</div>
     <div>
-      <div class="article-name">Of Privacy</div>
+      <div class="article-name">Of Privacy <button type="button" class="article-permalink" data-target="article-vi" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">A member's confidence is not for the marketplace. What is shared in good faith between keepers stays between keepers, save where the safety of another is at stake.</div>
       <aside class="article-marginalia">"The exception is narrow. Walk it carefully, and seek counsel." — Thallor, 14th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-vii">
     <div class="article-num">VII.</div>
     <div>
-      <div class="article-name">Of the Hierarchy</div>
+      <div class="article-name">Of the Hierarchy <button type="button" class="article-permalink" data-target="article-vii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Rank in the Assembly is earned, not granted. Authority over others is a duty held in service of the Order, never a privilege held over them.</div>
       <aside class="article-marginalia">"Beware the Curator who finds the title heavier each year. Beware more the one who does not." — Vael Orin, 11th Chief Librarian</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-viii">
     <div class="article-num">VIII.</div>
     <div>
-      <div class="article-name">Of the Trial</div>
+      <div class="article-name">Of the Trial <button type="button" class="article-permalink" data-target="article-viii" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Where a member is called to account, the matter shall be heard openly by High Command. Decisions shall be recorded; reasoning shall be given. The Charter applies upward as well as downward.</div>
       <aside class="article-marginalia">"The hearing that absolved me also corrected me. I have been the better keeper since." — Anonymous, margin of the 12th edition</aside>
     </div>
   </div>
 
-  <div class="article">
+  <div class="article" id="article-ix">
     <div class="article-num">IX.</div>
     <div>
-      <div class="article-name">Of Departure</div>
+      <div class="article-name">Of Departure <button type="button" class="article-permalink" data-target="article-ix" aria-label="Copy link to this article" title="Copy link to this article">¶</button></div>
       <div class="article-body">Any member may leave the Assembly with grace. Those who go are owed the Order's thanks for what they preserved. The doors close behind them; they do not close against them.</div>
       <aside class="article-marginalia">"I have re-admitted three former keepers. None did so lightly. None did so unwelcomed." — Calex, 19th Chief Librarian</aside>
     </div>
@@ -548,6 +611,50 @@ body.marginalia-active .marginalia-banner {
   });
   // Also cancel if user tabs away or window loses focus
   window.addEventListener('blur', cancelHold);
+})();
+
+// ---------------------------------------------------------------------
+// ARTICLE PERMALINKS — click ¶ to copy the deep-link to that article
+// ---------------------------------------------------------------------
+(function initArticlePermalinks() {
+  const buttons = document.querySelectorAll('.article-permalink');
+  if (buttons.length === 0) return;
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-target');
+      if (!id) return;
+      const url = window.location.origin + window.location.pathname + '#' + id;
+      // Update the address bar so the URL reflects the chosen anchor
+      try { history.replaceState(null, '', '#' + id); } catch (_) {}
+      copyText(url).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      }).catch(() => { /* fail quietly */ });
+    });
+  });
 })();
 </script>
 
