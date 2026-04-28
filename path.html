@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Path · Librarians' Assembly</title>
+<meta name="description" content="The Path of Ascension. Ten ranks across four tiers, from Pledge to Chief Librarian.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="The Path · Librarians' Assembly">
+<meta property="og:description" content="Ten ranks across four tiers, from Pledge to Chief Librarian.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/path.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   PATH PAGE — full rank ladder
+   ======================================================================== */
+.path {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.path-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.path-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.path-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.path-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.path-prose {
+  max-width: 36rem;
+  margin: 0 auto 4rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  opacity: 0.88;
+  text-align: center;
+}
+.path-prose em { font-style: italic; color: var(--gold-bright); }
+
+/* Tier blocks */
+.path-tier {
+  margin-bottom: 4rem;
+  scroll-margin-top: 5rem;
+}
+.path-tier-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.path-tier-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.path-tier-rule {
+  flex: 0 0 60px;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* Individual rank cards */
+.rank-card {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1.6rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.18);
+  padding: 1.8rem 2rem;
+  margin-bottom: 1rem;
+  scroll-margin-top: 5rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.rank-card:hover {
+  border-color: rgba(199, 154, 58, 0.4);
+  background: rgba(20, 35, 58, 0.6);
+}
+.rank-card-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2.2rem;
+  color: var(--gold);
+  text-align: center;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  padding-top: 0.3rem;
+}
+.rank-card-name {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--paper);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.005em;
+}
+.rank-card-desc {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--paper);
+  opacity: 0.82;
+  margin-bottom: 1.2rem;
+}
+.rank-card-reqs-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(199, 154, 58, 0.18);
+}
+.rank-card-reqs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rank-card-reqs li {
+  position: relative;
+  padding: 0.45rem 0 0.45rem 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  border-bottom: 1px dotted rgba(199, 154, 58, 0.1);
+  opacity: 0.85;
+}
+.rank-card-reqs li:last-child { border-bottom: none; }
+.rank-card-reqs li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* Trial of Knowledge section */
+.path-trial {
+  margin: 5rem 0 4rem;
+  padding: 3rem 2rem;
+  background: rgba(20, 35, 58, 0.5);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.path-trial-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--crystal);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  opacity: 0.8;
+}
+.path-trial-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin-bottom: 1rem;
+}
+.path-trial-heading em { font-style: italic; color: var(--gold-bright); }
+.path-trial-sub {
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  opacity: 0.75;
+  max-width: 32rem;
+  margin: 0 auto 1.8rem;
+}
+.trial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(122, 220, 255, 0.5);
+  color: var(--crystal);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+}
+.trial-btn:hover {
+  border-color: var(--crystal);
+  background: rgba(122, 220, 255, 0.1);
+}
+.trial-btn::before {
+  content: '◆';
+  font-size: 0.65rem;
+  opacity: 0.75;
+}
+
+/* Handoff at bottom */
+.path-handoff {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+}
+.path-handoff-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.handoff-card {
+  display: block;
+  padding: 1.5rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.handoff-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.handoff-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.handoff-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.handoff-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+/* Quiz Modal — same styling as homepage version */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  padding: 2rem;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--ink);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  max-width: 32rem;
+  width: 100%;
+  padding: 3rem 2.5rem 2rem;
+  position: relative;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.modal-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  background: transparent;
+  border: none;
+  color: var(--paper);
+  font-size: 1.6rem;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+  line-height: 1;
+  padding: 0.2rem 0.5rem;
+}
+.modal-close:hover { opacity: 1; }
+.modal-tier {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-progress {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+}
+.quiz-progress .pip {
+  width: 22px;
+  height: 4px;
+  background: rgba(199, 154, 58, 0.22);
+  transition: background 0.3s;
+}
+.quiz-progress .pip.done { background: var(--gold); }
+.quiz-progress .pip.current { background: rgba(199, 154, 58, 0.6); }
+.quiz-question-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+.quiz-question {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--paper);
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1.6rem;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.4rem;
+}
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: rgba(20, 35, 58, 0.4);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.2s, background 0.2s;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: rgba(199, 154, 58, 0.7);
+  background: rgba(20, 35, 58, 0.65);
+}
+.quiz-option .quiz-letter {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--gold);
+  min-width: 1.4rem;
+}
+.quiz-option.selected {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+}
+.quiz-option.correct {
+  border-color: var(--crystal);
+  background: rgba(122, 220, 255, 0.08);
+}
+.quiz-option.wrong {
+  border-color: #c4504e;
+  background: rgba(196, 80, 78, 0.08);
+}
+.quiz-option:disabled { cursor: default; }
+.quiz-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(244, 234, 210, 0.45);
+  text-transform: uppercase;
+}
+.quiz-next-btn {
+  background: transparent;
+  border: 1px solid rgba(199, 154, 58, 0.5);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.2s, background 0.2s;
+}
+.quiz-next-btn.ready { opacity: 1; pointer-events: auto; }
+.quiz-next-btn.ready:hover { background: rgba(199, 154, 58, 0.1); }
+.quiz-result { text-align: center; }
+.quiz-result-score {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--gold);
+  margin: 1rem 0 0.4rem;
+  font-weight: 400;
+}
+.quiz-result-rank {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.quiz-result-msg {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--paper);
+  opacity: 0.85;
+  margin-bottom: 1.6rem;
+  line-height: 1.5;
+}
+.quiz-restart {
+  background: transparent;
+  border: 1px solid rgba(122, 220, 255, 0.4);
+  color: var(--crystal);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.quiz-restart:hover {
+  border-color: var(--crystal);
+  background: rgba(122, 220, 255, 0.08);
+}
+
+@media (max-width: 720px) {
+  .modal {
+    padding: 2.5rem 1.5rem 1.6rem;
+    max-height: 90vh;
+  }
+}
+@media (max-width: 600px) {
+  .path { padding: 4rem 1.4rem 4rem; }
+  .rank-card {
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 1.2rem;
+  }
+  .rank-card-num { font-size: 1.7rem; }
+  .rank-card-name { font-size: 1.35rem; }
+  .path-tier-rule { flex-basis: 30px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 3 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
+</header>
+
+<main class="path">
+
+  <div class="path-eyebrow fade-in">· The Path of Ascension ·</div>
+  <h1 class="path-heading fade-in">How one <em>rises</em></h1>
+  <p class="path-sub fade-in">Ten ranks across four tiers, from Pledge to Chief Librarian.</p>
+
+  <p class="path-prose fade-in">
+    Rank in the Assembly is <em>earned, not granted</em>. The Path of Ascension is
+    written down so that no advancement is mysterious and no member is left
+    guessing what is asked of them. Read it openly. The requirements that follow
+    are the ones that bind every keeper, applied evenly.
+  </p>
+
+  <!-- LOW RANKS -->
+  <section class="path-tier fade-in" id="tier-low">
+    <div class="path-tier-header">
+      <div class="path-tier-rule"></div>
+      <div class="path-tier-label">Low Ranks</div>
+      <div class="path-tier-rule"></div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-pledge">
+      <div class="rank-card-num">I.</div>
+      <div>
+        <div class="rank-card-name">Pledge</div>
+        <p class="rank-card-desc">Pledges are unofficial members of the division who have recently passed the Librarians' Assembly application. They have full access to the Librarian robes and team. Pledges have one week to achieve Student and be accepted into the Assembly as a bonafide member.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>Pass the application, OR be handpicked with reason by a member of High Command.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-student">
+      <div class="rank-card-num">II.</div>
+      <div>
+        <div class="rank-card-name">Student</div>
+        <p class="rank-card-desc">Students are full-fledged members of the Librarians' Assembly. The first of the low ranks, they may begin working towards advancing in the Assembly.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>1 submission (one chance of revision will be granted).</li>
+          <li>Pass the orientation quiz.</li>
+          <li>Must be a member of the Consular Pathway.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-librarian">
+      <div class="rank-card-num">III.</div>
+      <div>
+        <div class="rank-card-name">Librarian</div>
+        <p class="rank-card-desc">Librarians are low-ranks of the Assembly who have begun to prove themselves as members. They may now gear up for the rank of Intellect.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>3 submissions.</li>
+          <li>Attend 4 trainings.</li>
+          <li>Have been a Student for at least 1 day.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIDDLE RANKS -->
+  <section class="path-tier fade-in" id="tier-middle">
+    <div class="path-tier-header">
+      <div class="path-tier-rule"></div>
+      <div class="path-tier-label">Middle Ranks</div>
+      <div class="path-tier-rule"></div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-intellect">
+      <div class="rank-card-num">IV.</div>
+      <div>
+        <div class="rank-card-name">Intellect</div>
+        <p class="rank-card-desc">Intellects are the first official middle-rank of the Jedi Librarians' Assembly. They have gained enough knowledge and maturity to co-host training sessions.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>6 submissions.</li>
+          <li>Attend 10 trainings.</li>
+          <li>Attend a Patrol.</li>
+          <li>Attend an Advanced Introductory Lecture.</li>
+          <li>Attend 1 of: Seminar, Symposium, Debate, or Activity Push.</li>
+          <li>Have been a Librarian for at least 3 days.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-tutor">
+      <div class="rank-card-num">V.</div>
+      <div>
+        <div class="rank-card-name">Tutor</div>
+        <p class="rank-card-desc">Tutors are highly respected and have gained much knowledge within the Assembly. They are permitted to assist the High Ranks.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>8 submissions.</li>
+          <li>Attend 16 trainings.</li>
+          <li>Co-host 5 events.</li>
+          <li>Attend 3 of: Seminar, Symposium, Debate, Activity Push, or Patrol.</li>
+          <li>Have been an Intellect for at least 5 days.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGH RANKS -->
+  <section class="path-tier fade-in" id="tier-high">
+    <div class="path-tier-header">
+      <div class="path-tier-rule"></div>
+      <div class="path-tier-label">High Ranks</div>
+      <div class="path-tier-rule"></div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-lore-keeper">
+      <div class="rank-card-num">VI.</div>
+      <div>
+        <div class="rank-card-name">Lore Keeper</div>
+        <p class="rank-card-desc">Lore Keepers are dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom and knowledge.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>10 submissions.</li>
+          <li>Attend 20 trainings.</li>
+          <li>Co-host 8 events.</li>
+          <li>Attend 4 of: Seminar, Symposium, Debate, Activity Push, or Patrol.</li>
+          <li>Receive 2 Divisional or higher Endorsements.</li>
+          <li>Become Librarian of the Week at least once.</li>
+          <li>Pass a High Command + Archivist vote to take the Trials.</li>
+          <li>Have been a Tutor for at least 1 week.</li>
+          <li>Must be a Consular AJK.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-archivist">
+      <div class="rank-card-num">VII.</div>
+      <div>
+        <div class="rank-card-name">Archivist</div>
+        <p class="rank-card-desc">Archivists are the Senior High Ranks of the Assembly. Held to the highest level of critical thinking and team management, they take charge in managing both the Assembly and the High Ranks, acting as mentors to all.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>Have no active strikes within TJO or LA.</li>
+          <li>Served as a Lore Keeper for two weeks (excluding the Probationary Period and any Inactivity Notices).</li>
+          <li>Host 35 events.</li>
+          <li>Review 20 submissions.</li>
+          <li>Become High Rank of the Week at least three times.</li>
+          <li>Write a 500-word minimum essay about your journey in LA and why you have stayed for so long.</li>
+          <li>In the same document as your essay, write an example of an explanation of the Assembly to a recently joined Pledge.</li>
+          <li>Pass a unanimous High Command vote.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGH COMMAND -->
+  <section class="path-tier fade-in" id="tier-command">
+    <div class="path-tier-header">
+      <div class="path-tier-rule"></div>
+      <div class="path-tier-label">High Command</div>
+      <div class="path-tier-rule"></div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-historian">
+      <div class="rank-card-num">VIII.</div>
+      <div>
+        <div class="rank-card-name">Historian</div>
+        <p class="rank-card-desc">The Historian is a highly respected rank within the Jedi Order, acting as a role model to those of lower rank. They assist the Curator in overseeing the High Ranks, and report directly to the Curator of the Archives and Chief Librarian.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>Be handpicked by the Chief Librarian and the Curator of the Archives.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-curator">
+      <div class="rank-card-num">IX.</div>
+      <div>
+        <div class="rank-card-name">Curator of the Archives</div>
+        <p class="rank-card-desc">Curator of the Archives is the second-in-command of the Librarians' Assembly. This person directly oversees the High Ranks and reports to the Chief Librarian.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>Be handpicked by the Chief Librarian.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rank-card fade-in" id="rank-chief">
+      <div class="rank-card-num">X.</div>
+      <div>
+        <div class="rank-card-name">Chief Librarian</div>
+        <p class="rank-card-desc">Chief Librarian is the highest achievable rank, in first command of the Librarians' Assembly. This person oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.</p>
+        <div class="rank-card-reqs-label">Requirements</div>
+        <ul class="rank-card-reqs">
+          <li>Be chosen by the Jedi High Council.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIAL -->
+  <section class="path-trial fade-in" id="trial">
+    <div class="path-trial-eyebrow">· The Trial of Knowledge ·</div>
+    <h2 class="path-trial-heading">Test what you have <em>learned</em></h2>
+    <p class="path-trial-sub">
+      Eight questions on the Path, the Charter, and the wider Order. A short
+      examination of your familiarity — for those who would be measured.
+    </p>
+    <button class="trial-btn" id="trial-open">Take the Trial</button>
+  </section>
+
+  <!-- HANDOFF -->
+  <div class="path-handoff fade-in">
+    <p class="path-handoff-intro">If the path is one you would walk, the rest awaits.</p>
+    <div class="handoff-grid">
+      <a class="handoff-card" href="charter.html">
+        <div class="handoff-eyebrow">· Read ·</div>
+        <div class="handoff-name">The Charter</div>
+        <div class="handoff-desc">The conduct expected at every step of the path.</div>
+      </a>
+      <a class="handoff-card" href="apply.html">
+        <div class="handoff-eyebrow">· Begin ·</div>
+        <div class="handoff-name">Petition</div>
+        <div class="handoff-desc">What is asked of those who would seek a place in the Assembly.</div>
+      </a>
+      <a class="handoff-card" href="order.html">
+        <div class="handoff-eyebrow">· Return ·</div>
+        <div class="handoff-name">The Order</div>
+        <div class="handoff-desc">What we are, and the four disciplines that bind us.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quiz-overlay">
+  <div class="modal" id="quiz-modal">
+    <button class="modal-close" id="quiz-close" aria-label="Close">×</button>
+    <div id="quiz-body">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div class="quiz-question-label" id="quiz-question-label">Question I</div>
+      <h3 class="quiz-question" id="quiz-question"></h3>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-footer">
+        <span id="quiz-score-label">Score: 0</span>
+        <button class="quiz-next-btn" id="quiz-next">Next →</button>
+      </div>
+    </div>
+    <div id="quiz-result" class="quiz-result" style="display:none;">
+      <div class="modal-tier">Trial Complete</div>
+      <div class="quiz-result-score" id="quiz-result-score">—</div>
+      <div class="quiz-result-rank" id="quiz-result-rank"></div>
+      <p class="quiz-result-msg" id="quiz-result-msg"></p>
+      <button class="quiz-restart" id="quiz-restart">Take the Trial again</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// Back to top
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+
+// ---------------------------------------------------------------------
+// TRIAL OF KNOWLEDGE
+// ---------------------------------------------------------------------
+const QUIZ_QUESTIONS = [
+  { q: "On which Council does the Chief Librarian serve?", options: ["The High Council", "The Council of Reconciliation", "The Council of First Knowledge", "The Council of Reassignment"], answer: 2 },
+  { q: "What position does the Curator of the Archives hold within the Assembly?", options: ["Senior High Rank", "Second-in-Command", "Honorary Advisor", "Equal of the Chief Librarian"], answer: 1 },
+  { q: "How many tiers comprise the Path of Ascension?", options: ["Three", "Four", "Five", "Six"], answer: 1 },
+  { q: "Which rank immediately precedes Historian on the Path of Ascension?", options: ["Tutor", "Lore Keeper", "Archivist", "Curator of the Archives"], answer: 2 },
+  { q: "Who handpicks the Curator of the Archives?", options: ["The Jedi High Council", "The Chief Librarian", "A vote of all High Ranks", "The retiring Curator"], answer: 1 },
+  { q: "How long does a Pledge have to achieve Student?", options: ["Three days", "One week", "Two weeks", "One month"], answer: 1 },
+  { q: "Who chooses the Chief Librarian?", options: ["The Curator of the Archives", "The retiring Chief Librarian", "The Jedi High Council", "A vote of the Assembly"], answer: 2 },
+  { q: "Which Jedi class must a Lore Keeper hold?", options: ["Sentinel AJK", "Guardian AJK", "Consular AJK", "Any class"], answer: 2 },
+];
+
+const QUIZ_RESULT_TIERS = [
+  { min: 0, max: 2, rank: "Pledge", msg: "The first steps of any keeper are uncertain. The Archive is patient." },
+  { min: 3, max: 4, rank: "Student", msg: "A foundation is laid. With study, every text yields its meaning in time." },
+  { min: 5, max: 5, rank: "Intellect", msg: "A respectable showing. The shape of the Order is becoming clear to you." },
+  { min: 6, max: 6, rank: "Tutor", msg: "Confidently familiar. You could already begin teaching others what you know." },
+  { min: 7, max: 7, rank: "Lore Keeper", msg: "The lore is in good hands. Few outside the Assembly answer this well." },
+  { min: 8, max: 8, rank: "Chief Librarian", msg: "Flawless. The catalogue itself could not have answered better." },
+];
+
+const quizOverlay = document.getElementById('quiz-overlay');
+const quizClose = document.getElementById('quiz-close');
+const quizBody = document.getElementById('quiz-body');
+const quizResult = document.getElementById('quiz-result');
+const quizProgress = document.getElementById('quiz-progress');
+const quizQLabel = document.getElementById('quiz-question-label');
+const quizQ = document.getElementById('quiz-question');
+const quizOpts = document.getElementById('quiz-options');
+const quizScoreLabel = document.getElementById('quiz-score-label');
+const quizNext = document.getElementById('quiz-next');
+const quizResultScore = document.getElementById('quiz-result-score');
+const quizResultRank = document.getElementById('quiz-result-rank');
+const quizResultMsg = document.getElementById('quiz-result-msg');
+const quizRestart = document.getElementById('quiz-restart');
+
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+function renderQuizProgress() {
+  quizProgress.innerHTML = '';
+  for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'pip';
+    if (i < quizIndex) pip.classList.add('done');
+    else if (i === quizIndex) pip.classList.add('current');
+    quizProgress.appendChild(pip);
+  }
+}
+
+function renderQuizQuestion() {
+  quizAnswered = false;
+  const data = QUIZ_QUESTIONS[quizIndex];
+  quizQLabel.textContent = 'Question ' + ROMAN[quizIndex];
+  quizQ.textContent = data.q;
+  quizOpts.innerHTML = '';
+  data.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.innerHTML = '<span class="quiz-letter">' + String.fromCharCode(65 + i) + '.</span><span>' + opt + '</span>';
+    btn.addEventListener('click', () => selectQuizOption(btn, i));
+    quizOpts.appendChild(btn);
+  });
+  quizScoreLabel.textContent = 'Score: ' + quizScore;
+  quizNext.classList.remove('ready');
+  quizNext.textContent = quizIndex === QUIZ_QUESTIONS.length - 1 ? 'See result →' : 'Next →';
+  renderQuizProgress();
+}
+
+function selectQuizOption(btn, idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const data = QUIZ_QUESTIONS[quizIndex];
+  const all = quizOpts.querySelectorAll('.quiz-option');
+  all.forEach((b, i) => {
+    b.disabled = true;
+    if (i === data.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('wrong');
+  });
+  if (idx === data.answer) {
+    quizScore++;
+    quizScoreLabel.textContent = 'Score: ' + quizScore;
+  }
+  quizNext.classList.add('ready');
+}
+
+function advanceQuiz() {
+  if (!quizAnswered) return;
+  quizIndex++;
+  if (quizIndex >= QUIZ_QUESTIONS.length) {
+    showQuizResult();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+function showQuizResult() {
+  quizBody.style.display = 'none';
+  quizResult.style.display = 'block';
+  quizResultScore.textContent = quizScore + ' / ' + QUIZ_QUESTIONS.length;
+  const tier = QUIZ_RESULT_TIERS.find(t => quizScore >= t.min && quizScore <= t.max) || QUIZ_RESULT_TIERS[0];
+  quizResultRank.textContent = tier.rank + '-tier';
+  quizResultMsg.textContent = tier.msg;
+}
+
+function startQuiz() {
+  quizIndex = 0;
+  quizScore = 0;
+  quizBody.style.display = 'block';
+  quizResult.style.display = 'none';
+  renderQuizQuestion();
+  quizOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuiz() {
+  quizOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('trial-open').addEventListener('click', startQuiz);
+quizClose.addEventListener('click', closeQuiz);
+quizNext.addEventListener('click', advanceQuiz);
+quizRestart.addEventListener('click', startQuiz);
+quizOverlay.addEventListener('click', (e) => {
+  if (e.target === quizOverlay) closeQuiz();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
+});
+</script>
+
+</body>
+</html>
