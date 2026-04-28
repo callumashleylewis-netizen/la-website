@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Order · Librarians' Assembly</title>
+<meta name="description" content="What the Librarians' Assembly is, and the four disciplines that bind it.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="The Order · Librarians' Assembly">
+<meta property="og:description" content="What the Librarians' Assembly is, and the four disciplines that bind it.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/order.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   ORDER PAGE — what the Assembly is
+   ======================================================================== */
+.order {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.order-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.order-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.order-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.order-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-prose {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  margin-bottom: 1.4rem;
+  opacity: 0.9;
+}
+.order-prose em { font-style: italic; color: var(--gold-bright); }
+
+.order-pullquote {
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 32rem;
+  padding: 1.6rem 1.2rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  color: var(--paper);
+  opacity: 0.92;
+}
+.order-pullquote::before, .order-pullquote::after {
+  content: '"';
+  color: var(--gold);
+  opacity: 0.55;
+  font-size: 1.3em;
+  margin: 0 0.15em;
+}
+
+/* Pursuits */
+.pursuits-divider {
+  text-align: center;
+  margin: 5rem 0 3rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: rgba(244, 234, 210, 0.55);
+  text-transform: uppercase;
+  position: relative;
+}
+.pursuits-divider::before, .pursuits-divider::after {
+  content: '';
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: var(--rule);
+  vertical-align: middle;
+  margin: 0 1.2rem;
+}
+
+.pursuits-intro {
+  text-align: center;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 4rem;
+  line-height: 1.4;
+}
+.pursuits-intro em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.pursuit {
+  margin-bottom: 3.5rem;
+  scroll-margin-top: 5rem;
+}
+.pursuit-tenet {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  opacity: 0.85;
+}
+.pursuit-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.01em;
+}
+.pursuit-name em {
+  color: var(--gold-bright);
+}
+.pursuit-rule {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 1.4rem;
+}
+.pursuit-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--paper);
+  opacity: 0.85;
+}
+.pursuit-body p { margin-bottom: 1rem; }
+.pursuit-body p:last-child { margin-bottom: 0; }
+.pursuit-body em { font-style: italic; color: var(--gold-bright); }
+
+/* Handoff block at bottom */
+.order-handoff {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+}
+.order-handoff-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.handoff-card {
+  display: block;
+  padding: 1.5rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.handoff-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.handoff-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.handoff-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.handoff-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .order { padding: 4rem 1.4rem 4rem; }
+  .pursuit-name { font-size: 1.6rem; }
+  .pursuits-divider::before, .pursuits-divider::after { width: 30px; margin: 0 0.6rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 3 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
+</header>
+
+<main class="order">
+
+  <div class="order-eyebrow fade-in">· The Order ·</div>
+  <h1 class="order-heading fade-in">What we <em>are</em></h1>
+  <p class="order-sub fade-in">A specialised collective within the Jedi Order, and the four disciplines that bind it.</p>
+
+  <p class="order-prose fade-in">
+    The <em>Jedi Librarian's Assembly</em> is a specialised collective within the
+    Jedi Order, devoted to the preservation, organisation, and dissemination of
+    knowledge. Where other branches of the Order are tasked with the defence of
+    the galaxy or the diplomacy of its peoples, the Assembly is tasked with the
+    defence of its memory.
+  </p>
+
+  <p class="order-prose fade-in">
+    Based in the <em>Great Jedi Archives</em> on Coruscant, the keepers of the
+    Assembly serve as guardians of history, philosophy, and the teachings of the
+    Force. Its members are scholars, archivists, tutors, and researchers — Jedi
+    whose blade is the index, whose meditation is the catalogue. Their charge is
+    not to write history, but to ensure it is held; not to settle every question,
+    but to see that no question is forgotten.
+  </p>
+
+  <p class="order-prose fade-in">
+    The mission of the Assembly is simple in its statement and demanding in its
+    practice: that the wisdom of generations remains accessible to all who would
+    seek it. What is preserved here is not preserved for its own sake. It is
+    preserved so that the next keeper, the next student, the next padawan to walk
+    these halls, finds it ready to be read.
+  </p>
+
+  <div class="order-pullquote fade-in">
+    What is preserved, endures.<br>What is taught, multiplies.
+  </div>
+
+  <div class="pursuits-divider fade-in">Pursuits of the Order</div>
+
+  <h2 class="pursuits-intro fade-in">Four <em>disciplines</em> form the foundation<br>of our Assembly.</h2>
+
+  <article class="pursuit fade-in" id="pursuit-archive">
+    <div class="pursuit-tenet">01 · Tenet</div>
+    <div class="pursuit-name"><em>The Archive</em></div>
+    <div class="pursuit-rule"></div>
+    <div class="pursuit-body">
+      <p>
+        Texts, recordings, and oral histories are gathered, indexed, and made
+        available to those who would learn. The archive is the heart of the
+        Order — without it, every other discipline collapses inward into mere
+        opinion.
+      </p>
+      <p>
+        The work of the Archive is not romantic. It is patient cataloguing,
+        verification, cross-reference, and the slow labour of deciding what to
+        keep and how. Every member of the Assembly contributes to it, regardless
+        of rank, because the Archive belongs to no one and serves everyone.
+      </p>
+    </div>
+  </article>
+
+  <article class="pursuit fade-in" id="pursuit-instruction">
+    <div class="pursuit-tenet">02 · Tenet</div>
+    <div class="pursuit-name"><em>Instruction</em></div>
+    <div class="pursuit-rule"></div>
+    <div class="pursuit-body">
+      <p>
+        From basic training to advanced symposia, members teach one another
+        openly. No knowledge is hoarded; every Initiate may rise to Loremaster.
+        What you have learned, you are obligated to teach when asked — this is
+        not a courtesy of the Order, but a condition of belonging to it.
+      </p>
+      <p>
+        Instruction in the Assembly takes many forms: lectures held in the great
+        halls, one-on-one mentorship between keeper and pledge, written treatises
+        that pass from one generation to the next. The teacher who fears they
+        have nothing to teach is, often, the one with the most to give.
+      </p>
+    </div>
+  </article>
+
+  <article class="pursuit fade-in" id="pursuit-discourse">
+    <div class="pursuit-tenet">03 · Tenet</div>
+    <div class="pursuit-name"><em>Discourse</em></div>
+    <div class="pursuit-rule"></div>
+    <div class="pursuit-body">
+      <p>
+        Through debate and assembly, contradictions in the record are weighed
+        and resolved. Truth is found in argument, not in silence. The Assembly
+        does not fear disagreement — it requires it. A record never challenged
+        is a record never tested.
+      </p>
+      <p>
+        Discourse within the Order is held to a high standard. A keeper may
+        criticise an idea without diminishing the one who held it. All voices
+        are heard before a verdict is taken. What emerges from a well-held
+        debate is not always agreement, but it is always a clearer record of
+        where reasonable minds stand.
+      </p>
+    </div>
+  </article>
+
+  <article class="pursuit fade-in" id="pursuit-vigil">
+    <div class="pursuit-tenet">04 · Tenet</div>
+    <div class="pursuit-name"><em>Vigil</em></div>
+    <div class="pursuit-rule"></div>
+    <div class="pursuit-body">
+      <p>
+        The keepers of the Assembly patrol their holdings, defend their archives,
+        and bear witness when history is being made. Knowledge unguarded is
+        knowledge lost. What is preserved with patience can still be undone in
+        a moment — and so the watch must be constant.
+      </p>
+      <p>
+        The Vigil is the most outward-facing of the disciplines. Where the
+        Archive looks inward to the catalogue and Instruction looks across to
+        the student, the Vigil looks beyond — to the galaxy whose record the
+        Assembly holds. To stand vigil is to accept that the act of keeping is
+        as serious as the act of writing, and sometimes more so.
+      </p>
+    </div>
+  </article>
+
+  <div class="order-handoff fade-in">
+    <p class="order-handoff-intro">If this calls to you, the rest of the Order awaits.</p>
+    <div class="handoff-grid">
+      <a class="handoff-card" href="path.html">
+        <div class="handoff-eyebrow">· Next ·</div>
+        <div class="handoff-name">The Path</div>
+        <div class="handoff-desc">How one rises within the Assembly, from Pledge to Chief Librarian.</div>
+      </a>
+      <a class="handoff-card" href="charter.html">
+        <div class="handoff-eyebrow">· Read ·</div>
+        <div class="handoff-name">The Charter</div>
+        <div class="handoff-desc">The conduct expected of every member, written down and held to.</div>
+      </a>
+      <a class="handoff-card" href="apply.html">
+        <div class="handoff-eyebrow">· Begin ·</div>
+        <div class="handoff-name">Petition</div>
+        <div class="handoff-desc">What is asked of those who would seek a place in the Assembly.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// Back to top
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+</body>
+</html>
