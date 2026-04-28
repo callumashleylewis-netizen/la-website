@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Oath · Librarians' Assembly</title>
+<meta name="description" content="The Oath of the Keeper, and what it asks of those who would take it.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="The Oath · Librarians' Assembly">
+<meta property="og:description" content="The Oath of the Keeper, and what it asks of those who would take it.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/oath.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   OATH PAGE — proper home for the Oath of the Keeper
+   ======================================================================== */
+.oath-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.oath-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.oath-page-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.oath-page-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.oath-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The opening epigraph — the "history" framing */
+.oath-epigraph {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin: 0 auto 4rem;
+  max-width: 32rem;
+  padding: 1.6rem 1.4rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0.88;
+}
+.oath-epigraph::before {
+  content: '·';
+  display: block;
+  color: var(--gold);
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+  opacity: 0.7;
+}
+
+/* Section blocks */
+.oath-section {
+  margin-bottom: 3.5rem;
+}
+.oath-section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+.oath-section-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin-bottom: 1.2rem;
+}
+.oath-section-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.oath-section p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--paper);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+.oath-section p:last-child { margin-bottom: 0; }
+.oath-section em { font-style: italic; color: var(--gold-bright); }
+
+/* The styled inscription of the Oath */
+.oath-inscription {
+  background: rgba(10, 19, 32, 0.85);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  padding: 3.5rem 2.5rem;
+  margin: 2rem 0;
+  position: relative;
+  text-align: center;
+}
+.oath-inscription::before, .oath-inscription::after {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 154, 58, 0.6), transparent);
+}
+.oath-inscription::before { top: 1rem; }
+.oath-inscription::after { bottom: 1rem; }
+
+.oath-inscription-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+.oath-inscription-body {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: var(--paper);
+  font-style: italic;
+}
+.oath-inscription-body em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.oath-inscription-mark {
+  margin-top: 2rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(244, 234, 210, 0.5);
+  text-transform: uppercase;
+}
+
+/* Generator block */
+.generator {
+  margin: 3rem 0;
+  text-align: center;
+}
+.generator-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.generator-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.2vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.6rem;
+}
+.generator-heading em { font-style: italic; color: var(--gold-bright); }
+.generator-intro {
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.65;
+  opacity: 0.78;
+  margin: 0 auto 2.2rem;
+  max-width: 32rem;
+}
+.generator-form {
+  max-width: 28rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+.generator-input {
+  width: 100%;
+  background: rgba(10, 19, 32, 0.6);
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  padding: 0.85rem 1.1rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: border-color 0.3s, background 0.3s;
+}
+.generator-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+}
+.generator-input::placeholder { color: rgba(244, 234, 210, 0.35); font-style: italic; }
+.generator-btn {
+  background: transparent;
+  border: 1px solid rgba(199, 154, 58, 0.5);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.6rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+}
+.generator-btn:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.1);
+  color: var(--gold-bright);
+}
+
+/* The personalised oath card output */
+.oath-card {
+  margin: 3rem auto 0;
+  max-width: 32rem;
+  background: rgba(10, 19, 32, 0.85);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  position: relative;
+  display: none;
+}
+.oath-card.shown { display: block; }
+.oath-card::before, .oath-card::after {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 154, 58, 0.6), transparent);
+}
+.oath-card::before { top: 1rem; }
+.oath-card::after { bottom: 1rem; }
+.oath-card-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.oath-card-body {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--paper);
+  margin-bottom: 1.6rem;
+}
+.oath-card-body em { font-style: italic; color: var(--gold-bright); }
+.oath-card-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--gold-bright);
+  margin: 1.2rem 0 0.4rem;
+}
+.oath-card-rule {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0.6rem auto 0.8rem;
+  opacity: 0.6;
+}
+.oath-card-mark {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(244, 234, 210, 0.5);
+  text-transform: uppercase;
+}
+.oath-card-actions {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.oath-mini-btn {
+  background: transparent;
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.oath-mini-btn:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.08);
+}
+
+/* "Voices on the Oath" pull-quote */
+.voice-on-oath {
+  margin: 4rem auto;
+  max-width: 32rem;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  padding: 2rem 1.4rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.voice-on-oath::before { content: '"'; color: var(--gold); opacity: 0.55; margin-right: 0.15em; font-size: 1.3em; }
+.voice-on-oath::after { content: '"'; color: var(--gold); opacity: 0.55; margin-left: 0.15em; font-size: 1.3em; }
+.voice-on-oath-attr {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+/* Handoff cards */
+.oath-handoff {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+}
+.oath-handoff-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.handoff-card {
+  display: block;
+  padding: 1.5rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.handoff-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.handoff-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.handoff-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.handoff-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .oath-page { padding: 4rem 1.4rem 4rem; }
+  .oath-inscription { padding: 2.4rem 1.6rem; }
+  .oath-inscription-body { font-size: 1.05rem; }
+  .oath-card { padding: 2.2rem 1.5rem; }
+  .oath-card-body { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 2 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
+</header>
+
+<main class="oath-page">
+
+  <div class="oath-eyebrow fade-in">· The Oath ·</div>
+  <h1 class="oath-page-heading fade-in">By what we are <em>sworn</em></h1>
+  <p class="oath-sub fade-in">The Oath of the Keeper, and what it asks of those who would take it.</p>
+
+  <p class="oath-epigraph fade-in">
+    The origin of the Oath is not recorded. It has always been taken; that is what is known.
+  </p>
+
+  <section class="oath-section fade-in">
+    <div class="oath-section-num">· I ·</div>
+    <h2 class="oath-section-title">What the <em>Oath</em> is</h2>
+    <p>
+      The Oath is the moment a Pledge becomes a keeper. It is taken once at
+      admission to the Assembly and held to thereafter. The words are short,
+      the obligation long; this is by design.
+    </p>
+    <p>
+      It is not a vow of perfect conduct, nor a promise to never err. It is
+      simpler than that. The Oath is a declaration of what one intends to give
+      to the Order, and what one accepts in return. To take it is to consent to
+      be held to it.
+    </p>
+    <p>
+      Some keepers recite the Oath again at moments of difficulty — when a
+      decision is hard, when standing has been questioned, when the work feels
+      thankless. The words have not changed; the keeper has. That is often
+      enough.
+    </p>
+  </section>
+
+  <section class="oath-section fade-in">
+    <div class="oath-section-num">· II ·</div>
+    <h2 class="oath-section-title">The <em>inscription</em></h2>
+    <article class="oath-inscription">
+      <div class="oath-inscription-eyebrow">· Oath of the Keeper ·</div>
+      <p class="oath-inscription-body">
+        I do pledge to keep the record by patience, by record, by light;<br>
+        to teach what I have learned, and to learn what I have not;<br>
+        to hold the Archive above convenience,<br>
+        and the Order above myself.
+      </p>
+      <div class="oath-inscription-mark">· So sealed beneath the sigil ·</div>
+    </article>
+  </section>
+
+  <section class="oath-section fade-in">
+    <div class="oath-section-num">· III ·</div>
+    <h2 class="oath-section-title">Why the <em>words</em></h2>
+    <p>
+      Each line carries weight beyond its sentence.
+    </p>
+    <p>
+      <em>By patience, by record, by light</em> is the motto of the Order — the
+      first line names the disciplines a keeper accepts. <em>To teach what I have
+      learned, and to learn what I have not</em> binds the keeper to instruction
+      in both directions; one does not merely receive knowledge, nor merely give
+      it. <em>To hold the Archive above convenience</em> is the most demanding
+      clause: it asks the keeper to choose the record over their own ease, every
+      time. <em>The Order above myself</em> is the closing — the smaller word
+      yielding to the larger.
+    </p>
+    <p>
+      Read them slowly. They were written to be lived with, not glanced at.
+    </p>
+  </section>
+
+  <div class="voice-on-oath fade-in">
+    I took the Oath at twenty-two. I have been held to it for forty years, and have not yet outgrown it.
+    <span class="voice-on-oath-attr">— A keeper of the Assembly</span>
+  </div>
+
+  <section class="oath-section fade-in">
+    <div class="oath-section-num">· IV ·</div>
+    <h2 class="oath-section-title">Take <em>your own</em></h2>
+    <div class="generator">
+      <p class="generator-intro">
+        For those who would walk the Assembly's path, a keepsake. Inscribe your
+        chosen name and receive the Oath in your own hand.
+      </p>
+      <div class="generator-form">
+        <input
+          class="generator-input"
+          id="oath-input"
+          type="text"
+          maxlength="40"
+          placeholder="Enter your chosen name..."
+          autocomplete="off">
+        <button class="generator-btn" id="oath-submit">Inscribe</button>
+      </div>
+
+      <article class="oath-card" id="oath-card" aria-live="polite">
+        <div class="oath-card-eyebrow">· Oath of the Keeper ·</div>
+        <p class="oath-card-body">
+          <em>I,</em>
+        </p>
+        <div class="oath-card-name" id="oath-card-name">—</div>
+        <div class="oath-card-rule"></div>
+        <p class="oath-card-body">
+          do pledge to keep the record by patience, by record, by light;<br>
+          to teach what I have learned, and to learn what I have not;<br>
+          to hold the Archive above convenience,<br>
+          and the Order above myself.
+        </p>
+        <div class="oath-card-mark">· So sealed beneath the sigil ·</div>
+        <div class="oath-card-actions">
+          <button class="oath-mini-btn" id="oath-copy">Copy as text</button>
+          <button class="oath-mini-btn" id="oath-reset">Take another</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="oath-handoff fade-in">
+    <p class="oath-handoff-intro">If the Oath has weight for you, the rest of the Order awaits.</p>
+    <div class="handoff-grid">
+      <a class="handoff-card" href="charter.html">
+        <div class="handoff-eyebrow">· Read ·</div>
+        <div class="handoff-name">The Charter</div>
+        <div class="handoff-desc">The conduct expected of every member, written down and held to.</div>
+      </a>
+      <a class="handoff-card" href="apply.html">
+        <div class="handoff-eyebrow">· Begin ·</div>
+        <div class="handoff-name">Petition</div>
+        <div class="handoff-desc">What is asked of those who would seek a place in the Assembly.</div>
+      </a>
+      <a class="handoff-card" href="path.html">
+        <div class="handoff-eyebrow">· Walk ·</div>
+        <div class="handoff-name">The Path</div>
+        <div class="handoff-desc">How one rises within the Assembly, from Pledge to Chief Librarian.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// Back to top
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+
+// Oath generator
+(function initOath() {
+  const input = document.getElementById('oath-input');
+  const submit = document.getElementById('oath-submit');
+  const card = document.getElementById('oath-card');
+  const cardName = document.getElementById('oath-card-name');
+  const copyBtn = document.getElementById('oath-copy');
+  const resetBtn = document.getElementById('oath-reset');
+  if (!input || !submit || !card || !cardName) return;
+
+  function inscribe() {
+    const raw = (input.value || '').trim();
+    if (!raw) { input.focus(); return; }
+    cardName.textContent = raw;
+    card.classList.add('shown');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
+  }
+
+  submit.addEventListener('click', inscribe);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); inscribe(); }
+  });
+
+  function fallbackCopy(txt, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); cb && cb(); } catch (_) {}
+    document.body.removeChild(ta);
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const name = cardName.textContent;
+      const txt = [
+        '~ Oath of the Keeper ~',
+        '',
+        'I, ' + name + ',',
+        'do pledge to keep the record by patience, by record, by light;',
+        'to teach what I have learned, and to learn what I have not;',
+        'to hold the Archive above convenience,',
+        'and the Order above myself.',
+        '',
+        '— So sealed beneath the sigil —',
+      ].join('\n');
+      const showCopied = () => {
+        const orig = copyBtn.textContent;
+        copyBtn.textContent = 'Copied ✓';
+        setTimeout(() => { copyBtn.textContent = orig; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(showCopied).catch(() => fallbackCopy(txt, showCopied));
+      } else {
+        fallbackCopy(txt, showCopied);
+      }
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      card.classList.remove('shown');
+      input.value = '';
+      input.focus();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
