@@ -559,3 +559,80 @@ html.scribe-mode .scribe-toggle:hover {
   fill: none;
   stroke-width: 2;
 }
+
+/* ========================================================================
+   GLOSSARY TOOLTIPS — wrapped in-universe terms get a dotted gold underline.
+   Hover (desktop) or tap (mobile) shows a small floating popup.
+   ======================================================================== */
+.glossary-term {
+  border-bottom: 1px dotted rgba(199, 154, 58, 0.5);
+  cursor: help;
+  transition: color 0.25s, border-bottom-color 0.25s;
+}
+.glossary-term:hover,
+.glossary-term:focus {
+  color: var(--gold-bright);
+  border-bottom-color: var(--gold-bright);
+  outline: none;
+}
+
+.glossary-popup {
+  position: absolute;
+  z-index: 120;
+  max-width: 320px;
+  padding: 1rem 1.2rem;
+  background: var(--ink);
+  border: 1px solid rgba(199, 154, 58, 0.5);
+  pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.glossary-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.glossary-popup-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--gold-bright);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.005em;
+}
+.glossary-popup-rule {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 0.7rem;
+}
+.glossary-popup-def {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--paper);
+  opacity: 0.88;
+  font-style: normal;
+}
+
+/* Mobile: full-width banner from the bottom instead of a tooltip */
+@media (max-width: 600px) {
+  .glossary-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto !important;
+    max-width: none;
+    border: none;
+    border-top: 1px solid rgba(199, 154, 58, 0.5);
+    padding: 1.2rem 1.4rem 1.6rem;
+    transform: translateY(100%);
+  }
+  .glossary-popup.visible {
+    transform: translateY(0);
+  }
+}
