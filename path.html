@@ -147,40 +147,6 @@
   opacity: 0.82;
   margin-bottom: 1.2rem;
 }
-.rank-card-reqs-label {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.32em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.7rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(199, 154, 58, 0.18);
-}
-.rank-card-reqs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.rank-card-reqs li {
-  position: relative;
-  padding: 0.45rem 0 0.45rem 1.5rem;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  border-bottom: 1px dotted rgba(199, 154, 58, 0.1);
-  opacity: 0.85;
-}
-.rank-card-reqs li:last-child { border-bottom: none; }
-.rank-card-reqs li::before {
-  content: '›';
-  position: absolute;
-  left: 0;
-  top: 0.45rem;
-  color: var(--gold);
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-style: italic;
-}
 
 /* Trial of Knowledge section */
 .path-trial {
@@ -668,10 +634,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Pledge</div>
         <p class="rank-card-desc">Pledges are unofficial members of the division who have recently passed the Librarians' Assembly application. They have full access to the Librarian robes and team. Pledges have one week to achieve Student and be accepted into the Assembly as a bonafide member.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>Pass the application, OR be handpicked with reason by a member of High Command.</li>
-        </ul>
         <aside class="rank-failure">I do not know what they were waiting for me to write. I do not know what I was waiting for. The week passed. I had drafted three pieces, none I would have wanted read. None were read.<span class="rank-failure-attribution">· From a Pledge's correspondence, year unknown ·</span></aside>
       </div>
     </div>
@@ -681,12 +643,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Student</div>
         <p class="rank-card-desc">Students are full-fledged members of the Librarians' Assembly. The first of the low ranks, they may begin working towards advancing in the Assembly.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>1 submission (one chance of revision will be granted).</li>
-          <li>Pass the orientation quiz.</li>
-          <li>Must be a member of the Consular Pathway.</li>
-        </ul>
       </div>
     </div>
 
@@ -695,12 +651,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Librarian</div>
         <p class="rank-card-desc">Librarians are low-ranks of the Assembly who have begun to prove themselves as members. They may now gear up for the rank of Intellect.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>3 submissions.</li>
-          <li>Attend 4 trainings.</li>
-          <li>Have been a Student for at least 1 day.</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -718,15 +668,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Intellect</div>
         <p class="rank-card-desc">Intellects are the first official middle-rank of the Jedi Librarians' Assembly. They have gained enough knowledge and maturity to co-host training sessions.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>6 submissions.</li>
-          <li>Attend 10 trainings.</li>
-          <li>Attend a Patrol.</li>
-          <li>Attend an Advanced Introductory Lecture.</li>
-          <li>Attend 1 of: Seminar, Symposium, Debate, or Activity Push.</li>
-          <li>Have been a Librarian for at least 3 days.</li>
-        </ul>
       </div>
     </div>
 
@@ -735,14 +676,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Tutor</div>
         <p class="rank-card-desc">Tutors are highly respected and have gained much knowledge within the Assembly. They are permitted to assist the High Ranks.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>8 submissions.</li>
-          <li>Attend 16 trainings.</li>
-          <li>Co-host 5 events.</li>
-          <li>Attend 3 of: Seminar, Symposium, Debate, Activity Push, or Patrol.</li>
-          <li>Have been an Intellect for at least 5 days.</li>
-        </ul>
         <aside class="rank-failure">I had thought patience would be the difficulty. It was not. The difficulty was being needed unevenly. Two of my Pledges asked everything; one asked nothing; I gave the silent one too little and the others too much, and I knew I was doing it as I did it. I asked to be returned to study.<span class="rank-failure-attribution">· Reflection of a former Tutor ·</span></aside>
       </div>
     </div>
@@ -761,18 +694,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Lore Keeper</div>
         <p class="rank-card-desc">Lore Keepers are dedicated members devoted to the study and curation of the Jedi Archives. Strong scholars fulfilling the calling of wisdom and knowledge.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>10 submissions.</li>
-          <li>Attend 20 trainings.</li>
-          <li>Co-host 8 events.</li>
-          <li>Attend 4 of: Seminar, Symposium, Debate, Activity Push, or Patrol.</li>
-          <li>Receive 2 Divisional or higher Endorsements.</li>
-          <li>Become Librarian of the Week at least once.</li>
-          <li>Pass a High Command + Archivist vote to take the Trials.</li>
-          <li>Have been a Tutor for at least 1 week.</li>
-          <li>Must be a Consular AJK.</li>
-        </ul>
         <aside class="rank-failure">I made Lore Keeper in my fourth year and held the standing for eleven months. I taught no Pledges in that time, which is the licence the rank confers, and I read more than I had ever read. By the end of the eleventh month I had stopped wondering at any of it. The Curator did not refuse my request to return to Tutor. I was glad to have Pledges again.<span class="rank-failure-attribution">· Reflection of a former Lore Keeper ·</span></aside>
       </div>
     </div>
@@ -782,17 +703,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Archivist</div>
         <p class="rank-card-desc">Archivists are the Senior High Ranks of the Assembly. Held to the highest level of critical thinking and team management, they take charge in managing both the Assembly and the High Ranks, acting as mentors to all.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>Have no active strikes within TJO or LA.</li>
-          <li>Served as a Lore Keeper for two weeks (excluding the Probationary Period and any Inactivity Notices).</li>
-          <li>Host 35 events.</li>
-          <li>Review 20 submissions.</li>
-          <li>Become High Rank of the Week at least three times.</li>
-          <li>Write a 500-word minimum essay about your journey in LA and why you have stayed for so long.</li>
-          <li>In the same document as your essay, write an example of an explanation of the Assembly to a recently joined Pledge.</li>
-          <li>Pass a unanimous High Command vote.</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -810,10 +720,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Historian</div>
         <p class="rank-card-desc">The Historian is a highly respected rank within the Jedi Order, acting as a role model to those of lower rank. They assist the Curator in overseeing the High Ranks, and report directly to the Curator of the Archives and Chief Librarian.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>Be handpicked by the Chief Librarian and the Curator of the Archives.</li>
-        </ul>
         <aside class="rank-failure">Eight months. Long enough to know the work and to know I could not bear its weight without resentment. Better to step down well than to remain badly. The Assembly is not a stage; one need not exit on cue.<span class="rank-failure-attribution">· From a Historian's letter of resignation ·</span></aside>
       </div>
     </div>
@@ -823,10 +729,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Curator of the Archives</div>
         <p class="rank-card-desc">Curator of the Archives is the second-in-command of the Librarians' Assembly. This person directly oversees the High Ranks and reports to the Chief Librarian.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>Be handpicked by the Chief Librarian.</li>
-        </ul>
       </div>
     </div>
 
@@ -835,10 +737,6 @@ body.failures-active .failures-dismiss { display: block; }
       <div>
         <div class="rank-card-name">Chief Librarian</div>
         <p class="rank-card-desc">Chief Librarian is the highest achievable rank, in first command of the Librarians' Assembly. This person oversees the Assembly, the Jedi Archives, and serves on the Council of First Knowledge.</p>
-        <div class="rank-card-reqs-label">Requirements</div>
-        <ul class="rank-card-reqs">
-          <li>Be chosen by the Jedi High Council.</li>
-        </ul>
         <aside class="rank-failure">I held the office for fourteen months. The Council asked me to remain. I declined. The Order is not preserved by those who cannot leave it. I trust my successor more than I trusted myself.<span class="rank-failure-attribution">· Vael Orin, 11th Chief Librarian, on stepping down ·</span></aside>
       </div>
     </div>
