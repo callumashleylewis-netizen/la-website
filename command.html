@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High Command · Librarians' Assembly</title>
+<meta name="description" content="The senior ranks of the Librarians' Assembly. Those who steward the Order.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="High Command · Librarians' Assembly">
+<meta property="og:description" content="Those who steward the Order.">
+<meta property="og:url" content="https://callumashleylewis-netizen.github.io/la-website/command.html">
+<meta property="og:image" content="https://callumashleylewis-netizen.github.io/la-website/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ========================================================================
+   COMMAND PAGE — High Command roles + members
+   ======================================================================== */
+.command {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+}
+
+.command-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.command-heading {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+.command-heading em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.command-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.command-prose {
+  max-width: 36rem;
+  margin: 0 auto 4rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  opacity: 0.88;
+  text-align: center;
+}
+.command-prose em { font-style: italic; color: var(--gold-bright); }
+
+/* Role group blocks */
+.role-group {
+  margin-bottom: 4rem;
+  scroll-margin-top: 5rem;
+}
+.role-group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+.role-group-rule {
+  flex: 0 0 60px;
+  height: 1px;
+  background: var(--rule);
+}
+.role-group-tier {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.role-group-name {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.role-group-name em { font-style: italic; color: var(--gold-bright); }
+.role-group-desc {
+  text-align: center;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--paper);
+  opacity: 0.78;
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+}
+
+/* Member cards */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.member-card {
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.2);
+  padding: 2rem 1.6rem;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  position: relative;
+}
+.member-card:hover {
+  border-color: rgba(199, 154, 58, 0.5);
+  background: rgba(20, 35, 58, 0.6);
+  transform: translateY(-3px);
+}
+.member-card.featured {
+  border-color: rgba(199, 154, 58, 0.45);
+  background: rgba(20, 30, 50, 0.7);
+}
+.member-card.featured::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 2px;
+  background: var(--gold);
+}
+.member-portrait {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 1.2rem;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(10, 19, 32, 0.8);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  filter: drop-shadow(0 0 14px rgba(199, 154, 58, 0.18));
+  transition: border-color 0.3s, filter 0.3s;
+}
+.member-card:hover .member-portrait {
+  border-color: rgba(199, 154, 58, 0.7);
+  filter: drop-shadow(0 0 20px rgba(199, 154, 58, 0.35));
+}
+.member-portrait.fallback {
+  object-fit: contain;
+  padding: 18px;
+  opacity: 0.85;
+}
+.member-rank {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+.member-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--paper);
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.005em;
+}
+.member-handle {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+  opacity: 0.55;
+}
+
+/* Footer note about contact */
+.command-note {
+  margin-top: 3rem;
+  padding: 1.4rem 1.6rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(199, 154, 58, 0.04);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.65;
+  opacity: 0.82;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Handoff cards */
+.command-handoff {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+}
+.command-handoff-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.handoff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.handoff-card {
+  display: block;
+  padding: 1.5rem 1.4rem;
+  background: rgba(10, 19, 32, 0.55);
+  border: 1px solid rgba(199, 154, 58, 0.25);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.handoff-card:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  transform: translateY(-3px);
+}
+.handoff-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.handoff-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.handoff-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .command { padding: 4rem 1.4rem 4rem; }
+  .role-group-name { font-size: 1.6rem; }
+  .role-group-rule { flex-basis: 30px; }
+  .member-portrait { width: 90px; height: 90px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time" aria-label="Estimated reading time">≈ 1 min read</span>
+    <a href="index.html" class="topbar-back">← Return to the index</a>
+  </div>
+</header>
+
+<main class="command">
+
+  <div class="command-eyebrow fade-in">· The High Command ·</div>
+  <h1 class="command-heading fade-in">Those who <em>steward</em> the Order</h1>
+  <p class="command-sub fade-in">The senior ranks of the Assembly. They guide instruction, preserve the record, and answer for the Order's direction.</p>
+
+  <p class="command-prose fade-in">
+    The High Command is the leadership body of the Assembly. Three roles
+    comprise it — <em>Historian</em>, <em>Curator of the Archives</em>, and
+    <em>Chief Librarian</em>. What follows is what each role asks of those who
+    hold it, and the keepers who hold it now.
+  </p>
+
+  <!-- HISTORIANS -->
+  <section class="role-group fade-in" id="role-historian">
+    <div class="role-group-header">
+      <div class="role-group-rule"></div>
+      <div class="role-group-tier">Junior High Command</div>
+      <div class="role-group-rule"></div>
+    </div>
+    <h2 class="role-group-name"><em>Historians</em></h2>
+    <p class="role-group-desc">
+      Historians are the two junior members of the High Command team. They help
+      oversee the daily functions, and act as mentors and firm hands for the
+      High Rank team and the rest of the Institution. They are learning the
+      reigns of leadership in the Assembly. They can usually help you with most
+      issues you may have.
+    </p>
+    <div class="member-grid">
+      <div class="member-card fade-in">
+        <img class="member-portrait" src="https://www.roblox.com/headshot-thumbnail/image?userId=2645685396&width=420&height=420&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('fallback');">
+        <div class="member-rank">Historian</div>
+        <div class="member-name">RuDz_Shark</div>
+        <div class="member-handle">@purplehaze9347</div>
+      </div>
+      <div class="member-card fade-in">
+        <img class="member-portrait" src="https://www.roblox.com/headshot-thumbnail/image?userId=50358768&width=420&height=420&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('fallback');">
+        <div class="member-rank">Historian</div>
+        <div class="member-name">Alexsnakk</div>
+        <div class="member-handle">@skullcruncher44</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURATOR -->
+  <section class="role-group fade-in" id="role-curator">
+    <div class="role-group-header">
+      <div class="role-group-rule"></div>
+      <div class="role-group-tier">Second-in-Command</div>
+      <div class="role-group-rule"></div>
+    </div>
+    <h2 class="role-group-name"><em>Curator of the Archives</em></h2>
+    <p class="role-group-desc">
+      The Curator of the Archives serves as the Second-in-Command of the
+      Assembly, serving as a major supporter of the Chief Librarian; being
+      qualified enough to step up in the event that the Chief Librarian is
+      indisposed. Any concerns regarding a High Rank should be taken to them.
+    </p>
+    <div class="member-grid">
+      <div class="member-card fade-in">
+        <img class="member-portrait" src="https://www.roblox.com/headshot-thumbnail/image?userId=1571021558&width=420&height=420&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('fallback');">
+        <div class="member-rank">Curator of the Archives</div>
+        <div class="member-name">PauVelaria</div>
+        <div class="member-handle">@pauvelaria</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHIEF LIBRARIAN -->
+  <section class="role-group fade-in" id="role-chief">
+    <div class="role-group-header">
+      <div class="role-group-rule"></div>
+      <div class="role-group-tier">First-in-Command</div>
+      <div class="role-group-rule"></div>
+    </div>
+    <h2 class="role-group-name"><em>Chief Librarian</em></h2>
+    <p class="role-group-desc">
+      The Chief Librarian is the Overseer and First-in-Command of the
+      Librarians' Assembly. They serve on the Council of First Knowledge and
+      relay the Assembly's concerns to the wider Council. Their main duty is to
+      maintain the stability of the Assembly and lead it to a brighter future.
+    </p>
+    <div class="member-grid">
+      <div class="member-card featured fade-in">
+        <img class="member-portrait" src="https://www.roblox.com/headshot-thumbnail/image?userId=1118092442&width=420&height=420&format=png" alt="" onerror="this.src='sigil.png'; this.classList.add('fallback');">
+        <div class="member-rank">Chief Librarian</div>
+        <div class="member-name">Valkorion9872</div>
+        <div class="member-handle">@valkorion9872</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="command-note fade-in">
+    Concerns and questions are welcomed. Most matters can be resolved through
+    a Historian; concerns regarding a High Rank should be brought to the
+    Curator; matters of Order-wide direction reach the Chief Librarian.
+  </p>
+
+  <div class="command-handoff fade-in">
+    <p class="command-handoff-intro">If the Order's leadership has its shape, the rest of it awaits.</p>
+    <div class="handoff-grid">
+      <a class="handoff-card" href="path.html">
+        <div class="handoff-eyebrow">· Walk ·</div>
+        <div class="handoff-name">The Path</div>
+        <div class="handoff-desc">How one rises within the Assembly, from Pledge to Chief Librarian.</div>
+      </a>
+      <a class="handoff-card" href="charter.html">
+        <div class="handoff-eyebrow">· Read ·</div>
+        <div class="handoff-name">The Charter</div>
+        <div class="handoff-desc">The conduct expected of every member, written down and held to.</div>
+      </a>
+      <a class="handoff-card" href="apply.html">
+        <div class="handoff-eyebrow">· Begin ·</div>
+        <div class="handoff-name">Petition</div>
+        <div class="handoff-desc">What is asked of those who would seek a place in the Assembly.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="reading.html">Daily Reading</a>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// Reveal-on-scroll for .fade-in elements
+(function initFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  if (els.length === 0) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// Back to top
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 480;
+  let ticking = false;
+  function update() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('visible', y > SHOW_AFTER_PX);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  update();
+})();
+</script>
+
+</body>
+</html>
