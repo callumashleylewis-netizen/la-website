@@ -397,6 +397,69 @@
   background: rgba(74, 216, 255, 0.08);
 }
 
+/* FROM THE CHARTER — random article excerpt, different each visit */
+.from-charter {
+  max-width: 36rem;
+  margin: 0 auto 4rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.from-charter-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+.from-charter-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--paper);
+  opacity: 0.55;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.from-charter-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--gold-bright);
+  margin-bottom: 1.4rem;
+}
+.from-charter-rule {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin: 0 auto 1.4rem;
+}
+.from-charter-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  opacity: 0.85;
+  margin-bottom: 1.8rem;
+  font-style: italic;
+}
+.from-charter-link {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  padding: 0.55rem 1.2rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.from-charter-link:hover {
+  border-color: var(--gold);
+  background: rgba(199, 154, 58, 0.06);
+}
+
 /* OTHER ROOMS */
 .other-rooms {
   max-width: 700px;
@@ -823,6 +886,21 @@ footer {
   <blockquote class="todays-reading-quote" id="todays-reading-quote">—</blockquote>
   <div class="todays-reading-attribution" id="todays-reading-attribution">—</div>
   <a class="todays-reading-link" href="reading.html">Read on its own page →</a>
+  <div class="streak-badge" id="streak-badge" aria-live="polite">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2 L13 7 L18 7 L14 10 L16 15 L12 12 L8 15 L10 10 L6 7 L11 7 Z"/>
+    </svg>
+    <span id="streak-text">—</span>
+  </div>
+</section>
+
+<section class="from-charter fade-in">
+  <div class="from-charter-eyebrow">· From the Charter ·</div>
+  <div class="from-charter-num" id="from-charter-num">—</div>
+  <div class="from-charter-name" id="from-charter-name">—</div>
+  <div class="from-charter-rule"></div>
+  <p class="from-charter-body" id="from-charter-body">—</p>
+  <a class="from-charter-link" id="from-charter-link" href="charter.html">Read the full Charter →</a>
 </section>
 
 <section class="other-rooms fade-in">
@@ -1033,6 +1111,95 @@ const HERETIC_QUOTES = [
   dateEl.textContent = now.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 })();
 
+// FROM THE CHARTER — random article each visit, with deep-link
+(function initFromCharter() {
+  const numEl = document.getElementById('from-charter-num');
+  const nameEl = document.getElementById('from-charter-name');
+  const bodyEl = document.getElementById('from-charter-body');
+  const linkEl = document.getElementById('from-charter-link');
+  if (!numEl || !nameEl || !bodyEl || !linkEl) return;
+  const ARTICLES = [
+    { num: 'I',    slug: 'i',    name: 'Of Truth',         body: 'No member shall fabricate, distort, or knowingly omit truth from the Archive. The record stands above convenience.' },
+    { num: 'II',   slug: 'ii',   name: 'Of Discourse',     body: 'Disagreement is welcome; contempt is not. All voices are heard before a verdict is taken. A member shall criticise an idea without diminishing the one who held it.' },
+    { num: 'III',  slug: 'iii',  name: 'Of Instruction',   body: 'Knowledge is held in trust, not in private. What you have learned, you are obligated to teach when asked.' },
+    { num: 'IV',   slug: 'iv',   name: 'Of Patience',      body: 'Newcomers are owed mentorship, not impatience. Every member of the Assembly was once a Pledge.' },
+    { num: 'V',    slug: 'v',    name: 'Of Conduct',       body: 'All standards of The Jedi Order apply within the Assembly. Harassment, prejudice, and conduct unbecoming a Jedi are not tolerated under any rank or pretext.' },
+    { num: 'VI',   slug: 'vi',   name: 'Of Confidence',    body: "A member's confidence is not for the marketplace. What is shared in good faith between keepers stays between keepers." },
+    { num: 'VII',  slug: 'vii',  name: 'Of Service',       body: 'Rank in the Assembly is earned, not granted. Authority over others is a duty held in service of the Order, never a privilege held over them.' },
+    { num: 'VIII', slug: 'viii', name: 'Of Accountability', body: 'Where a member is called to account, the matter shall be heard openly by High Command. The Charter applies upward as well as downward.' },
+    { num: 'IX',   slug: 'ix',   name: 'Of Departure',     body: "Any member may leave the Assembly with grace. Those who go are owed the Order's thanks for what they preserved. The doors close behind them; they do not close against them." },
+  ];
+  const a = ARTICLES[Math.floor(Math.random() * ARTICLES.length)];
+  numEl.textContent = '· Article ' + a.num + ' ·';
+  nameEl.textContent = a.name;
+  bodyEl.textContent = a.body;
+  linkEl.href = 'charter.html#article-' + a.slug;
+  linkEl.textContent = 'Read this article in full →';
+})();
+
+// READING STREAKS — tracks consecutive UTC-day homepage visits via localStorage
+// 1-6 days: silent. 7+: "Faithful Reader". 30+: "Keeper of the Vigil".
+(function initReadingStreak() {
+  const badge = document.getElementById('streak-badge');
+  const text = document.getElementById('streak-text');
+  if (!badge || !text) return;
+  let store = null;
+  try {
+    const raw = localStorage.getItem('la-reading-streak');
+    store = raw ? JSON.parse(raw) : null;
+  } catch (_) { store = null; }
+  const now = new Date();
+  const todayKey = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const dayMs = 24 * 60 * 60 * 1000;
+  let streak;
+  if (!store || typeof store.last !== 'number') {
+    streak = 1;
+  } else if (store.last === todayKey) {
+    // Already counted today — keep streak as-is
+    streak = store.streak;
+  } else if (todayKey - store.last === dayMs) {
+    // Visited yesterday — increment
+    streak = (store.streak || 0) + 1;
+  } else if (todayKey - store.last > dayMs) {
+    // Missed at least a day — reset
+    streak = 1;
+  } else {
+    // Past visit (clock skew?) — keep
+    streak = store.streak || 1;
+  }
+  try {
+    localStorage.setItem('la-reading-streak', JSON.stringify({ last: todayKey, streak: streak }));
+  } catch (_) {}
+  if (streak >= 30) {
+    text.textContent = 'Keeper of the Vigil · ' + streak + ' days';
+    badge.classList.add('visible');
+  } else if (streak >= 7) {
+    text.textContent = 'Faithful Reader · ' + streak + ' days';
+    badge.classList.add('visible');
+  }
+  // Below 7 — badge stays hidden
+})();
+
+// ROTATING SENTINEL HINT — cycles through teasers every 4 seconds
+(function initSentinelHint() {
+  const hint = document.querySelector('.holo-sentinel-hint');
+  if (!hint) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const HINTS = [
+    'Consult the Holocron',
+    'A passage awaits',
+    'The Archive remembers',
+    'Touch the crystal',
+    'A truth, perhaps',
+    'What is preserved...',
+  ];
+  let i = 0;
+  setInterval(() => {
+    i = (i + 1) % HINTS.length;
+    hint.textContent = HINTS[i];
+  }, 4000);
+})();
+
 // HOLOCRON SENTINEL + lore overlay
 const RECENT_QUOTES = [];
 const RECENT_BUFFER = 6;
@@ -1161,5 +1328,6 @@ if (document.readyState === 'loading') {
 
 <script src="search.js" defer></script>
 <script src="sound.js" defer></script>
+<script src="atmosphere.js" defer></script>
 </body>
 </html>
