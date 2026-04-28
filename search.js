@@ -28,7 +28,6 @@
     'apply-section': 'Petition',
     'oath-section': 'Oath',
     'voice': 'Voice',
-    'lore-quote': 'Holocron',
   };
 
   // -----------------------------------------------------------------
