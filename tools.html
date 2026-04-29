@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools of the Order &middot; Librarians' Assembly</title>
+<meta name="description" content="A small set of tools for the keepers: the namer, the bookspine, the kind-of-keeper test.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Librarians' Assembly">
+<meta property="og:title" content="Tools of the Order">
+<meta property="og:description" content="A small set of tools for the keepers.">
+<meta property="og:url" content="https://librariansassembly.org/tools.html">
+<meta property="og:image" content="https://librariansassembly.org/sigil.png">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+.tools { max-width: 760px; margin: 0 auto; padding: 5rem 2rem 4rem; }
+.tools-eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 1rem; opacity: 0.85; }
+.tools-heading { text-align: center; font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 400; letter-spacing: -0.015em; margin-bottom: 0.6rem; }
+.tools-heading em { font-style: italic; color: var(--gold-bright); }
+.tools-sub { text-align: center; font-style: italic; font-size: 1.1rem; opacity: 0.7; margin-bottom: 4rem; }
+
+.tool-block { margin-bottom: 4rem; padding: 2.4rem 2rem; background: rgba(10, 19, 32, 0.5); border: 1px solid rgba(199, 154, 58, 0.2); }
+.tool-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.7rem; opacity: 0.85; }
+.tool-name { font-family: var(--serif); font-style: italic; font-size: 1.7rem; color: var(--paper); margin-bottom: 0.4rem; }
+.tool-desc { font-size: 0.95rem; line-height: 1.6; opacity: 0.75; margin-bottom: 1.8rem; }
+
+.tool-output { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--gold-bright); background: rgba(20, 35, 58, 0.4); border-left: 3px solid var(--gold); padding: 1.2rem 1.4rem; margin: 1.4rem 0; min-height: 3.4rem; word-wrap: break-word; }
+.tool-output-meta { display: block; font-family: var(--mono); font-style: normal; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; opacity: 0.6; margin-top: 0.6rem; }
+
+.tool-controls { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+.tool-btn { display: inline-block; padding: 0.7rem 1.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; background: var(--gold); color: var(--ink-deep); border: 1px solid var(--gold); cursor: pointer; transition: background 0.3s, border-color 0.3s, transform 0.3s; }
+.tool-btn:hover { background: var(--gold-bright); border-color: var(--gold-bright); transform: translateY(-2px); }
+.tool-btn-secondary { background: transparent; color: var(--gold); border-color: rgba(199, 154, 58, 0.5); }
+.tool-btn-secondary:hover { background: rgba(199, 154, 58, 0.08); color: var(--gold-bright); }
+
+.tool-input { flex: 1; min-width: 180px; background: transparent; border: 1px solid rgba(199, 154, 58, 0.3); color: var(--paper); font-family: var(--serif); font-size: 1rem; padding: 0.7rem 1rem; outline: none; }
+.tool-input:focus { border-color: var(--gold); }
+.tool-input::placeholder { color: var(--paper); opacity: 0.4; font-style: italic; }
+
+.test-q { margin-bottom: 2rem; }
+.test-q-num { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; opacity: 0.7; margin-bottom: 0.4rem; }
+.test-q-text { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1rem; }
+.test-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.test-option { display: block; padding: 0.8rem 1.1rem; background: rgba(20, 35, 58, 0.4); border: 1px solid rgba(199, 154, 58, 0.2); color: var(--paper); font-family: var(--serif); font-size: 0.95rem; text-align: left; cursor: pointer; transition: border-color 0.3s, background 0.3s; }
+.test-option:hover { border-color: var(--gold); background: rgba(20, 35, 58, 0.7); }
+.test-option.selected { border-color: var(--gold-bright); background: rgba(199, 154, 58, 0.12); color: var(--gold-bright); }
+
+.test-result { display: none; text-align: center; padding: 2rem 1rem; }
+.test-result.visible { display: block; }
+.test-result-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.8rem; opacity: 0.85; }
+.test-result-rank { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--gold-bright); margin-bottom: 1rem; }
+.test-result-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+.test-result-msg { font-style: italic; font-size: 1rem; line-height: 1.7; opacity: 0.85; max-width: 28rem; margin: 0 auto 1.6rem; }
+
+@media (max-width: 600px) {
+  .tools { padding: 3rem 1.4rem; }
+  .tool-block { padding: 1.8rem 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-mark">
+    <img src="sigil.png" alt="">
+    <span>Librarians' Assembly</span>
+  </a>
+  <div class="topbar-right">
+    <span class="reading-time">Tools</span>
+    <a href="index.html" class="topbar-back">&larr; Return to the index</a>
+  </div>
+</header>
+
+<main class="tools">
+
+  <div class="tools-eyebrow fade-in">&middot; Tools of the Order &middot;</div>
+  <h1 class="tools-heading fade-in">A keeper's <em>workshop</em></h1>
+  <p class="tools-sub fade-in">Three small tools, kept here for those who would use them.</p>
+
+  <section class="tool-block fade-in">
+    <div class="tool-eyebrow">&middot; Tool I &middot;</div>
+    <h2 class="tool-name">The <em>Namer</em></h2>
+    <p class="tool-desc">A name in the Order's voice, drawn from a small set of fragments. Useful for those crafting a keeper's character.</p>
+    <div class="tool-output" id="name-output">&mdash;</div>
+    <div class="tool-controls">
+      <button type="button" class="tool-btn" id="name-roll">Draw a name</button>
+    </div>
+  </section>
+
+  <section class="tool-block fade-in">
+    <div class="tool-eyebrow">&middot; Tool II &middot;</div>
+    <h2 class="tool-name">The <em>Bookspine</em></h2>
+    <p class="tool-desc">A title for an imagined holocron, built from the syntax of the Order's catalogue. Type a topic, or leave it blank to draw at random.</p>
+    <div class="tool-output" id="book-output">&mdash;</div>
+    <div class="tool-controls">
+      <input type="text" class="tool-input" id="book-topic" placeholder="A topic, or leave blank">
+      <button type="button" class="tool-btn" id="book-roll">Generate</button>
+    </div>
+  </section>
+
+  <section class="tool-block fade-in">
+    <div class="tool-eyebrow">&middot; Tool III &middot;</div>
+    <h2 class="tool-name">What <em>kind</em> of keeper</h2>
+    <p class="tool-desc">Six questions. The Order has many roles, and one of them is yours. This is not the Trial of Knowledge, it asks not what you know, but what you value.</p>
+
+    <div id="test-questions"></div>
+
+    <div class="tool-controls" id="test-controls" style="display:none;">
+      <button type="button" class="tool-btn" id="test-submit">See result</button>
+      <button type="button" class="tool-btn tool-btn-secondary" id="test-restart">Reset</button>
+    </div>
+
+    <div class="test-result" id="test-result">
+      <div class="test-result-eyebrow">&middot; Your role &middot;</div>
+      <div class="test-result-rank" id="test-result-rank"></div>
+      <div class="test-result-rule"></div>
+      <p class="test-result-msg" id="test-result-msg"></p>
+      <button type="button" class="tool-btn tool-btn-secondary" id="test-retake">Take it again</button>
+    </div>
+  </section>
+
+</main>
+
+<footer><a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a> · <a href="tools.html">Tools</a> · <a href="updates.html">Updates</a></footer>
+
+<script>
+(function () {
+  const els = document.querySelectorAll('.fade-in');
+  if (!els.length) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { els.forEach(el => el.classList.add('in')); return; }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => obs.observe(el));
+})();
+
+const NAME_FIRSTS = ['Vael','Thallor','Calex','Orin','Mira','Sael','Vasari','Doran','Liari','Tessaro','Nyrra','Kael','Solenne','Erewen','Brynn','Talia','Cassel','Iolo','Velen','Jarrek','Asha','Cieran','Maris','Tolen','Fenra','Velis','Daro','Ilani','Renna','Sereth','Ovin','Calithra','Bren','Adali','Ottar'];
+const NAME_LASTS = ['Orin','Vellan','Marra','Sennen','Quoros','Ashen','Telar','Dareth','Halen','Nystrum','Caelis','Voth','Marrow','Eress','Karreth','Othen','Vassek','Lirran','Sulen','Pellos','Caen','Ord','Ravel','Skirr','Tolan','Yssen','Aurev','Mendris'];
+const NAME_PRENUMS = ['','','','','the Younger ','the Elder ','the Patient '];
+
+const nameOutput = document.getElementById('name-output');
+function rollName() {
+  const f = NAME_FIRSTS[Math.floor(Math.random() * NAME_FIRSTS.length)];
+  const l = NAME_LASTS[Math.floor(Math.random() * NAME_LASTS.length)];
+  const p = NAME_PRENUMS[Math.floor(Math.random() * NAME_PRENUMS.length)];
+  nameOutput.textContent = f + ' ' + p + l;
+  if (window.LA) window.LA.unlock('tools-explored');
+}
+document.getElementById('name-roll').addEventListener('click', rollName);
+rollName();
+
+const BOOK_PREFIXES = ['On','A Treatise on','Of','A Concordance of','Reflections on','Notes upon','A Compendium of','A Brief History of','The Doctrine of','An Inquiry into','A Codex of','Annotations on','A Catechism of'];
+const BOOK_TOPICS = ['the Outer Rim','the Force','the Council','the Seven Pillars','Lost Worlds','Forgotten Tongues','the Old Republic','the Sith','Mid-Rim Trade','the Jedi Code','Crystals and Their Keeping','the Whispering Voids','the First Hours','the Lost Holocrons','the Discipline of Memory','Silent Languages','the Patient Heart'];
+const BOOK_AUTHORS = ['Tutor','Lore Keeper','Archivist','Curator','Historian','Chief Librarian'];
+const BOOK_VOLUMES = ['','','',', vol. I',', vol. II',', vol. III',', third edition'];
+
+const bookOutput = document.getElementById('book-output');
+const bookTopic = document.getElementById('book-topic');
+function rollBook() {
+  const prefix = BOOK_PREFIXES[Math.floor(Math.random() * BOOK_PREFIXES.length)];
+  let topic = (bookTopic.value || '').trim();
+  if (!topic) topic = BOOK_TOPICS[Math.floor(Math.random() * BOOK_TOPICS.length)];
+  const role = BOOK_AUTHORS[Math.floor(Math.random() * BOOK_AUTHORS.length)];
+  const author = NAME_FIRSTS[Math.floor(Math.random() * NAME_FIRSTS.length)];
+  const vol = BOOK_VOLUMES[Math.floor(Math.random() * BOOK_VOLUMES.length)];
+  bookOutput.innerHTML = '"' + prefix + ' ' + topic + '"' + vol + '<span class="tool-output-meta">By ' + role + ' ' + author + '</span>';
+  if (window.LA) window.LA.unlock('tools-explored');
+}
+document.getElementById('book-roll').addEventListener('click', rollBook);
+bookTopic.addEventListener('keydown', (e) => { if (e.key === 'Enter') rollBook(); });
+rollBook();
+
+const TEST_QUESTIONS = [
+  { q: 'When the Archive grows beyond its current shelves, what is your first instinct?',
+    options: [
+      { text: 'Re-catalogue the existing holdings before adding more', archetype: 'A' },
+      { text: 'Read what has just arrived', archetype: 'L' },
+      { text: 'Find a Pledge to assist with the work', archetype: 'T' },
+      { text: 'Decide which sections are most valuable to keep', archetype: 'H' },
+    ]},
+  { q: 'A new Pledge cannot understand a passage of the Charter. You',
+    options: [
+      { text: 'Sit with them and read it together until it is clear', archetype: 'T' },
+      { text: 'Recommend three commentaries that may illuminate it', archetype: 'L' },
+      { text: 'Compile their question for the Curator to consider', archetype: 'H' },
+      { text: 'Write your own annotation in the margin for them', archetype: 'A' },
+    ]},
+  { q: 'The Order is asked to send one keeper to a wider Council debate. Whom?',
+    options: [
+      { text: "The keeper who can argue the Order's position best", archetype: 'H' },
+      { text: 'The keeper most steeped in the relevant lore', archetype: 'L' },
+      { text: 'The keeper who can teach the most from the experience', archetype: 'T' },
+      { text: 'The keeper who will record the proceedings most faithfully', archetype: 'A' },
+    ]},
+  { q: 'A passage in the Archive is found to be wrong. The right response is',
+    options: [
+      { text: 'Annotate the original; preserve the error and the correction together', archetype: 'A' },
+      { text: 'Find every other instance the error has propagated to', archetype: 'L' },
+      { text: 'Teach this lesson to others as a warning of haste', archetype: 'T' },
+      { text: 'Decide what to publish and what to retract', archetype: 'H' },
+    ]},
+  { q: 'You have one quiet hour. You',
+    options: [
+      { text: 'Read something you have not read before', archetype: 'L' },
+      { text: 'Re-shelve and tidy the working library', archetype: 'A' },
+      { text: 'Check on the Pledges', archetype: 'T' },
+      { text: "Plan the next month's work", archetype: 'H' },
+    ]},
+  { q: 'What you most fear is',
+    options: [
+      { text: 'A truth lost in a careless transcription', archetype: 'A' },
+      { text: 'A question never asked because no one would answer', archetype: 'T' },
+      { text: 'A lesson learned and then forgotten', archetype: 'L' },
+      { text: 'An Order that cannot decide where it is going', archetype: 'H' },
+    ]},
+];
+
+const TEST_RESULTS = {
+  T: { rank: 'Tutor', msg: 'You belong with the Pledges. The Order is renewed by those who teach it; without you, every keeper would have to find their own way alone, and most would not. The Tutors are the warm hands of the Assembly.' },
+  L: { rank: 'Lore Keeper', msg: 'You belong in the deeper rooms of the Archive. The Order needs those who will read what no one else will, who will hold the long view and the strange question. The Lore Keepers are the patient eyes of the Assembly.' },
+  A: { rank: 'Archivist', msg: 'You belong with the catalogue. The Order trusts you with what must not be lost; the careful hand and the steady mind are rarer than they look. The Archivists are the firm grasp of the Assembly.' },
+  H: { rank: 'Historian or Curator', msg: 'You belong on the path to leadership. The Order needs those who can see how its parts fit together and decide what comes next. The Historians and Curators are the careful eyes of the Assembly.' },
+};
+
+const testQuestions = document.getElementById('test-questions');
+const testControls = document.getElementById('test-controls');
+const testResult = document.getElementById('test-result');
+const testResultRank = document.getElementById('test-result-rank');
+const testResultMsg = document.getElementById('test-result-msg');
+let testAnswers = {};
+
+function renderTest() {
+  testQuestions.innerHTML = '';
+  testAnswers = {};
+  TEST_QUESTIONS.forEach((q, qi) => {
+    const div = document.createElement('div');
+    div.className = 'test-q';
+    div.innerHTML =
+      '<div class="test-q-num">&middot; Question ' + (qi + 1) + ' of ' + TEST_QUESTIONS.length + ' &middot;</div>' +
+      '<div class="test-q-text">' + q.q + '</div>' +
+      '<div class="test-options"></div>';
+    const optsEl = div.querySelector('.test-options');
+    q.options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'test-option';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => {
+        testAnswers[qi] = opt.archetype;
+        optsEl.querySelectorAll('.test-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        if (Object.keys(testAnswers).length === TEST_QUESTIONS.length) {
+          testControls.style.display = 'flex';
+        }
+      });
+      optsEl.appendChild(btn);
+    });
+    testQuestions.appendChild(div);
+  });
+  testControls.style.display = 'none';
+  testResult.classList.remove('visible');
+  testQuestions.style.display = 'block';
+}
+
+function computeTestResult() {
+  const tally = { T: 0, L: 0, A: 0, H: 0 };
+  Object.values(testAnswers).forEach(a => { if (tally[a] !== undefined) tally[a]++; });
+  let best = 'T';
+  let bestCount = -1;
+  ['H', 'L', 'A', 'T'].forEach(arch => {
+    if (tally[arch] > bestCount) { best = arch; bestCount = tally[arch]; }
+  });
+  return TEST_RESULTS[best];
+}
+
+document.getElementById('test-submit').addEventListener('click', () => {
+  const r = computeTestResult();
+  testResultRank.textContent = r.rank;
+  testResultMsg.textContent = r.msg;
+  testQuestions.style.display = 'none';
+  testControls.style.display = 'none';
+  testResult.classList.add('visible');
+  if (window.LA) window.LA.unlock('tools-explored');
+});
+document.getElementById('test-restart').addEventListener('click', renderTest);
+document.getElementById('test-retake').addEventListener('click', renderTest);
+
+renderTest();
+</script>
+
+<script src="achievements.js" defer></script>
+<script src="search.js" defer></script>
+<script src="sound.js" defer></script>
+<script src="atmosphere.js" defer></script>
+<script src="glossary.js" defer></script>
+</body>
+</html>

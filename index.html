@@ -935,6 +935,14 @@ footer {
       <div class="other-room-name">Daily Reading</div>
       <div class="other-room-desc">A passage from the holocron</div>
     </a>
+    <a class="other-room" href="character.html">
+      <div class="other-room-name">Trial of Character</div>
+      <div class="other-room-desc">What kind of keeper are you</div>
+    </a>
+    <a class="other-room" href="tools.html">
+      <div class="other-room-name">The Scriptorium</div>
+      <div class="other-room-desc">Small tools and generators</div>
+    </a>
   </div>
 </section>
 
@@ -944,7 +952,7 @@ footer {
     <div class="footer-mark-text">Librarians' Assembly · Holocron Archives</div>
   </div>
   <div class="footer-links">
-    <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a>
+    <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a> · <a href="tools.html">Tools</a> · <a href="updates.html">Updates</a>
   </div>
   <div class="footer-mark-text" style="opacity: 0.4; margin-top: 0.6rem;">By patience, by record, by light</div>
   <div class="footer-revised" id="footer-revised" hidden></div>
@@ -1201,11 +1209,13 @@ const HERETIC_QUOTES = [
     localStorage.setItem('la-reading-streak', JSON.stringify({ last: todayKey, streak: streak }));
   } catch (_) {}
   if (streak >= 30) {
-    text.textContent = 'Keeper of the Vigil · ' + streak + ' days';
+    text.textContent = 'Keeper of the Vigil \u00b7 ' + streak + ' days';
     badge.classList.add('visible');
+    if (window.LA) { window.LA.unlock('faithful-reader'); window.LA.unlock('keeper-of-the-vigil'); }
   } else if (streak >= 7) {
-    text.textContent = 'Faithful Reader · ' + streak + ' days';
+    text.textContent = 'Faithful Reader \u00b7 ' + streak + ' days';
     badge.classList.add('visible');
+    if (window.LA) window.LA.unlock('faithful-reader');
   }
   // Below 7 — badge stays hidden
 })();
@@ -1270,6 +1280,7 @@ const heretic = document.getElementById('holo-heretic');
 
 document.getElementById('holo-sentinel').addEventListener('click', () => {
   SENTINEL_CLICK_COUNT++;
+  if (window.LA && window.LA.unlock) window.LA.unlock('sentinel-consulted');
   if (SENTINEL_CLICK_COUNT >= 7 && !HERETIC_REVEALED) {
     HERETIC_REVEALED = true;
     heretic.classList.add('revealed');
@@ -1277,7 +1288,10 @@ document.getElementById('holo-sentinel').addEventListener('click', () => {
   }
   showRandomQuote(LORE_QUOTES);
 });
-heretic.addEventListener('click', () => showRandomQuote(HERETIC_QUOTES));
+heretic.addEventListener('click', () => {
+  if (window.LA && window.LA.unlock) window.LA.unlock('heretic-found');
+  showRandomQuote(HERETIC_QUOTES);
+});
 
 loreClose.addEventListener('click', closeLore);
 loreOverlay.addEventListener('click', (e) => {
@@ -1366,5 +1380,6 @@ if (document.readyState === 'loading') {
 <script src="sound.js" defer></script>
 <script src="atmosphere.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="achievements.js" defer></script>
 </body>
 </html>

@@ -801,9 +801,7 @@ body.failures-active .failures-dismiss { display: block; }
   </div>
 </div>
 
-<footer>
-  <a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a>
-</footer>
+<footer><a href="index.html">Return to the Index</a> · <a href="order.html">The Order</a> · <a href="path.html">The Path</a> · <a href="command.html">High Command</a> · <a href="charter.html">The Charter</a> · <a href="apply.html">Petition</a> · <a href="oath.html">The Oath</a> · <a href="voices.html">Voices</a> · <a href="reading.html">Daily Reading</a> · <a href="tools.html">Tools</a> · <a href="updates.html">Updates</a></footer>
 
 <!-- Back to top -->
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
@@ -849,7 +847,11 @@ body.failures-active .failures-dismiss { display: block; }
 // ---------------------------------------------------------------------
 // TRIAL OF KNOWLEDGE
 // ---------------------------------------------------------------------
-const QUIZ_QUESTIONS = [
+// QUIZ_POOL — full bank of questions. Each attempt selects QUESTIONS_PER_ATTEMPT
+// at random, with answer options shuffled per question. Same length each attempt,
+// but the selection rotates so repeat attempts feel different.
+const QUIZ_POOL = [
+  // Hierarchy and structure
   { q: "On which Council does the Chief Librarian serve?", options: ["The High Council", "The Council of Reconciliation", "The Council of First Knowledge", "The Council of Reassignment"], answer: 2 },
   { q: "What position does the Curator of the Archives hold within the Assembly?", options: ["Senior High Rank", "Second-in-Command", "Honorary Advisor", "Equal of the Chief Librarian"], answer: 1 },
   { q: "How many tiers comprise the Path of Ascension?", options: ["Three", "Four", "Five", "Six"], answer: 1 },
@@ -858,7 +860,57 @@ const QUIZ_QUESTIONS = [
   { q: "How long does a Pledge have to achieve Student?", options: ["Three days", "One week", "Two weeks", "One month"], answer: 1 },
   { q: "Who chooses the Chief Librarian?", options: ["The Curator of the Archives", "The retiring Chief Librarian", "The Jedi High Council", "A vote of the Assembly"], answer: 2 },
   { q: "Which Jedi class must a Lore Keeper hold?", options: ["Sentinel AJK", "Guardian AJK", "Consular AJK", "Any class"], answer: 2 },
+  { q: "How many ranks are there in total on the Path of Ascension?", options: ["Eight", "Nine", "Ten", "Twelve"], answer: 2 },
+  { q: "What is the entry rank of the Assembly?", options: ["Initiate", "Student", "Pledge", "Apprentice"], answer: 2 },
+
+  // The Pursuits
+  { q: "How many Pursuits define the Order's discipline?", options: ["Three", "Four", "Five", "Seven"], answer: 1 },
+  { q: "Which Pursuit concerns the watchful guarding of knowledge against loss?", options: ["The Archive", "Instruction", "Discourse", "Vigil"], answer: 3 },
+  { q: "Which Pursuit concerns structured argument and disagreement?", options: ["Vigil", "Discourse", "Instruction", "The Archive"], answer: 1 },
+
+  // The Charter
+  { q: "How many articles comprise the Charter?", options: ["Seven", "Eight", "Nine", "Twelve"], answer: 2 },
+  { q: "When is the Charter read aloud to a member?", options: ["Every year", "At each promotion", "Once at admission", "It is never read aloud"], answer: 2 },
+  { q: "The Charter applies to whom?", options: ["Only Pledges and Students", "Only the wider membership, not High Command", "Every member, applied evenly", "Only those who choose to swear it"], answer: 2 },
+  { q: "Which article addresses the conduct of disagreement within the Order?", options: ["Of Truth", "Of Discourse", "Of Service", "Of Confidence"], answer: 1 },
+
+  // Order voice and motto
+  { q: "What is the motto of the Order?", options: ["Truth above all", "Light, knowledge, vigil", "By patience, by record, by light", "Knowledge is the Force"], answer: 2 },
+  { q: "What is said of the Oath's origin?", options: ["It was written by the first Chief Librarian", "It was decreed by the Council of First Knowledge", "Its origin is not recorded; it has always been taken", "It was inherited from the Jedi Council"], answer: 2 },
+
+  // The role descriptions
+  { q: "What is the primary duty of the Chief Librarian?", options: ["To author new Charter articles", "To maintain the stability of the Assembly", "To recruit new members personally", "To represent the Order in combat"], answer: 1 },
 ];
+
+const QUESTIONS_PER_ATTEMPT = 8;
+
+// Build a fresh list of QUESTIONS_PER_ATTEMPT questions for this attempt,
+// with answer options shuffled within each. Stored in QUIZ_QUESTIONS.
+let QUIZ_QUESTIONS = [];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQuizQuestions() {
+  // Pick QUESTIONS_PER_ATTEMPT random questions from the pool, no repeats
+  const picked = shuffleArray(QUIZ_POOL).slice(0, QUESTIONS_PER_ATTEMPT);
+  // For each, shuffle the options and adjust the answer index accordingly
+  QUIZ_QUESTIONS = picked.map(item => {
+    const correct = item.options[item.answer];
+    const shuffled = shuffleArray(item.options);
+    return {
+      q: item.q,
+      options: shuffled,
+      answer: shuffled.indexOf(correct),
+    };
+  });
+}
 
 const QUIZ_RESULT_TIERS = [
   { min: 0, max: 2, rank: "Pledge", msg: "The first steps of any keeper are uncertain. The Archive is patient." },
@@ -954,9 +1006,14 @@ function showQuizResult() {
   const tier = QUIZ_RESULT_TIERS.find(t => quizScore >= t.min && quizScore <= t.max) || QUIZ_RESULT_TIERS[0];
   quizResultRank.textContent = tier.rank + '-tier';
   quizResultMsg.textContent = tier.msg;
+  // Achievements
+  if (window.LA && window.LA.markQuizBest) {
+    window.LA.markQuizBest(quizScore, QUIZ_QUESTIONS.length, tier.rank);
+  }
 }
 
 function startQuiz() {
+  buildQuizQuestions();
   quizIndex = 0;
   quizScore = 0;
   quizBody.style.display = 'block';
@@ -1047,6 +1104,7 @@ document.addEventListener('keydown', (e) => {
     if (elapsed >= HOLD_MS) {
       // Activate
       document.body.classList.add('failures-active');
+      if (window.LA && window.LA.unlock) window.LA.unlock('failures-revealed');
       endHold();
       return;
     }
@@ -1076,5 +1134,6 @@ document.addEventListener('keydown', (e) => {
 <script src="sound.js" defer></script>
 <script src="atmosphere.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="achievements.js" defer></script>
 </body>
 </html>

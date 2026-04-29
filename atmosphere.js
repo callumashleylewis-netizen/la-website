@@ -60,7 +60,11 @@
       const topbar = document.querySelector('.topbar');
       if (topbar) topbar.appendChild(trigger);
     }
-    trigger.addEventListener('click', () => setScribe(!isScribeOn()));
+    trigger.addEventListener('click', () => {
+      const newState = !isScribeOn();
+      setScribe(newState);
+      if (newState && window.LA) window.LA.unlock('in-scribe-mode');
+    });
   }
 
   function scribeIcon(on) {

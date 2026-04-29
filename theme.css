@@ -636,3 +636,57 @@ html.scribe-mode .scribe-toggle:hover {
     transform: translateY(0);
   }
 }
+
+/* ========================================================================
+   ACHIEVEMENT TOAST — gold notification slides in from the right
+   ======================================================================== */
+.achievement-toast {
+  position: fixed;
+  top: 4.5rem;
+  right: 1.4rem;
+  z-index: 200;
+  width: 280px;
+  padding: 1.1rem 1.3rem;
+  background: var(--ink);
+  border: 1px solid var(--gold);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s, transform 0.4s;
+  pointer-events: none;
+}
+.achievement-toast.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.achievement-toast-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+.achievement-toast-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--gold-bright);
+  margin-bottom: 0.3rem;
+}
+.achievement-toast-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--paper);
+  opacity: 0.78;
+}
+@media (max-width: 600px) {
+  .achievement-toast {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+  }
+}
