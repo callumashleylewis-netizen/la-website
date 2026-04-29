@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Initiation &middot; Librarians' Assembly</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="The threshold of the Order.">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0a1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="theme.css">
+<style>
+.topbar { display: none; }
+
+.init {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.init-scene {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.85;
+  margin-bottom: 2.6rem;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.init-scene.visible { opacity: 1; }
+.init-scene em { font-style: italic; color: var(--gold-bright); }
+
+.init-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.8s 0.3s;
+}
+.init-options.visible { opacity: 1; }
+
+.init-option {
+  display: block;
+  text-align: left;
+  padding: 1rem 1.4rem;
+  background: rgba(20, 35, 58, 0.4);
+  border: 1px solid rgba(199, 154, 58, 0.3);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, color 0.3s, transform 0.3s;
+}
+.init-option:hover {
+  border-color: var(--gold);
+  background: rgba(20, 35, 58, 0.7);
+  color: var(--gold-bright);
+  transform: translateX(4px);
+}
+
+.init-end {
+  text-align: center;
+  margin-top: 2rem;
+}
+.init-end-action {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--ink-deep);
+  border: 1px solid var(--gold);
+  text-decoration: none;
+  transition: background 0.3s, transform 0.3s;
+}
+.init-end-action:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+}
+.init-end-secondary {
+  display: block;
+  margin-top: 1.4rem;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--paper);
+  opacity: 0.5;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.init-end-secondary:hover { color: var(--gold); opacity: 0.9; }
+
+.init-prog {
+  position: fixed;
+  top: 1.4rem;
+  right: 1.4rem;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<div class="init-prog" id="init-prog">&middot; threshold &middot;</div>
+
+<main class="init">
+  <div class="init-scene" id="scene"></div>
+  <div class="init-options" id="options"></div>
+</main>
+
+<script>
+// =======================================================================
+// INITIATION — a small text adventure. Three branches, all ending at apply.html.
+// =======================================================================
+const SCENES = {
+  start: {
+    text: 'You stand at the door of the Archive. The wood is dark and old; the brass handle has been worn smooth by hands you will never know. There is no bell, and no instruction. Above the door, an inscription you cannot quite read in the half-light. You hear nothing from within, but the door is not locked.',
+    options: [
+      { text: 'Knock.', goto: 'knock' },
+      { text: 'Read the inscription.', goto: 'inscription' },
+      { text: 'Try the handle.', goto: 'handle' },
+    ],
+    progress: 'threshold',
+  },
+
+  // BRANCH 1: KNOCK — a Tutor opens it and walks you through
+  knock: {
+    text: 'You knock, three times, gently. There is a pause longer than you expected. Then the door opens, and a keeper in a plain grey robe regards you for a moment. Her eyes are kind and tired. <em>"You knocked,"</em> she says, as if noting it for the record. <em>"Most do not. Will you come in?"</em>',
+    options: [
+      { text: 'Yes, gladly.', goto: 'knock_in' },
+      { text: 'I do not yet know if I belong here.', goto: 'knock_doubt' },
+    ],
+    progress: 'knock',
+  },
+  knock_in: {
+    text: 'She steps aside. You enter a small antechamber, lit by a single tallow candle. The Archive proper is somewhere beyond, but she does not lead you there. <em>"Sit,"</em> she says. <em>"Tell me what brought you to the door."</em> You speak; she listens. The conversation is unhurried. By its end she has not promised you anything, but you have the strong sense that the door behind you is no longer the same door.',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+  knock_doubt: {
+    text: 'She nods, slowly. <em>"That is the right answer to begin with,"</em> she says. <em>"Those who arrive certain are usually the ones who leave first. Come in. We will see together what you are."</em> She steps aside, and you cross the threshold.',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+
+  // BRANCH 2: INSCRIPTION — a slower path, you read before acting
+  inscription: {
+    text: 'You stand back from the door and look up. The carving is shallow but careful. As your eyes adjust, the lettering resolves: <em>"By patience, by record, by light."</em> You read it twice, and once more. It does not strike you as a slogan. It strikes you as a description of a long labour, undertaken by people you have never met.',
+    options: [
+      { text: 'Knock.', goto: 'inscription_knock' },
+      { text: 'Wait, and let yourself feel the weight of it.', goto: 'inscription_wait' },
+    ],
+    progress: 'reading',
+  },
+  inscription_knock: {
+    text: 'You knock. The door is opened almost at once, by a younger keeper carrying a bundle of papers. He looks past you for a moment, then back. <em>"You read it,"</em> he says, gesturing up at the inscription. <em>"Few do. We saw you waiting. Come in, please."</em>',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+  inscription_wait: {
+    text: 'You stand and read the inscription a fourth time. The light changes. After some minutes the door opens of its own accord, and an older keeper steps out, sees you, and smiles slightly. <em>"You have been here a quarter of an hour,"</em> he says. <em>"You did not knock. Most do not give a door that much patience."</em> He does not ask whether you would like to come in. He simply holds the door open.',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+
+  // BRANCH 3: HANDLE — direct, the brisk path
+  handle: {
+    text: 'You take the handle and turn it. The door swings inward more easily than you expect. The antechamber beyond is empty; a candle burns on a small table, and a bell sits beside it with a note: <em>"If unattended, please ring."</em> You ring it, once. From a corridor to your left, footsteps. A keeper appears, ledger under one arm, slightly out of breath. <em>"Apologies,"</em> she says. <em>"You are very welcome. Were you expected?"</em>',
+    options: [
+      { text: 'No. I came to see what was here.', goto: 'handle_unexpected' },
+      { text: 'I do not know if I was. I came because I wanted to.', goto: 'handle_uncertain' },
+    ],
+    progress: 'within',
+  },
+  handle_unexpected: {
+    text: 'She closes her ledger and sets it down. <em>"Then we shall make you welcome anyway,"</em> she says. <em>"Most of our keepers came uninvited. The ones who wait to be asked rarely come at all."</em> She gestures down the corridor. The Archive begins three doors past the candle.',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+  handle_uncertain: {
+    text: 'She considers you for a moment. <em>"Wanting is enough,"</em> she says, simply. <em>"It is, in fact, the requirement."</em> She offers her hand. You take it. The door behind you closes with a small definite sound, like a record being filed.',
+    options: [
+      { text: 'Continue.', goto: 'final' },
+    ],
+    progress: 'within',
+  },
+
+  // FINAL — common ending; offers the link to apply.html
+  final: {
+    text: 'A door opens; you step through it. There is more, of course, much more. There is the Charter, and the Path, and the question of what kind of keeper you might become. None of that is asked of you yet. For now, only this: <em>the Order has admitted that you are here</em>.',
+    options: [],
+    end: true,
+    progress: 'admitted',
+  },
+};
+
+const sceneEl = document.getElementById('scene');
+const optionsEl = document.getElementById('options');
+const progEl = document.getElementById('init-prog');
+
+function render(key) {
+  const scene = SCENES[key];
+  if (!scene) return;
+  sceneEl.classList.remove('visible');
+  optionsEl.classList.remove('visible');
+  progEl.textContent = '\u00b7 ' + scene.progress + ' \u00b7';
+  setTimeout(() => {
+    sceneEl.innerHTML = scene.text;
+    optionsEl.innerHTML = '';
+    if (scene.end) {
+      const wrap = document.createElement('div');
+      wrap.className = 'init-end';
+      wrap.innerHTML =
+        '<a class="init-end-action" href="apply.html">Petition for membership</a>' +
+        '<a class="init-end-secondary" href="index.html">Return to the Index</a>';
+      optionsEl.appendChild(wrap);
+    } else {
+      scene.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'init-option';
+        btn.textContent = opt.text;
+        btn.addEventListener('click', () => render(opt.goto));
+        optionsEl.appendChild(btn);
+      });
+    }
+    requestAnimationFrame(() => {
+      sceneEl.classList.add('visible');
+      optionsEl.classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }, 300);
+}
+
+render('start');
+</script>
+
+<script src="season.js" defer></script>
+<script src="achievements.js" defer></script>
+</body>
+</html>

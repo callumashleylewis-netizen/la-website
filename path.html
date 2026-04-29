@@ -206,6 +206,24 @@
   font-size: 0.65rem;
   opacity: 0.75;
 }
+.trial-best {
+  margin-top: 1.4rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+}
+.trial-best em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gold-bright);
+  margin-left: 0.4rem;
+}
 
 /* Handoff at bottom */
 .path-handoff {
@@ -751,6 +769,7 @@ body.failures-active .failures-dismiss { display: block; }
       examination of your familiarity, for those who would be measured.
     </p>
     <button class="trial-btn" id="trial-open">Take the Trial</button>
+    <div class="trial-best" id="trial-best" hidden></div>
   </section>
 
   <!-- HANDOFF -->
@@ -1009,6 +1028,13 @@ function showQuizResult() {
   // Achievements
   if (window.LA && window.LA.markQuizBest) {
     window.LA.markQuizBest(quizScore, QUIZ_QUESTIONS.length, tier.rank);
+    // Refresh the personal-best line
+    const best = window.LA.getQuizBest && window.LA.getQuizBest();
+    const bestEl = document.getElementById('trial-best');
+    if (best && bestEl) {
+      bestEl.innerHTML = '\u00b7 Your best \u00b7 ' + best.score + ' / ' + best.total + ' <em>' + best.rank + '-tier</em>';
+      bestEl.hidden = false;
+    }
   }
 }
 
@@ -1029,6 +1055,17 @@ function closeQuiz() {
 }
 
 document.getElementById('trial-open').addEventListener('click', startQuiz);
+
+// Show personal best below the Trial button if any quiz has been taken
+(function showTrialBest() {
+  if (!window.LA || !window.LA.getQuizBest) return;
+  const best = window.LA.getQuizBest();
+  if (!best) return;
+  const el = document.getElementById('trial-best');
+  if (!el) return;
+  el.innerHTML = '\u00b7 Your best \u00b7 ' + best.score + ' / ' + best.total + ' <em>' + best.rank + '-tier</em>';
+  el.hidden = false;
+})();
 quizClose.addEventListener('click', closeQuiz);
 quizNext.addEventListener('click', advanceQuiz);
 quizRestart.addEventListener('click', startQuiz);
@@ -1134,6 +1171,7 @@ document.addEventListener('keydown', (e) => {
 <script src="sound.js" defer></script>
 <script src="atmosphere.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="season.js" defer></script>
 <script src="achievements.js" defer></script>
 </body>
 </html>

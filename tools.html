@@ -71,6 +71,29 @@
   .tools { padding: 3rem 1.4rem; }
   .tool-block { padding: 1.8rem 1.4rem; }
 }
+
+/* Commonplace book */
+.commonplace-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+.commonplace-text { resize: vertical; min-height: 80px; line-height: 1.5; }
+.commonplace-list { margin-top: 1.4rem; }
+.cp-entry {
+  background: rgba(20, 35, 58, 0.4);
+  border-left: 2px solid rgba(199, 154, 58, 0.4);
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+.cp-entry-text { font-family: var(--serif); font-style: italic; font-size: 1rem; line-height: 1.65; margin-bottom: 0.5rem; }
+.cp-entry-attr { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; opacity: 0.65; }
+.cp-entry-date { display: block; margin-top: 0.4rem; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.25em; color: var(--paper); opacity: 0.4; text-transform: uppercase; }
+.cp-entry-remove { position: absolute; top: 0.5rem; right: 0.6rem; background: transparent; border: none; color: var(--paper); opacity: 0.4; font-size: 1.1rem; cursor: pointer; padding: 0.2rem 0.4rem; transition: opacity 0.3s, color 0.3s; }
+.cp-entry-remove:hover { opacity: 1; color: var(--gold); }
+.cp-empty { font-family: var(--serif); font-style: italic; font-size: 0.95rem; opacity: 0.5; text-align: center; padding: 1rem; }
 </style>
 </head>
 <body>
@@ -132,6 +155,20 @@
       <p class="test-result-msg" id="test-result-msg"></p>
       <button type="button" class="tool-btn tool-btn-secondary" id="test-retake">Take it again</button>
     </div>
+  </section>
+
+  <section class="tool-block fade-in">
+    <div class="tool-eyebrow">&middot; Tool IV &middot;</div>
+    <h2 class="tool-name">A <em>commonplace</em> book</h2>
+    <p class="tool-desc">A keeper's habit, kept here. Type a passage you would not forget, attribute it if you wish, and it will be held for you across visits. The page saves to your browser only; nothing is sent anywhere.</p>
+
+    <div class="commonplace-form">
+      <textarea class="tool-input commonplace-text" id="cp-text" rows="3" placeholder="A passage worth keeping..."></textarea>
+      <input type="text" class="tool-input commonplace-attr" id="cp-attr" placeholder="Attribution (optional)">
+      <button type="button" class="tool-btn" id="cp-add">Add to my book</button>
+    </div>
+
+    <div class="commonplace-list" id="cp-list"></div>
   </section>
 
 </main>
@@ -307,8 +344,80 @@ document.getElementById('test-restart').addEventListener('click', renderTest);
 document.getElementById('test-retake').addEventListener('click', renderTest);
 
 renderTest();
+
+// =============================================================
+// TOOL 4: COMMONPLACE BOOK
+// =============================================================
+const CP_KEY = 'la-commonplace';
+function cpGet() {
+  try { const raw = localStorage.getItem(CP_KEY); return raw ? JSON.parse(raw) : []; }
+  catch (_) { return []; }
+}
+function cpSet(arr) {
+  try { localStorage.setItem(CP_KEY, JSON.stringify(arr)); } catch (_) {}
+}
+
+const cpText = document.getElementById('cp-text');
+const cpAttr = document.getElementById('cp-attr');
+const cpAdd = document.getElementById('cp-add');
+const cpList = document.getElementById('cp-list');
+
+function renderCommonplace() {
+  const entries = cpGet();
+  cpList.innerHTML = '';
+  if (entries.length === 0) {
+    cpList.innerHTML = '<div class="cp-empty">Your book is empty. Begin by adding a passage above.</div>';
+    return;
+  }
+  entries.forEach((e, i) => {
+    const div = document.createElement('div');
+    div.className = 'cp-entry';
+    const dateStr = new Date(e.savedAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+    let html =
+      '<button type="button" class="cp-entry-remove" aria-label="Remove">&times;</button>' +
+      '<div class="cp-entry-text">' + escapeHtml(e.text) + '</div>';
+    if (e.attribution) {
+      html += '<div class="cp-entry-attr">\u00b7 ' + escapeHtml(e.attribution) + ' \u00b7</div>';
+    }
+    html += '<span class="cp-entry-date">Added ' + dateStr + '</span>';
+    div.innerHTML = html;
+    div.querySelector('.cp-entry-remove').addEventListener('click', () => {
+      const arr = cpGet();
+      arr.splice(i, 1);
+      cpSet(arr);
+      renderCommonplace();
+    });
+    cpList.appendChild(div);
+  });
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+cpAdd.addEventListener('click', () => {
+  const text = cpText.value.trim();
+  if (!text) {
+    cpText.focus();
+    return;
+  }
+  const arr = cpGet();
+  arr.unshift({
+    text: text,
+    attribution: cpAttr.value.trim(),
+    savedAt: new Date().toISOString(),
+  });
+  cpSet(arr);
+  cpText.value = '';
+  cpAttr.value = '';
+  renderCommonplace();
+  if (window.LA) window.LA.unlock('tools-explored');
+});
+
+renderCommonplace();
 </script>
 
+<script src="season.js" defer></script>
 <script src="achievements.js" defer></script>
 <script src="search.js" defer></script>
 <script src="sound.js" defer></script>

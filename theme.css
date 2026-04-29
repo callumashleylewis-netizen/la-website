@@ -690,3 +690,27 @@ html.scribe-mode .scribe-toggle:hover {
     width: auto;
   }
 }
+
+/* ========================================================================
+   SEASONAL BANNER — appears on specific dates (May 4, Halloween, etc.)
+   ======================================================================== */
+.season-banner {
+  text-align: center;
+  padding: 0.7rem 1rem;
+  background: rgba(199, 154, 58, 0.08);
+  border-bottom: 1px solid rgba(199, 154, 58, 0.2);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--gold-bright);
+  opacity: 0.9;
+}
+.season-banner.season-halloween {
+  background: rgba(74, 19, 32, 0.4);
+  border-bottom-color: rgba(199, 80, 60, 0.3);
+  color: rgba(255, 200, 160, 0.95);
+}
+body.halloween-mode .holo-heretic {
+  opacity: 0.6 !important;
+  display: block !important;
+}
