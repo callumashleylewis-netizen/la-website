@@ -714,3 +714,124 @@ body.halloween-mode .holo-heretic {
   opacity: 0.6 !important;
   display: block !important;
 }
+
+/* ========================================================================
+   FLOURISHES (Pass D-3) — small touches across the site
+   ======================================================================== */
+
+/* --- Konami toast --- */
+.konami-toast {
+  position: fixed;
+  top: 4.5rem;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  z-index: 200;
+  width: 320px;
+  max-width: calc(100vw - 2rem);
+  padding: 1.1rem 1.3rem;
+  background: var(--ink);
+  border: 1px solid var(--gold);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.4s;
+}
+.konami-toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.konami-toast-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+  opacity: 0.85;
+}
+.konami-toast-body {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--paper);
+  opacity: 0.9;
+}
+
+/* --- Sigil hover tooltip --- */
+.sigil-tip {
+  position: fixed;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 90;
+  background: var(--ink);
+  border: 1px solid rgba(199, 154, 58, 0.4);
+  padding: 0.6rem 1rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--gold-bright);
+  max-width: 280px;
+  opacity: 0;
+  transition: opacity 0.25s;
+  white-space: normal;
+  text-align: center;
+}
+.sigil-tip.visible { opacity: 0.95; }
+@media (max-width: 600px) { .sigil-tip { display: none; } }
+
+/* --- Sigil rotation (every 10th hover) --- */
+.topbar-mark img.rotating {
+  animation: sigilRotate 1.4s ease-in-out;
+}
+@keyframes sigilRotate {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+.topbar-mark img {
+  transition: transform 0.4s;
+  will-change: transform;
+}
+
+/* --- Ink trails canvas --- */
+.ink-trail-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: screen;
+}
+html.scribe-mode .ink-trail-canvas {
+  mix-blend-mode: multiply;
+}
+
+/* --- Ink-trails toggle button (matches scribe-toggle / sound-toggle pattern) --- */
+.ink-toggle {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--paper);
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.4rem;
+  opacity: 0.6;
+}
+.ink-toggle:hover { color: var(--gold); opacity: 1; }
+.ink-toggle.active {
+  color: var(--gold-bright);
+  border-color: rgba(199, 154, 58, 0.4);
+  background: rgba(199, 154, 58, 0.08);
+  opacity: 1;
+}
+
+/* --- Scribe-mode cursor --- */
+html.scribe-mode {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M3 21 L8 16 L18 6 L20 8 L10 18 Z' fill='%23c79a3a' stroke='%23362817' stroke-width='1' stroke-linejoin='round'/><path d='M2 22 L4 20 L5 21 Z' fill='%23362817'/></svg>") 2 22, auto;
+}
