@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Initiation &middot; Librarians' Assembly</title>
@@ -127,11 +127,7 @@
   <div class="init-options" id="options"></div>
 </main>
 
-<script>
-// =======================================================================
-// INITIATION — a small text adventure. Three branches, all ending at apply.html.
-// =======================================================================
-const SCENES = {
+<script>const SCENES = {
   start: {
     text: 'You stand at the door of the Archive. The wood is dark and old; the brass handle has been worn smooth by hands you will never know. There is no bell, and no instruction. Above the door, an inscription you cannot quite read in the half-light. You hear nothing from within, but the door is not locked.',
     options: [
@@ -141,8 +137,6 @@ const SCENES = {
     ],
     progress: 'threshold',
   },
-
-  // BRANCH 1: KNOCK — a Tutor opens it and walks you through
   knock: {
     text: 'You knock, three times, gently. There is a pause longer than you expected. Then the door opens, and a keeper in a plain grey robe regards you for a moment. Her eyes are kind and tired. <em>"You knocked,"</em> she says, as if noting it for the record. <em>"Most do not. Will you come in?"</em>',
     options: [
@@ -165,8 +159,6 @@ const SCENES = {
     ],
     progress: 'within',
   },
-
-  // BRANCH 2: INSCRIPTION — a slower path, you read before acting
   inscription: {
     text: 'You stand back from the door and look up. The carving is shallow but careful. As your eyes adjust, the lettering resolves: <em>"By patience, by record, by light."</em> You read it twice, and once more. It does not strike you as a slogan. It strikes you as a description of a long labour, undertaken by people you have never met.',
     options: [
@@ -189,8 +181,6 @@ const SCENES = {
     ],
     progress: 'within',
   },
-
-  // BRANCH 3: HANDLE — direct, the brisk path
   handle: {
     text: 'You take the handle and turn it. The door swings inward more easily than you expect. The antechamber beyond is empty; a candle burns on a small table, and a bell sits beside it with a note: <em>"If unattended, please ring."</em> You ring it, once. From a corridor to your left, footsteps. A keeper appears, ledger under one arm, slightly out of breath. <em>"Apologies,"</em> she says. <em>"You are very welcome. Were you expected?"</em>',
     options: [
@@ -213,8 +203,6 @@ const SCENES = {
     ],
     progress: 'within',
   },
-
-  // FINAL — common ending; offers the link to apply.html
   final: {
     text: 'A door opens; you step through it. There is more, of course, much more. There is the Charter, and the Path, and the question of what kind of keeper you might become. None of that is asked of you yet. For now, only this: <em>the Order has admitted that you are here</em>.',
     options: [],

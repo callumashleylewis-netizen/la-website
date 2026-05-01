@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tools of the Order &middot; Librarians' Assembly</title>
@@ -344,10 +344,6 @@ document.getElementById('test-restart').addEventListener('click', renderTest);
 document.getElementById('test-retake').addEventListener('click', renderTest);
 
 renderTest();
-
-// =============================================================
-// TOOL 4: COMMONPLACE BOOK
-// =============================================================
 const CP_KEY = 'la-commonplace';
 function cpGet() {
   try { const raw = localStorage.getItem(CP_KEY); return raw ? JSON.parse(raw) : []; }

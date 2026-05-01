@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lost &middot; Librarians' Assembly</title>
@@ -138,7 +138,6 @@ let foundLost = false;
 
 function buildShelf() {
   shelf.innerHTML = '';
-  // Shuffle the order so the lost book is in a different position each visit
   const shuffled = BOOKS.slice().sort(() => Math.random() - 0.5);
   shuffled.forEach((book, i) => {
     const el = document.createElement('div');
@@ -169,7 +168,6 @@ function inspectBook(i, book, el) {
     el.classList.add('searched');
     status.textContent = book.empty;
     if (inspected.size === BOOKS.length - 1 && !foundLost) {
-      // All non-lost books inspected; nudge toward the last one
       status.textContent = 'Only one volume remains unexamined.';
     }
   }

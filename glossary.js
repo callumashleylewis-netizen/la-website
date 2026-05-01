@@ -1,28 +1,9 @@
-/* ========================================================================
-   glossary.js — In-universe term tooltips
-   ------------------------------------------------------------------------
-   Scans body text on each page, wraps the first occurrence of each known
-   term in a <span class="glossary-term">. Hover (desktop) or tap (mobile)
-   shows a small popup with the definition.
-
-   Design choices:
-   - First occurrence only per page, to avoid wrapping every "vigil" in a
-     paragraph that uses the word four times
-   - Skip already-wrapped content (don't re-wrap on second pass)
-   - Skip headings, buttons, and known-decorative areas
-   - Match whole words only, case-insensitive, but preserve original case
-   - Use a single floating popup element, repositioned on each hover
-   ======================================================================== */
+/* glossary.js */
 
 (function () {
   'use strict';
 
-  // -----------------------------------------------------------------
-  // Term list — 18 entries, all Assembly-specific
-  // -----------------------------------------------------------------
-  // Each term: 'pattern' is the regex word (lowercase), 'def' is the
-  // popup text. Order matters slightly — longer phrases first so
-  // "Council of First Knowledge" matches before "Council".
+  // longer phrases first so 'Council of First Knowledge' matches before 'Council'
   const TERMS = [
     { pattern: 'Council of First Knowledge', def: "The wider Jedi Council on which the Chief Librarian holds a seat. Concerns of the Assembly are relayed to it; matters affecting the wider Order's record return from it." },
     { pattern: 'Curator of the Archives', def: "Second-in-Command of the Assembly. Major supporter of the Chief Librarian; qualified to step up if the Chief Librarian is indisposed." },
@@ -44,22 +25,19 @@
     { pattern: 'Oath', def: "The pledge taken by every keeper at admission. Its origin is not recorded; it has always been taken." },
   ];
 
-  // Compile regex for each term: word-boundary, case-insensitive
+  // compile term regexes
   TERMS.forEach(t => {
     const escaped = t.pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     t.regex = new RegExp('\\b' + escaped + '\\b', 'i');
   });
 
-  // -----------------------------------------------------------------
-  // Skip these elements entirely (don't wrap text inside them)
-  // -----------------------------------------------------------------
   const SKIP_TAGS = new Set([
     'SCRIPT', 'STYLE', 'NOSCRIPT', 'A', 'BUTTON', 'INPUT', 'TEXTAREA',
     'CODE', 'PRE', 'KBD',
     'H1', 'H2',  // skip top-level headings (titles, eyebrows, hero)
     'NAV', 'HEADER', 'FOOTER',
   ]);
-  // Skip elements with these classes (decorative or already-handled)
+  // skip these element classes
   const SKIP_CLASSES = new Set([
     'topbar-mark', 'pillar-card-name', 'pillar-card-num',
     'hero-eyebrow', 'hero-title', 'hero-tagline',
@@ -96,11 +74,7 @@
     return false;
   }
 
-  // -----------------------------------------------------------------
-  // Walk the DOM, find text nodes, wrap matches
-  // -----------------------------------------------------------------
-  // We track which terms we've already wrapped on this page so each
-  // appears tooltipped only once.
+  // each term tooltipped only once per page
   const wrappedTerms = new Set();
 
   function walkAndWrap(root) {
@@ -122,7 +96,7 @@
         }
       }
     );
-    // Collect text nodes first (mutating the tree while walking is messy)
+    // collect text nodes first
     const textNodes = [];
     let n;
     while ((n = walker.nextNode())) textNodes.push(n);
@@ -158,15 +132,11 @@
       parent.replaceChild(afterNode, textNode);
       parent.insertBefore(span, afterNode);
       parent.insertBefore(beforeNode, span);
-      // Continue scanning the "after" text in case more terms appear
       processTextNode(afterNode);
       return;
     }
   }
 
-  // -----------------------------------------------------------------
-  // Tooltip popup — single shared element
-  // -----------------------------------------------------------------
   let popup = null;
   let activeTerm = null;
   let touchMode = false;
@@ -211,10 +181,10 @@
     const rect = spanEl.getBoundingClientRect();
     const popupRect = popup.getBoundingClientRect();
     const gap = 10;
-    // Default: above the span, centered
+    // position above the span, centered
     let top = rect.top - popupRect.height - gap;
     let left = rect.left + (rect.width / 2) - (popupRect.width / 2);
-    // If too high, flip below
+    // flip below if too high
     if (top < 10) {
       top = rect.bottom + gap;
     }
@@ -226,9 +196,6 @@
     popup.style.left = (left + window.scrollX) + 'px';
   }
 
-  // -----------------------------------------------------------------
-  // Event handlers
-  // -----------------------------------------------------------------
   function attachHandlers() {
     // Detect touch capability
     touchMode = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -249,7 +216,7 @@
       }
     });
 
-    // Tap (mobile) — toggle popup
+    // mobile tap toggles popup
     document.addEventListener('click', (e) => {
       const span = e.target.closest && e.target.closest('.glossary-term');
       if (span) {
@@ -260,12 +227,12 @@
           showPopup(span);
         }
       } else if (popup && popup.classList.contains('visible')) {
-        // Tap outside — dismiss
+        // tap outside dismisses
         if (!popup.contains(e.target)) hidePopup();
       }
     });
 
-    // Keyboard — focus + Enter/Space opens, Escape closes
+    // keyboard: focus + Enter/Space opens, Escape closes
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && popup && popup.classList.contains('visible')) {
         hidePopup();
@@ -278,7 +245,7 @@
       }
     });
 
-    // Reposition on scroll/resize while popup is showing
+    // reposition popup on scroll/resize
     window.addEventListener('scroll', () => {
       if (popup && popup.classList.contains('visible') && activeTerm) {
         positionPopup(activeTerm);
@@ -291,11 +258,8 @@
     });
   }
 
-  // -----------------------------------------------------------------
-  // INIT
-  // -----------------------------------------------------------------
   function init() {
-    // Wrap text in <main>, fall back to body
+    // wrap in main, fall back to body
     const root = document.querySelector('main') || document.body;
     walkAndWrap(root);
     attachHandlers();

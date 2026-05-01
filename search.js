@@ -1,12 +1,4 @@
-/* ========================================================================
-   search.js — Site-wide search for the Librarians' Assembly
-   ------------------------------------------------------------------------
-   On first open, fetches /search-index.json (~28KB) and queries it
-   client-side. Subsequent opens reuse the cached index.
-
-   Keyboard: '/' or Ctrl/Cmd+K opens the panel. Arrow keys navigate.
-   Enter selects. Esc closes.
-   ======================================================================== */
+/* search.js */
 
 (function () {
   'use strict';
@@ -16,7 +8,6 @@
   let activeIndex = -1;    // for keyboard nav of result list
   let lastQuery = '';
 
-  // Friendly display names for entry kinds (shown as the gold "kind" tag)
   const KIND_LABELS = {
     'page': 'Page',
     'article': 'Charter',
@@ -31,13 +22,7 @@
     'failure': 'Honoured Failure',
   };
 
-  // -----------------------------------------------------------------
-  // Build the trigger button + modal once on script load
-  // -----------------------------------------------------------------
   function buildUI() {
-    // Insert search trigger button into the topbar.
-    // On the homepage there's a topnav (.topnav) — append after it.
-    // On secondary pages there's a topbar-right — append into it.
     const topnav = document.querySelector('.topbar .topnav');
     const topbarRight = document.querySelector('.topbar .topbar-right');
     const trigger = document.createElement('button');
@@ -52,18 +37,14 @@
       '</svg>';
 
     if (topnav) {
-      // Homepage: insert into topnav as a final element
       topnav.appendChild(trigger);
     } else if (topbarRight) {
-      // Secondary pages: insert as the first element so it sits left of "Return to the index"
       topbarRight.insertBefore(trigger, topbarRight.firstChild);
     } else {
-      // Fallback: append to topbar
       const topbar = document.querySelector('.topbar');
       if (topbar) topbar.appendChild(trigger);
     }
 
-    // Build the overlay and append to body
     const overlay = document.createElement('div');
     overlay.className = 'search-overlay';
     overlay.id = 'search-overlay';
@@ -94,9 +75,6 @@
     input.addEventListener('keydown', onInputKey);
   }
 
-  // -----------------------------------------------------------------
-  // Index loading (lazy, on first open)
-  // -----------------------------------------------------------------
   function loadIndex() {
     if (INDEX) return Promise.resolve(INDEX);
     if (INDEX_LOADING) return INDEX_LOADING;
@@ -107,9 +85,6 @@
     return INDEX_LOADING;
   }
 
-  // -----------------------------------------------------------------
-  // Open / close
-  // -----------------------------------------------------------------
   function open() {
     const overlay = document.getElementById('search-overlay');
     const input = document.getElementById('search-input');
@@ -117,7 +92,6 @@
     document.body.style.overflow = 'hidden';
     setTimeout(() => input.focus(), 50);
     loadIndex().then(() => {
-      // If user already typed something while we were fetching, run a query now.
       if (input.value) onInput();
       else renderHint();
     });
@@ -130,15 +104,11 @@
     input.blur();
   }
 
-  // -----------------------------------------------------------------
-  // Search ranking
-  // -----------------------------------------------------------------
   function tokenize(s) {
     return (s || '').toLowerCase().split(/\s+/).filter(t => t.length > 0);
   }
 
   function scoreEntry(entry, queryTokens) {
-    // Lower scores = better ranking. We sum penalties; perfect match scores 0.
     const haystack = ((entry.title || '') + ' ' + (entry.section || '') + ' ' + (entry.text || '')).toLowerCase();
     const sectionLower = (entry.section || '').toLowerCase();
     const titleLower = (entry.title || '').toLowerCase();
@@ -147,19 +117,15 @@
     let matched = 0;
     for (const tok of queryTokens) {
       if (!haystack.includes(tok)) {
-        return null; // every query token must appear somewhere
+        return null;
       }
       matched++;
-      // Bonus for matching in heading vs body
       if (sectionLower.includes(tok)) score -= 30;
       else if (titleLower.includes(tok)) score -= 20;
-      // Bonus for exact word boundary matches
       const re = new RegExp('\\b' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
       if (re.test(haystack)) score -= 10;
     }
-    // Slight bias toward shorter snippets (more relevant proportionally)
     score += Math.min(20, (entry.text || '').length / 50);
-    // Tag-kind bonus: "page" entries are always near the top for their page
     if (entry.kind === 'page') score -= 5;
     return score;
   }
@@ -177,9 +143,6 @@
     return scored.slice(0, 10).map(s => s.entry);
   }
 
-  // -----------------------------------------------------------------
-  // Render
-  // -----------------------------------------------------------------
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -237,7 +200,6 @@
       );
     }).join('');
     container.innerHTML = html;
-    // First result becomes active by default
     const first = container.querySelector('.search-result');
     if (first) { first.classList.add('active'); activeIndex = 0; }
   }
@@ -251,15 +213,11 @@
       '</div>';
   }
 
-  // -----------------------------------------------------------------
-  // Input handling
-  // -----------------------------------------------------------------
   function onInput() {
     const input = document.getElementById('search-input');
     const q = input.value.trim();
     lastQuery = q;
     if (!INDEX) {
-      // index still loading — defer until ready
       loadIndex().then(() => {
         if (lastQuery === q) renderResults(search(q), q);
       });
@@ -301,15 +259,10 @@
     });
   }
 
-  // -----------------------------------------------------------------
-  // Global keyboard shortcuts
-  // -----------------------------------------------------------------
   document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('search-overlay');
     if (!overlay) return;
     const isOpen = overlay.classList.contains('open');
-
-    // Open with '/' or Ctrl/Cmd+K (when no input has focus)
     if (!isOpen) {
       const tag = (document.activeElement && document.activeElement.tagName) || '';
       const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' ||
@@ -322,7 +275,6 @@
         open();
       }
     } else {
-      // Esc closes (in addition to handling Esc within the input)
       if (e.key === 'Escape') {
         e.preventDefault();
         close();
@@ -330,9 +282,6 @@
     }
   });
 
-  // -----------------------------------------------------------------
-  // Init when DOM is ready
-  // -----------------------------------------------------------------
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', buildUI);
   } else {

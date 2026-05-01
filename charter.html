@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Charter · Librarians' Assembly</title>
@@ -559,8 +559,6 @@ body.marginalia-active .marginalia-banner {
   const progress = document.getElementById('marginalia-progress');
   const progressFill = document.getElementById('marginalia-progress-fill');
   if (!hint || !progress || !progressFill) return;
-
-  // Show hint after 25s of being on the page (so it's discoverable but not immediate)
   setTimeout(() => {
     if (!document.body.classList.contains('marginalia-active')) hint.classList.add('visible');
   }, 25000);
@@ -610,7 +608,6 @@ body.marginalia-active .marginalia-banner {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Shift' && !e.repeat) startHold();
     if (e.key === 'Escape' && active) {
-      // Allow Esc to dismiss marginalia
       active = false;
       document.body.classList.remove('marginalia-active');
     }
@@ -618,13 +615,8 @@ body.marginalia-active .marginalia-banner {
   document.addEventListener('keyup', (e) => {
     if (e.key === 'Shift') cancelHold();
   });
-  // Also cancel if user tabs away or window loses focus
   window.addEventListener('blur', cancelHold);
 })();
-
-// ---------------------------------------------------------------------
-// ARTICLE PERMALINKS — click ¶ to copy the deep-link to that article
-// ---------------------------------------------------------------------
 (function initArticlePermalinks() {
   const buttons = document.querySelectorAll('.article-permalink');
   if (buttons.length === 0) return;
@@ -656,7 +648,6 @@ body.marginalia-active .marginalia-banner {
       const id = btn.getAttribute('data-target');
       if (!id) return;
       const url = window.location.origin + window.location.pathname + '#' + id;
-      // Update the address bar so the URL reflects the chosen anchor
       try { history.replaceState(null, '', '#' + id); } catch (_) {}
       copyText(url).then(() => {
         btn.classList.add('copied');
@@ -693,9 +684,7 @@ body.marginalia-active .marginalia-banner {
 </script>
 
 
-<script>
-// Reveal-on-scroll for .fade-in elements
-(function initFadeIn() {
+<script>(function initFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (els.length === 0) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

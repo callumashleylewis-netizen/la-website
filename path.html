@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Path · Librarians' Assembly</title>
@@ -825,9 +825,7 @@ body.failures-active .failures-dismiss { display: block; }
 <!-- Back to top -->
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
-<script>
-// Reveal-on-scroll for .fade-in elements
-(function initFadeIn() {
+<script>(function initFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (els.length === 0) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -842,8 +840,6 @@ body.failures-active .failures-dismiss { display: block; }
   }, { threshold: 0.15 });
   els.forEach(el => observer.observe(el));
 })();
-
-// Back to top
 (function initBackToTop() {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
@@ -862,15 +858,7 @@ body.failures-active .failures-dismiss { display: block; }
   });
   update();
 })();
-
-// ---------------------------------------------------------------------
-// TRIAL OF KNOWLEDGE
-// ---------------------------------------------------------------------
-// QUIZ_POOL — full bank of questions. Each attempt selects QUESTIONS_PER_ATTEMPT
-// at random, with answer options shuffled per question. Same length each attempt,
-// but the selection rotates so repeat attempts feel different.
 const QUIZ_POOL = [
-  // Hierarchy and structure
   { q: "On which Council does the Chief Librarian serve?", options: ["The High Council", "The Council of Reconciliation", "The Council of First Knowledge", "The Council of Reassignment"], answer: 2 },
   { q: "What position does the Curator of the Archives hold within the Assembly?", options: ["Senior High Rank", "Second-in-Command", "Honorary Advisor", "Equal of the Chief Librarian"], answer: 1 },
   { q: "How many tiers comprise the Path of Ascension?", options: ["Three", "Four", "Five", "Six"], answer: 1 },
@@ -881,30 +869,19 @@ const QUIZ_POOL = [
   { q: "Which Jedi class must a Lore Keeper hold?", options: ["Sentinel AJK", "Guardian AJK", "Consular AJK", "Any class"], answer: 2 },
   { q: "How many ranks are there in total on the Path of Ascension?", options: ["Eight", "Nine", "Ten", "Twelve"], answer: 2 },
   { q: "What is the entry rank of the Assembly?", options: ["Initiate", "Student", "Pledge", "Apprentice"], answer: 2 },
-
-  // The Pursuits
   { q: "How many Pursuits define the Order's discipline?", options: ["Three", "Four", "Five", "Seven"], answer: 1 },
   { q: "Which Pursuit concerns the watchful guarding of knowledge against loss?", options: ["The Archive", "Instruction", "Discourse", "Vigil"], answer: 3 },
   { q: "Which Pursuit concerns structured argument and disagreement?", options: ["Vigil", "Discourse", "Instruction", "The Archive"], answer: 1 },
-
-  // The Charter
   { q: "How many articles comprise the Charter?", options: ["Seven", "Eight", "Nine", "Twelve"], answer: 2 },
   { q: "When is the Charter read aloud to a member?", options: ["Every year", "At each promotion", "Once at admission", "It is never read aloud"], answer: 2 },
   { q: "The Charter applies to whom?", options: ["Only Pledges and Students", "Only the wider membership, not High Command", "Every member, applied evenly", "Only those who choose to swear it"], answer: 2 },
   { q: "Which article addresses the conduct of disagreement within the Order?", options: ["Of Truth", "Of Discourse", "Of Service", "Of Confidence"], answer: 1 },
-
-  // Order voice and motto
   { q: "What is the motto of the Order?", options: ["Truth above all", "Light, knowledge, vigil", "By patience, by record, by light", "Knowledge is the Force"], answer: 2 },
   { q: "What is said of the Oath's origin?", options: ["It was written by the first Chief Librarian", "It was decreed by the Council of First Knowledge", "Its origin is not recorded; it has always been taken", "It was inherited from the Jedi Council"], answer: 2 },
-
-  // The role descriptions
   { q: "What is the primary duty of the Chief Librarian?", options: ["To author new Charter articles", "To maintain the stability of the Assembly", "To recruit new members personally", "To represent the Order in combat"], answer: 1 },
 ];
 
 const QUESTIONS_PER_ATTEMPT = 8;
-
-// Build a fresh list of QUESTIONS_PER_ATTEMPT questions for this attempt,
-// with answer options shuffled within each. Stored in QUIZ_QUESTIONS.
 let QUIZ_QUESTIONS = [];
 
 function shuffleArray(arr) {
@@ -917,9 +894,7 @@ function shuffleArray(arr) {
 }
 
 function buildQuizQuestions() {
-  // Pick QUESTIONS_PER_ATTEMPT random questions from the pool, no repeats
   const picked = shuffleArray(QUIZ_POOL).slice(0, QUESTIONS_PER_ATTEMPT);
-  // For each, shuffle the options and adjust the answer index accordingly
   QUIZ_QUESTIONS = picked.map(item => {
     const correct = item.options[item.answer];
     const shuffled = shuffleArray(item.options);
@@ -1025,10 +1000,8 @@ function showQuizResult() {
   const tier = QUIZ_RESULT_TIERS.find(t => quizScore >= t.min && quizScore <= t.max) || QUIZ_RESULT_TIERS[0];
   quizResultRank.textContent = tier.rank + '-tier';
   quizResultMsg.textContent = tier.msg;
-  // Achievements
   if (window.LA && window.LA.markQuizBest) {
     window.LA.markQuizBest(quizScore, QUIZ_QUESTIONS.length, tier.rank);
-    // Refresh the personal-best line
     const best = window.LA.getQuizBest && window.LA.getQuizBest();
     const bestEl = document.getElementById('trial-best');
     if (best && bestEl) {
@@ -1055,8 +1028,6 @@ function closeQuiz() {
 }
 
 document.getElementById('trial-open').addEventListener('click', startQuiz);
-
-// Show personal best below the Trial button if any quiz has been taken
 (function showTrialBest() {
   if (!window.LA || !window.LA.getQuizBest) return;
   const best = window.LA.getQuizBest();
@@ -1075,8 +1046,6 @@ quizOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && quizOverlay.classList.contains('open')) closeQuiz();
 });
-
-// HONOURED FAILURES — hold H for 3 seconds to reveal failure notes on rank cards
 (function initHonouredFailures() {
   const HOLD_MS = 3000;
   const HINT_DELAY_MS = 30000;
@@ -1084,8 +1053,6 @@ document.addEventListener('keydown', (e) => {
   let holdStart = 0;
   let rafId = null;
   let dismissed = false;
-
-  // Build hint, progress bar, and dismiss button
   const hint = document.createElement('div');
   hint.className = 'failures-hint';
   hint.textContent = 'Hold H to read the honoured failures';
@@ -1106,12 +1073,9 @@ document.addEventListener('keydown', (e) => {
     dismissed = true;
   });
   document.body.appendChild(dismiss);
-
-  // Show hint after delay if user hasn't activated
   setTimeout(() => {
     if (!document.body.classList.contains('failures-active') && !dismissed) {
       hint.classList.add('visible');
-      // Auto-fade after 8s if still not activated
       setTimeout(() => hint.classList.remove('visible'), 8000);
     }
   }, HINT_DELAY_MS);
@@ -1139,7 +1103,6 @@ document.addEventListener('keydown', (e) => {
     const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
     fill.style.width = pct + '%';
     if (elapsed >= HOLD_MS) {
-      // Activate
       document.body.classList.add('failures-active');
       if (window.LA && window.LA.unlock) window.LA.unlock('failures-revealed');
       endHold();
@@ -1149,7 +1112,6 @@ document.addEventListener('keydown', (e) => {
   }
 
   document.addEventListener('keydown', (e) => {
-    // Only respond if H is held in lowercase, no modifiers, not in an input
     if (e.key !== 'h' && e.key !== 'H') return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const tag = (document.activeElement && document.activeElement.tagName) || '';
@@ -1162,7 +1124,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key !== 'h' && e.key !== 'H') return;
     endHold();
   });
-  // Cancel hold if user blurs window or alt-tabs away
   window.addEventListener('blur', endHold);
 })();
 </script>

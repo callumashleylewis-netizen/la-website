@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Librarians' Assembly · Keepers of the Archive</title>
@@ -1043,9 +1043,7 @@ footer {
   </div>
 </div>
 
-<script>
-// Reveal-on-scroll
-(function initFadeIn() {
+<script>(function initFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (els.length === 0) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1060,8 +1058,6 @@ footer {
   }, { threshold: 0.15 });
   els.forEach(el => observer.observe(el));
 })();
-
-// Scroll progress bar
 (function initScrollProgress() {
   const bar = document.getElementById('scroll-progress');
   if (!bar) return;
@@ -1078,8 +1074,6 @@ footer {
   }, { passive: true });
   update();
 })();
-
-// LORE QUOTE POOL
 const LORE_QUOTES = [
   { text: "What is preserved, endures. What is taught, multiplies.", attribution: "Maxim of the First Curators" },
   { text: "Time forgets; the record remembers.", attribution: "Frieze, the Great Archive" },
@@ -1132,8 +1126,6 @@ const HERETIC_QUOTES = [
   { text: "An archive is a graveyard you can read.", attribution: "From an unbound manuscript" },
   { text: "The catalogue is older than its keepers, and crueler.", attribution: "Apocrypha · folio uncertain" },
 ];
-
-// TODAY'S DAILY READING — same deterministic-by-date logic as reading.html
 (function initTodaysReading() {
   const quoteEl = document.getElementById('todays-reading-quote');
   const attrEl = document.getElementById('todays-reading-attribution');
@@ -1148,8 +1140,6 @@ const HERETIC_QUOTES = [
   attrEl.textContent = '· ' + q.attribution;
   dateEl.textContent = now.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 })();
-
-// FROM THE CHARTER — random article each visit, with deep-link
 (function initFromCharter() {
   const numEl = document.getElementById('from-charter-num');
   const nameEl = document.getElementById('from-charter-name');
@@ -1174,9 +1164,6 @@ const HERETIC_QUOTES = [
   linkEl.href = 'charter.html#article-' + a.slug;
   linkEl.textContent = 'Read this article in full →';
 })();
-
-// READING STREAKS — tracks consecutive UTC-day homepage visits via localStorage
-// 1-6 days: silent. 7+: "Faithful Reader". 30+: "Keeper of the Vigil".
 (function initReadingStreak() {
   const badge = document.getElementById('streak-badge');
   const text = document.getElementById('streak-text');
@@ -1193,16 +1180,12 @@ const HERETIC_QUOTES = [
   if (!store || typeof store.last !== 'number') {
     streak = 1;
   } else if (store.last === todayKey) {
-    // Already counted today — keep streak as-is
     streak = store.streak;
   } else if (todayKey - store.last === dayMs) {
-    // Visited yesterday — increment
     streak = (store.streak || 0) + 1;
   } else if (todayKey - store.last > dayMs) {
-    // Missed at least a day — reset
     streak = 1;
   } else {
-    // Past visit (clock skew?) — keep
     streak = store.streak || 1;
   }
   try {
@@ -1217,10 +1200,7 @@ const HERETIC_QUOTES = [
     badge.classList.add('visible');
     if (window.LA) window.LA.unlock('faithful-reader');
   }
-  // Below 7 — badge stays hidden
 })();
-
-// ROTATING SENTINEL HINT — cycles through teasers every 4 seconds
 (function initSentinelHint() {
   const hint = document.querySelector('.holo-sentinel-hint');
   if (!hint) return;
@@ -1239,8 +1219,6 @@ const HERETIC_QUOTES = [
     hint.textContent = HINTS[i];
   }, 4000);
 })();
-
-// HOLOCRON SENTINEL + lore overlay
 const RECENT_QUOTES = [];
 const RECENT_BUFFER = 6;
 const loreOverlay = document.getElementById('lore-overlay');
@@ -1260,7 +1238,6 @@ function showRandomQuote(pool) {
   const q = pool[idx];
   loreText.textContent = q.text;
   loreAttribution.textContent = q.attribution;
-  // Switch the crystal variant shown in the overlay based on the source pool
   if (pool === HERETIC_QUOTES) {
     loreOverlay.classList.add('heretic');
   } else {
@@ -1300,8 +1277,6 @@ loreOverlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && loreOverlay.classList.contains('open')) closeLore();
 });
-
-// LAST REVISED + WHAT'S NEW (footer)
 function initLastRevised() {
   const el = document.getElementById('footer-revised');
   const updEl = document.getElementById('footer-update');
@@ -1334,8 +1309,6 @@ if (document.readyState === 'loading') {
 } else {
   initLastRevised();
 }
-
-// TYPEWRITER
 function initTypewriter() {
   const title = document.getElementById('hero-title');
   const line1 = document.getElementById('typewriter-line-1');

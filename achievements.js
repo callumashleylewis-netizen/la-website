@@ -1,18 +1,4 @@
-/* ========================================================================
-   achievements.js — Site-wide achievement tracking
-   ------------------------------------------------------------------------
-   Tracks visitor accomplishments via localStorage. No accounts, no server.
-   Each achievement has an id, name, description. Pages call window.LA.unlock(id)
-   when criteria are met. First-time unlocks fire a small gold toast.
-
-   Public API:
-     window.LA.unlock(id)
-     window.LA.markVisit(page)
-     window.LA.getAll()
-     window.LA.markQuizBest(score, total, rank)
-     window.LA.getQuizBest()
-     window.LA.ACHIEVEMENTS  (list)
-   ======================================================================== */
+/* achievements.js */
 
 (function () {
   'use strict';

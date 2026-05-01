@@ -1,14 +1,4 @@
-/* ========================================================================
-   sound.js — Optional page-turn sound on navigation
-   ------------------------------------------------------------------------
-   - Off by default. Visitors opt in via a small icon toggle in the topbar.
-   - Preference persists via localStorage.
-   - The sound fires the moment a same-site link is clicked — not after
-     the next page loads. Browsers allow audio during a click event because
-     the click is itself a "user gesture", but they block audio on a fresh
-     page load if there hasn't been a gesture on that new page. So we play
-     here, just before the navigation, while we still have permission.
-   ======================================================================== */
+/* sound.js */
 
 (function () {
   'use strict';
@@ -50,9 +40,6 @@
     } catch (_) {}
   }
 
-  // -----------------------------------------------------------------
-  // Build the toggle icon in the topbar
-  // -----------------------------------------------------------------
   function buildToggle() {
     const trigger = document.createElement('button');
     trigger.type = 'button';
@@ -61,7 +48,6 @@
     trigger.title = 'Toggle page-turn sound';
     trigger.innerHTML = iconSvg(isEnabled());
 
-    // Slot into the topbar — same pattern as search-trigger
     const topnav = document.querySelector('.topbar .topnav');
     const topbarRight = document.querySelector('.topbar .topbar-right');
     if (topnav) {
@@ -83,8 +69,6 @@
     trigger.addEventListener('click', () => {
       const willEnable = !isEnabled();
       setEnabled(willEnable);
-      // Play on enable as confirmation. This also primes the audio
-      // element so subsequent plays happen without delay.
       if (willEnable) playPageTurn();
     });
   }
@@ -113,15 +97,9 @@
     if (btn) btn.innerHTML = iconSvg(isEnabled());
   }
 
-  // -----------------------------------------------------------------
-  // Play page-turn on internal link clicks (the click itself is the
-  // user gesture browsers require — playing during the click event
-  // sidesteps autoplay policy)
-  // -----------------------------------------------------------------
   function attachLinkHandlers() {
     document.addEventListener('click', (e) => {
       if (!isEnabled()) return;
-      // Look up the chain for the nearest <a>
       let el = e.target;
       while (el && el !== document) {
         if (el.tagName === 'A') break;
@@ -130,28 +108,22 @@
       if (!el || el.tagName !== 'A') return;
       const href = el.getAttribute('href');
       if (!href) return;
-      // Skip: anchors-on-this-page, mailto/tel, javascript:, opening in new tab
       if (/^(mailto:|tel:|javascript:|#)/i.test(href)) return;
       if (el.target === '_blank') return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // user opened in new tab
-      // Same-origin same-site check
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       try {
         const url = new URL(el.href);
         if (url.origin !== window.location.origin) return;
-        // Same page (only the hash changed)? skip
         if (url.pathname === window.location.pathname && url.hash) return;
       } catch (_) { return; }
-      // It's a real navigation — play now (the click gesture authorises it)
       playPageTurn();
     }, true);
   }
 
-  // -----------------------------------------------------------------
-  // Init
-  // -----------------------------------------------------------------
   function init() {
     buildToggle();
     attachLinkHandlers();
+    if (isEnabled()) ensureAudio();
   }
 
   if (document.readyState === 'loading') {

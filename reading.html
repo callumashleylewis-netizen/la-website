@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Reading · Librarians' Assembly</title>
@@ -415,11 +415,8 @@ const LORE_QUOTES = [
   { text: "We are not the heroes of the story. We are the ones who see that it is told.", attribution: "Historian's Reflection" },
   { text: "What we record today, our successors will measure us by.", attribution: "Address to the Assembly" },
 ];
-
-// Deterministic daily picker — every visitor sees the same passage on the same calendar date.
 function dailyIndex() {
   const today = new Date();
-  // Use UTC date so timezone differences don't roll the passage over an hour earlier/later.
   const epoch = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
   const days = Math.floor(epoch / (1000 * 60 * 60 * 24));
   return days % LORE_QUOTES.length;
@@ -433,11 +430,6 @@ document.getElementById('reading-attribution').textContent = ', ' + q.attributio
 const today = new Date();
 const opts = { year: 'numeric', month: 'long', day: 'numeric' };
 document.getElementById('reading-date').textContent = today.toLocaleDateString('en-GB', opts);
-
-// =======================================================================
-// COMMENTARY — short scholarly notes attached to specific passages.
-// Keyed by exact quote text so the right note shows for the right passage.
-// =======================================================================
 const COMMENTARIES = {
   "What is preserved, endures. What is taught, multiplies.":
     "The first half is the older saying; the second was added in the time of the Third Curators, who reasoned that an unreached archive is no archive at all. The pairing is the Order's case for both Vigil and Instruction, in nine words.",
@@ -483,10 +475,6 @@ if (commentary) {
     toggle.classList.toggle('open', !isOpen);
   });
 }
-
-// =======================================================================
-// BOOKMARK + MEMORY — keep favourite passages in localStorage
-// =======================================================================
 const MEMORY_KEY = 'la-memory';
 function getMemory() {
   try { const raw = localStorage.getItem(MEMORY_KEY); return raw ? JSON.parse(raw) : []; }
@@ -607,9 +595,7 @@ refreshMemorySection();
 </script>
 
 
-<script>
-// Reveal-on-scroll for .fade-in elements
-(function initFadeIn() {
+<script>(function initFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (els.length === 0) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

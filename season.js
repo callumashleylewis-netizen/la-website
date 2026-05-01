@@ -1,17 +1,4 @@
-/* ========================================================================
-   season.js — Subtle date-based flavour
-   ------------------------------------------------------------------------
-   On specific real-world dates the site whispers a small additional line.
-   Nothing dramatic. Most days, this script does nothing.
-
-   Currently observed dates:
-     May 4    — May the Fourth (Star Wars day)
-     Oct 31   — Halloween (heretic crystal slightly more visible)
-     Dec 31   — New Year's Eve
-     Jan 1    — New Year's Day
-
-   Visual: a small italic banner appears below the topbar on opted pages.
-   ======================================================================== */
+/* season.js */
 
 (function () {
   'use strict';

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.roblox.com; connect-src 'self' https://api.github.com; media-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Petition for Membership · Librarians' Assembly</title>
@@ -468,9 +468,7 @@ footer a:hover { color: var(--gold); }
 </script>
 
 
-<script>
-// Reveal-on-scroll for .fade-in elements
-(function initFadeIn() {
+<script>(function initFadeIn() {
   const els = document.querySelectorAll('.fade-in');
   if (els.length === 0) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -485,8 +483,6 @@ footer a:hover { color: var(--gold); }
   }, { threshold: 0.15 });
   els.forEach(el => observer.observe(el));
 })();
-
-// Section permalinks — click ¶ to copy deep link
 (function initSectionPermalinks() {
   const buttons = document.querySelectorAll('.section-permalink');
   if (buttons.length === 0) return;
