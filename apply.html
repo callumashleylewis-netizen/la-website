@@ -300,6 +300,30 @@ footer a:hover { color: var(--gold); }
   .apply-step { grid-template-columns: 2rem 1fr; gap: 0.9rem; }
   .topbar-mark span { display: none; }
 }
+
+/* === dark-mode dramatic treatment: petition sections, steps, CTA === */
+html:not(.scribe-mode) .apply-section{
+  position:relative;
+  padding:2rem 2rem 1.6rem;
+  background:rgba(12,28,46,0.40);
+  border:1px solid rgba(199,154,58,0.16);
+  border-radius:4px;
+  box-shadow:0 14px 32px rgba(0,0,0,0.30), inset 0 0 34px rgba(199,154,58,0.03), 0 0 20px rgba(199,154,58,0.06);
+}
+html:not(.scribe-mode) .apply-section::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--gold-bright); box-shadow:0 0 12px rgba(199,154,58,0.6);
+}
+html:not(.scribe-mode) .apply-section:target{ border-color:var(--crystal); box-shadow:0 14px 32px rgba(0,0,0,0.34), 0 0 26px rgba(74,216,255,0.22); }
+html:not(.scribe-mode) .apply-section-num{ text-shadow:0 0 14px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .apply-section-title em{ text-shadow:0 0 16px rgba(199,154,58,0.32); }
+html:not(.scribe-mode) .apply-step-num{ text-shadow:0 0 12px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .apply-heading em{ text-shadow:0 0 18px rgba(199,154,58,0.30); }
+html:not(.scribe-mode) .apply-preamble em{ text-shadow:0 0 14px rgba(74,216,255,0.20); }
+html:not(.scribe-mode) .apply-petition{ box-shadow:0 16px 42px rgba(0,0,0,0.40), inset 0 0 50px rgba(74,216,255,0.05), 0 0 30px rgba(74,216,255,0.12); }
+html:not(.scribe-mode) .apply-petition-title em{ text-shadow:0 0 16px rgba(74,216,255,0.30); }
+html:not(.scribe-mode) .apply-petition-btn{ box-shadow:0 0 22px rgba(74,216,255,0.30); transition:box-shadow .3s, transform .2s, background .3s, color .3s; }
+html:not(.scribe-mode) .apply-petition-btn:hover{ box-shadow:0 0 34px rgba(74,216,255,0.50); }
 </style>
 </head>
 <body>

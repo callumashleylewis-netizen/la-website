@@ -279,6 +279,34 @@
   .role-group-rule { flex-basis: 30px; }
   .member-portrait { width: 90px; height: 90px; }
 }
+
+/* === gold treatment: High Command cards === */
+html:not(.scribe-mode) .member-card{
+  border:1px solid rgba(199,154,58,0.35);
+  box-shadow:0 14px 30px rgba(0,0,0,0.38), inset 0 0 0 1px rgba(199,154,58,0.10), inset 0 0 30px rgba(199,154,58,0.05);
+  transition:border-color .3s, background .3s, transform .3s, box-shadow .3s;
+}
+html:not(.scribe-mode) .member-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold-bright);
+  box-shadow:0 18px 36px rgba(0,0,0,0.46), inset 0 0 0 1px rgba(230,185,74,0.18), 0 0 26px rgba(199,154,58,0.35);
+}
+html:not(.scribe-mode) .member-portrait{
+  border-color:rgba(199,154,58,0.6);
+  box-shadow:0 0 0 1px rgba(199,154,58,0.25);
+  filter:drop-shadow(0 0 18px rgba(199,154,58,0.40));
+  transition:border-color .3s, filter .3s, box-shadow .3s;
+}
+html:not(.scribe-mode) .member-card:hover .member-portrait{
+  border-color:var(--gold-bright);
+  box-shadow:0 0 0 1px rgba(230,185,74,0.4);
+  filter:drop-shadow(0 0 26px rgba(230,185,74,0.60));
+}
+html:not(.scribe-mode) .member-name{ text-shadow:0 0 14px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .member-rank{ text-shadow:0 0 8px rgba(199,154,58,0.30); }
+html:not(.scribe-mode) .role-group-rule{ box-shadow:0 0 8px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .role-group-name{ text-shadow:0 0 14px rgba(199,154,58,0.30); }
+html:not(.scribe-mode) .command-heading em{ text-shadow:0 0 18px rgba(199,154,58,0.32); }
 </style>
 </head>
 <body>
