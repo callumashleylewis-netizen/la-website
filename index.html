@@ -862,9 +862,6 @@ footer {
   }
 }
 
-/* === component refinements: HUD tiles, glass readouts, glowing dividers === */
-
-/* #1 pillar cards -> chamfered HUD tiles */
 .pillar-card{
   --chamfer:14px;
   clip-path:polygon(var(--chamfer) 0,100% 0,100% calc(100% - var(--chamfer)),calc(100% - var(--chamfer)) 100%,0 100%,0 var(--chamfer));
@@ -886,7 +883,6 @@ footer {
 .pillar-card .tick.bl{ bottom:7px; left:7px; border-right:0; border-top:0; }
 .pillar-card:hover .tick{ opacity:1; }
 
-/* #2 daily reading + from charter -> kyber-glass readouts */
 .todays-reading, .from-charter{
   position:relative; overflow:hidden;
   background:rgba(12,28,46,0.45);
@@ -902,7 +898,6 @@ footer {
 .kb.b-bl{ bottom:10px; left:10px; border-right:0; border-top:0; }
 .kb.b-br{ bottom:10px; right:10px; border-left:0; border-top:0; }
 
-/* #3 section ornaments -> glowing flanked dividers */
 .section-ornament::before, .section-ornament::after{
   content:""; display:block; height:1px; width:64px;
   background:linear-gradient(90deg, transparent, rgba(199,154,58,0.55));
@@ -910,7 +905,6 @@ footer {
 .section-ornament::after{ transform:rotate(180deg); }
 .section-ornament svg{ margin:0 16px; filter:drop-shadow(0 0 7px rgba(199,154,58,0.65)); }
 
-/* light glow touches for page consistency */
 .framing em{ text-shadow:0 0 18px rgba(199,154,58,0.30); }
 .footer-mark img{ filter:drop-shadow(0 0 10px rgba(199,154,58,0.4)); }
 </style>
