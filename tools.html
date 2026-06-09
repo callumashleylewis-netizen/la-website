@@ -94,6 +94,19 @@
 .cp-entry-remove { position: absolute; top: 0.5rem; right: 0.6rem; background: transparent; border: none; color: var(--paper); opacity: 0.4; font-size: 1.1rem; cursor: pointer; padding: 0.2rem 0.4rem; transition: opacity 0.3s, color 0.3s; }
 .cp-entry-remove:hover { opacity: 1; color: var(--gold); }
 .cp-empty { font-family: var(--serif); font-style: italic; font-size: 0.95rem; opacity: 0.5; text-align: center; padding: 1rem; }
+
+/* === dark-mode dramatic treatment: tool panels + controls === */
+html:not(.scribe-mode) .tool-block{
+  border:1px solid rgba(74,216,255,0.18); border-radius:4px;
+  box-shadow:0 16px 38px rgba(0,0,0,0.34), inset 0 0 40px rgba(74,216,255,0.04), 0 0 24px rgba(74,216,255,0.10);
+}
+html:not(.scribe-mode) .tool-name{ text-shadow:0 0 14px rgba(199,154,58,0.35); }
+html:not(.scribe-mode) .tool-output{ box-shadow:0 0 22px rgba(199,154,58,0.12), inset 0 0 26px rgba(199,154,58,0.05); }
+html:not(.scribe-mode) .tool-btn{ box-shadow:0 0 18px rgba(74,216,255,0.28); transition:background .3s, border-color .3s, transform .3s, box-shadow .3s; }
+html:not(.scribe-mode) .tool-btn:hover{ box-shadow:0 0 28px rgba(74,216,255,0.45); }
+html:not(.scribe-mode) .tool-input:focus{ box-shadow:0 0 16px rgba(74,216,255,0.30); }
+html:not(.scribe-mode) .test-result-rank{ text-shadow:0 0 18px rgba(199,154,58,0.40); }
+html:not(.scribe-mode) .test-option.selected{ box-shadow:0 0 16px rgba(199,154,58,0.20); }
 </style>
 </head>
 <body>
@@ -113,7 +126,7 @@
 
   <div class="tools-eyebrow fade-in">&middot; Tools of the Order &middot;</div>
   <h1 class="tools-heading fade-in">A keeper's <em>workshop</em></h1>
-  <p class="tools-sub fade-in">Four small tools, kept here for those who would use them.</p>
+  <p class="tools-sub fade-in">Three small tools, kept here for those who would use them.</p>
 
   <section class="tool-block fade-in">
     <div class="tool-eyebrow">&middot; Tool I &middot;</div>

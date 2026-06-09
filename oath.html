@@ -418,6 +418,22 @@
   .oath-card { padding: 2.2rem 1.5rem; }
   .oath-card-body { font-size: 1rem; }
 }
+
+/* === dark-mode dramatic treatment: oath section panels === */
+html:not(.scribe-mode) .oath-section{
+  position:relative; padding:2rem 2rem 1.6rem;
+  background:rgba(12,28,46,0.40);
+  border:1px solid rgba(74,216,255,0.18); border-radius:4px;
+  box-shadow:0 14px 32px rgba(0,0,0,0.30), inset 0 0 34px rgba(74,216,255,0.04), 0 0 20px rgba(74,216,255,0.08);
+}
+html:not(.scribe-mode) .oath-section::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--crystal); box-shadow:0 0 12px rgba(74,216,255,0.6);
+}
+html:not(.scribe-mode) .oath-section-num{ text-shadow:0 0 14px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .oath-section-title{ text-shadow:0 0 12px rgba(199,154,58,0.22); }
+html:not(.scribe-mode) .oath-section-title em{ text-shadow:0 0 16px rgba(199,154,58,0.32); }
+html:not(.scribe-mode) .oath-mini-btn{ box-shadow:0 0 14px rgba(74,216,255,0.22); }
 </style>
 </head>
 <body>

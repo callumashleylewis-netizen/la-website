@@ -343,6 +343,15 @@
   background: var(--gold);
   color: var(--ink-deep);
 }
+
+/* === dark-mode dramatic treatment: welcome cards === */
+html:not(.scribe-mode) .welcome-card{ position:relative; border:1px solid rgba(74,216,255,0.18); border-radius:4px; box-shadow:0 14px 32px rgba(0,0,0,0.32), inset 0 0 34px rgba(74,216,255,0.04), 0 0 20px rgba(74,216,255,0.09); transition:border-color .4s, background .4s, transform .4s, box-shadow .4s; }
+html:not(.scribe-mode) .welcome-card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--crystal); box-shadow:0 0 12px rgba(74,216,255,0.6); }
+html:not(.scribe-mode) .welcome-card:hover{ transform:translateY(-3px); border-color:rgba(74,216,255,0.4); box-shadow:0 18px 38px rgba(0,0,0,0.42), 0 0 26px rgba(74,216,255,0.30); }
+html:not(.scribe-mode) .welcome-card-name{ text-shadow:0 0 14px rgba(199,154,58,0.40); }
+html:not(.scribe-mode) .welcome-card-rule{ box-shadow:0 0 8px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .welcome-btn{ box-shadow:0 0 18px rgba(74,216,255,0.28); }
+html:not(.scribe-mode) .welcome-voice-quote{ text-shadow:0 0 16px rgba(74,216,255,0.12); }
 </style>
 </head>
 <body>
