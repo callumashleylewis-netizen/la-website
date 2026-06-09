@@ -763,6 +763,156 @@ footer {
   background: var(--gold);
   color: var(--ink-deep);
 }
+
+/* ============================================================
+   DRAMATIC / HIGH-TECH LAYER  (ambient motion, glow, depth)
+   Isolated new selectors; does not touch theme.css or atmosphere.js.
+   All ambient motion is disabled under prefers-reduced-motion.
+   ============================================================ */
+
+/* hero depth: drifting nebula aura */
+.hero-aura {
+  position: absolute; inset: -10%; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(40% 40% at 32% 38%, rgba(199,154,58,0.10), transparent 70%),
+    radial-gradient(45% 45% at 70% 62%, rgba(74,216,255,0.08), transparent 70%),
+    radial-gradient(35% 35% at 55% 50%, rgba(74,216,255,0.05), transparent 70%);
+  filter: blur(8px);
+  animation: auraDrift 26s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+@keyframes auraDrift {
+  0%   { transform: translate(0,0) scale(1);        opacity: 0.85; }
+  50%  { transform: translate(2%, -2%) scale(1.06);  opacity: 1; }
+  100% { transform: translate(-2%, 2%) scale(1.02);  opacity: 0.9; }
+}
+
+/* hero depth: centered concentric holo rings */
+.hero-rings {
+  position: absolute; top: 50%; left: 50%;
+  width: min(120vw, 1100px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none; z-index: 0; opacity: 0.5;
+  filter: drop-shadow(0 0 14px rgba(74,216,255,0.12));
+}
+.hero-rings .ring-spin { transform-box: fill-box; transform-origin: center; animation: ringSpin 90s linear infinite; }
+.hero-rings .ring-spin-rev { transform-box: fill-box; transform-origin: center; animation: ringSpin 70s linear infinite reverse; }
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+
+/* hero twinkle starfield (populated by inline script) */
+.hero-stars { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero-stars .tw { position: absolute; border-radius: 50%; background: rgba(244,234,210,0.85); animation: twk var(--d,4s) ease-in-out infinite; }
+@keyframes twk { 0%,100% { opacity: 0.12; } 50% { opacity: 0.95; } }
+
+/* second constellation, mirrored left, to balance the composition */
+.hero-constellation.left { right: auto; left: 5%; transform: scaleX(-1); opacity: 0.22; }
+@media (max-width: 720px) { .hero-constellation.left { display: none; } }
+
+/* breathing sigil watermark */
+.hero-sigil { animation: sigilBreath 9s ease-in-out infinite; }
+@keyframes sigilBreath {
+  0%,100% { opacity: 0.055; filter: drop-shadow(0 0 50px rgba(199,154,58,0.25)); }
+  50%     { opacity: 0.10;  filter: drop-shadow(0 0 80px rgba(199,154,58,0.45)); }
+}
+
+/* hero title + eyebrow glow */
+.hero-title { text-shadow: 0 0 24px rgba(74,216,255,0.10); }
+.hero-title em { animation: titleGlow 6s ease-in-out infinite; }
+@keyframes titleGlow {
+  0%,100% { text-shadow: 0 0 18px rgba(199,154,58,0.35), 0 0 36px rgba(199,154,58,0.18); }
+  50%     { text-shadow: 0 0 28px rgba(199,154,58,0.60), 0 0 60px rgba(199,154,58,0.32); }
+}
+.hero-eyebrow { text-shadow: 0 0 16px rgba(199,154,58,0.4); }
+
+/* primary button: glow + light sweep */
+.btn-primary { box-shadow: 0 0 22px rgba(199,154,58,0.30); position: relative; overflow: hidden; }
+.btn-primary:hover { box-shadow: 0 0 34px rgba(199,154,58,0.55); }
+.btn-primary::after {
+  content: ""; position: absolute; top: 0; left: -120%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-18deg); transition: left 0.6s ease; pointer-events: none;
+}
+.btn-primary:hover::after { left: 130%; }
+
+/* pillar cards: depth + glow on hover */
+.pillar-card:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 26px rgba(74,216,255,0.18); }
+.pillar-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(74,216,255,0.10), transparent 60%);
+  transition: opacity 0.4s;
+}
+.pillar-card:hover::after { opacity: 1; }
+
+/* section ornaments: gentle glow pulse */
+.section-ornament { filter: drop-shadow(0 0 8px rgba(199,154,58,0.4)); animation: ornGlow 5s ease-in-out infinite; }
+@keyframes ornGlow { 0%,100% { opacity: 0.4; } 50% { opacity: 0.78; } }
+
+/* crystal sentinel: idle breathing glow (hover still intensifies) */
+.holo-sentinel { animation: sentinelBreath 4.5s ease-in-out infinite; }
+.holo-sentinel:hover { animation: none; }
+@keyframes sentinelBreath {
+  0%,100% { filter: drop-shadow(0 0 14px rgba(74,216,255,0.45)); }
+  50%     { filter: drop-shadow(0 0 26px rgba(74,216,255,0.85)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aura, .hero-rings .ring-spin, .hero-rings .ring-spin-rev,
+  .hero-stars .tw, .hero-sigil, .hero-title em, .section-ornament, .holo-sentinel {
+    animation: none !important;
+  }
+}
+
+/* === component refinements: HUD tiles, glass readouts, glowing dividers === */
+
+/* #1 pillar cards -> chamfered HUD tiles */
+.pillar-card{
+  --chamfer:14px;
+  clip-path:polygon(var(--chamfer) 0,100% 0,100% calc(100% - var(--chamfer)),calc(100% - var(--chamfer)) 100%,0 100%,0 var(--chamfer));
+  box-shadow:none;
+  filter:drop-shadow(0 12px 26px rgba(0,0,0,0.38));
+  transition:border-color .4s, background .4s, transform .4s, filter .4s;
+}
+.pillar-card:hover{
+  box-shadow:none;
+  filter:drop-shadow(0 16px 30px rgba(0,0,0,0.45)) drop-shadow(0 0 16px rgba(74,216,255,0.4));
+}
+.pillar-card::before{
+  content:""; position:absolute; top:0; left:18px; right:6px; height:2px;
+  background:linear-gradient(90deg, var(--crystal), rgba(74,216,255,0.05));
+  box-shadow:0 0 10px rgba(74,216,255,0.7);
+}
+.pillar-card .tick{ position:absolute; width:9px; height:9px; border:1.5px solid var(--gold); opacity:0.7; transition:opacity .4s; pointer-events:none; }
+.pillar-card .tick.tr{ top:7px; right:7px; border-left:0; border-bottom:0; }
+.pillar-card .tick.bl{ bottom:7px; left:7px; border-right:0; border-top:0; }
+.pillar-card:hover .tick{ opacity:1; }
+
+/* #2 daily reading + from charter -> kyber-glass readouts */
+.todays-reading, .from-charter{
+  position:relative; overflow:hidden;
+  background:rgba(12,28,46,0.45);
+  border:1px solid rgba(74,216,255,0.20);
+  border-radius:4px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.35), inset 0 0 40px rgba(74,216,255,0.05), 0 0 24px rgba(74,216,255,0.10);
+}
+.kscan{ position:absolute; inset:0; pointer-events:none; opacity:0.5;
+  background:repeating-linear-gradient(0deg, transparent 0 3px, rgba(74,216,255,0.03) 3px 4px); }
+.kb{ position:absolute; width:18px; height:18px; border:1.5px solid var(--crystal); opacity:0.55; pointer-events:none; }
+.kb.b-tl{ top:10px; left:10px; border-right:0; border-bottom:0; }
+.kb.b-tr{ top:10px; right:10px; border-left:0; border-bottom:0; }
+.kb.b-bl{ bottom:10px; left:10px; border-right:0; border-top:0; }
+.kb.b-br{ bottom:10px; right:10px; border-left:0; border-top:0; }
+
+/* #3 section ornaments -> glowing flanked dividers */
+.section-ornament::before, .section-ornament::after{
+  content:""; display:block; height:1px; width:64px;
+  background:linear-gradient(90deg, transparent, rgba(199,154,58,0.55));
+}
+.section-ornament::after{ transform:rotate(180deg); }
+.section-ornament svg{ margin:0 16px; filter:drop-shadow(0 0 7px rgba(199,154,58,0.65)); }
+
+/* light glow touches for page consistency */
+.framing em{ text-shadow:0 0 18px rgba(199,154,58,0.30); }
+.footer-mark img{ filter:drop-shadow(0 0 10px rgba(199,154,58,0.4)); }
 </style>
 </head>
 <body>
@@ -786,8 +936,46 @@ footer {
 <section class="hero">
   <div class="starfield"></div>
   <div class="hero-decor"></div>
+  <div class="hero-aura" aria-hidden="true"></div>
+  <div class="hero-stars" id="hero-stars" aria-hidden="true"></div>
+  <svg class="hero-rings" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none">
+      <circle cx="300" cy="300" r="150" stroke="rgba(199,154,58,0.5)" stroke-width="0.6" opacity="0.5"/>
+      <circle cx="300" cy="300" r="220" stroke="rgba(199,154,58,0.5)" stroke-width="0.6" stroke-dasharray="2 10" opacity="0.5"/>
+      <g class="ring-spin"><circle cx="300" cy="300" r="262" stroke="rgba(74,216,255,0.5)" stroke-width="0.8" stroke-dasharray="3 16" opacity="0.6"/></g>
+      <g class="ring-spin-rev"><circle cx="300" cy="300" r="190" stroke="rgba(74,216,255,0.4)" stroke-width="0.6" stroke-dasharray="1 12" opacity="0.5"/></g>
+      <g stroke="rgba(199,154,58,0.45)" stroke-width="0.8">
+        <line x1="300" y1="20" x2="300" y2="48"/>
+        <line x1="300" y1="552" x2="300" y2="580"/>
+        <line x1="20" y1="300" x2="48" y2="300"/>
+        <line x1="552" y1="300" x2="580" y2="300"/>
+      </g>
+    </g>
+  </svg>
   <img class="hero-sigil" src="sigil.png" alt="" aria-hidden="true">
   <svg class="hero-constellation" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="currentColor">
+      <circle cx="40" cy="50" r="2"/>
+      <circle cx="100" cy="80" r="1.5"/>
+      <circle cx="160" cy="60" r="2.5"/>
+      <circle cx="70" cy="140" r="1.8"/>
+      <circle cx="140" cy="160" r="2.2"/>
+      <circle cx="50" cy="220" r="1.5"/>
+      <circle cx="120" cy="240" r="2"/>
+      <circle cx="170" cy="200" r="1.6"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5">
+      <line x1="40" y1="50" x2="100" y2="80"/>
+      <line x1="100" y1="80" x2="160" y2="60"/>
+      <line x1="100" y1="80" x2="70" y2="140"/>
+      <line x1="70" y1="140" x2="140" y2="160"/>
+      <line x1="140" y1="160" x2="170" y2="200"/>
+      <line x1="70" y1="140" x2="50" y2="220"/>
+      <line x1="50" y1="220" x2="120" y2="240"/>
+      <line x1="120" y1="240" x2="170" y2="200"/>
+    </g>
+  </svg>
+  <svg class="hero-constellation left" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g fill="currentColor">
       <circle cx="40" cy="50" r="2"/>
       <circle cx="100" cy="80" r="1.5"/>
@@ -857,30 +1045,35 @@ footer {
   <h2 class="pillars-heading fade-in">Choose your <em>way in</em></h2>
   <div class="pillar-grid">
     <a class="pillar-card fade-in" href="order.html">
+      <span class="tick tr" aria-hidden="true"></span><span class="tick bl" aria-hidden="true"></span>
       <div class="pillar-card-num">· I ·</div>
       <div class="pillar-card-name">The Order</div>
       <div class="pillar-card-rule"></div>
       <div class="pillar-card-desc">What we are, and the four disciplines that bind us.</div>
     </a>
     <a class="pillar-card fade-in" href="path.html">
+      <span class="tick tr" aria-hidden="true"></span><span class="tick bl" aria-hidden="true"></span>
       <div class="pillar-card-num">· II ·</div>
       <div class="pillar-card-name">The Path</div>
       <div class="pillar-card-rule"></div>
       <div class="pillar-card-desc">Ten ranks across four tiers, from Pledge to Chief Librarian.</div>
     </a>
     <a class="pillar-card fade-in" href="command.html">
+      <span class="tick tr" aria-hidden="true"></span><span class="tick bl" aria-hidden="true"></span>
       <div class="pillar-card-num">· III ·</div>
       <div class="pillar-card-name">High Command</div>
       <div class="pillar-card-rule"></div>
       <div class="pillar-card-desc">The senior ranks of the Assembly. Those who steward the Order.</div>
     </a>
     <a class="pillar-card fade-in" href="charter.html">
+      <span class="tick tr" aria-hidden="true"></span><span class="tick bl" aria-hidden="true"></span>
       <div class="pillar-card-num">· IV ·</div>
       <div class="pillar-card-name">The Charter</div>
       <div class="pillar-card-rule"></div>
       <div class="pillar-card-desc">The conduct expected of every member, written down and held to.</div>
     </a>
     <a class="pillar-card fade-in" href="apply.html">
+      <span class="tick tr" aria-hidden="true"></span><span class="tick bl" aria-hidden="true"></span>
       <div class="pillar-card-num">· V ·</div>
       <div class="pillar-card-name">Petition</div>
       <div class="pillar-card-rule"></div>
@@ -897,6 +1090,8 @@ footer {
 </div>
 
 <section class="todays-reading fade-in">
+  <span class="kb b-tl" aria-hidden="true"></span><span class="kb b-tr" aria-hidden="true"></span><span class="kb b-bl" aria-hidden="true"></span><span class="kb b-br" aria-hidden="true"></span>
+  <div class="kscan" aria-hidden="true"></div>
   <div class="todays-reading-eyebrow">· The Daily Reading ·</div>
   <div class="todays-reading-date" id="todays-reading-date">—</div>
   <div class="todays-reading-rule"></div>
@@ -912,6 +1107,8 @@ footer {
 </section>
 
 <section class="from-charter fade-in">
+  <span class="kb b-tl" aria-hidden="true"></span><span class="kb b-tr" aria-hidden="true"></span><span class="kb b-bl" aria-hidden="true"></span><span class="kb b-br" aria-hidden="true"></span>
+  <div class="kscan" aria-hidden="true"></div>
   <div class="from-charter-eyebrow">· From the Charter ·</div>
   <div class="from-charter-num" id="from-charter-num">—</div>
   <div class="from-charter-name" id="from-charter-name">—</div>
@@ -1343,6 +1540,48 @@ if (document.readyState === 'loading') {
 } else {
   initTypewriter();
 }
+</script>
+
+<script>
+/* hero depth: twinkling stars + gentle mouse parallax. Isolated + reduced-motion safe. */
+(function heroDepth(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var wrap = document.getElementById('hero-stars');
+  if (wrap) {
+    for (var i = 0; i < 70; i++) {
+      var s = document.createElement('span'); s.className = 'tw';
+      s.style.left = (Math.random()*100).toFixed(2) + '%';
+      s.style.top = (Math.random()*100).toFixed(2) + '%';
+      var sz = (Math.random()*1.6 + 0.6);
+      s.style.width = s.style.height = sz.toFixed(1) + 'px';
+      s.style.setProperty('--d', (Math.random()*3.5 + 2.5).toFixed(1) + 's');
+      s.style.animationDelay = (Math.random()*5).toFixed(1) + 's';
+      if (Math.random() < 0.16) { s.style.background = 'rgba(122,220,255,0.9)'; s.style.boxShadow = '0 0 6px rgba(74,216,255,0.8)'; }
+      wrap.appendChild(s);
+    }
+  }
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var rings = document.querySelector('.hero-rings');
+  var sigil = document.querySelector('.hero-sigil');
+  var raf = null, x = 0, y = 0;
+  hero.addEventListener('mousemove', function (e) {
+    var r = hero.getBoundingClientRect();
+    x = (e.clientX - r.left) / r.width - 0.5;
+    y = (e.clientY - r.top) / r.height - 0.5;
+    if (!raf) raf = requestAnimationFrame(function () {
+      if (wrap) wrap.style.transform = 'translate(' + (x*-18).toFixed(1) + 'px,' + (y*-18).toFixed(1) + 'px)';
+      if (rings) rings.style.transform = 'translate(calc(-50% + ' + (x*-26).toFixed(1) + 'px), calc(-50% + ' + (y*-26).toFixed(1) + 'px))';
+      if (sigil) sigil.style.transform = 'translate(calc(-50% + ' + (x*-12).toFixed(1) + 'px), calc(-50% + ' + (y*-12).toFixed(1) + 'px))';
+      raf = null;
+    });
+  });
+  hero.addEventListener('mouseleave', function () {
+    if (wrap) wrap.style.transform = '';
+    if (rings) rings.style.transform = 'translate(-50%,-50%)';
+    if (sigil) sigil.style.transform = 'translate(-50%,-50%)';
+  });
+})();
 </script>
 
 <script src="search.js" defer></script>

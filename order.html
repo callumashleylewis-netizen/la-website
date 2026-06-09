@@ -267,6 +267,36 @@
   .pursuit-name { font-size: 1.6rem; }
   .pursuits-divider::before, .pursuits-divider::after { width: 30px; margin: 0 0.6rem; }
 }
+
+/* === dark-mode dramatic treatment: pursuit archive panels === */
+html:not(.scribe-mode) .pursuit{
+  position:relative;
+  padding:2rem 2rem 1.6rem;
+  background:rgba(12,28,46,0.42);
+  border:1px solid rgba(74,216,255,0.18);
+  border-left:2px solid var(--crystal);
+  border-radius:4px;
+  box-shadow:0 16px 38px rgba(0,0,0,0.34), inset 0 0 38px rgba(74,216,255,0.045), 0 0 22px rgba(74,216,255,0.09);
+  overflow:hidden;
+}
+html:not(.scribe-mode) .pursuit::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--crystal); box-shadow:0 0 12px rgba(74,216,255,0.65);
+}
+html:not(.scribe-mode) .pursuit::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:0.5;
+  background:repeating-linear-gradient(0deg, transparent 0 3px, rgba(74,216,255,0.025) 3px 4px);
+}
+html:not(.scribe-mode) .pursuit > *{ position:relative; }
+html:not(.scribe-mode) .pursuit-tenet{ color:var(--crystal); text-shadow:0 0 10px rgba(74,216,255,0.4); }
+html:not(.scribe-mode) .pursuit-name em{ text-shadow:0 0 16px rgba(199,154,58,0.35); }
+html:not(.scribe-mode) .pursuit-rule{ box-shadow:0 0 8px rgba(199,154,58,0.5); }
+html:not(.scribe-mode) .pursuit-tick{ position:absolute; width:10px; height:10px; border:1.5px solid var(--gold); opacity:0.7; pointer-events:none; }
+html:not(.scribe-mode) .pursuit-tick.tr{ top:9px; right:9px; border-left:0; border-bottom:0; }
+html:not(.scribe-mode) .pursuit-tick.br{ bottom:9px; right:9px; border-left:0; border-top:0; }
+html:not(.scribe-mode) .pursuits-intro em{ text-shadow:0 0 18px rgba(199,154,58,0.30); }
+html:not(.scribe-mode) .pursuits-divider::before, html:not(.scribe-mode) .pursuits-divider::after{ box-shadow:0 0 8px rgba(199,154,58,0.4); }
+html:not(.scribe-mode) .order-pullquote{ text-shadow:0 0 22px rgba(74,216,255,0.12); }
 </style>
 </head>
 <body>
@@ -322,6 +352,7 @@
   <h2 class="pursuits-intro fade-in">Four <em>disciplines</em> form the foundation<br>of our Assembly.</h2>
 
   <article class="pursuit fade-in" id="pursuit-archive">
+    <span class="pursuit-tick tr" aria-hidden="true"></span><span class="pursuit-tick br" aria-hidden="true"></span>
     <div class="pursuit-tenet">01 · Tenet</div>
     <div class="pursuit-name"><em>The Archive</em> <button type="button" class="section-permalink" data-target="pursuit-archive" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
@@ -342,6 +373,7 @@
   </article>
 
   <article class="pursuit fade-in" id="pursuit-instruction">
+    <span class="pursuit-tick tr" aria-hidden="true"></span><span class="pursuit-tick br" aria-hidden="true"></span>
     <div class="pursuit-tenet">02 · Tenet</div>
     <div class="pursuit-name"><em>Instruction</em> <button type="button" class="section-permalink" data-target="pursuit-instruction" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
@@ -362,6 +394,7 @@
   </article>
 
   <article class="pursuit fade-in" id="pursuit-discourse">
+    <span class="pursuit-tick tr" aria-hidden="true"></span><span class="pursuit-tick br" aria-hidden="true"></span>
     <div class="pursuit-tenet">03 · Tenet</div>
     <div class="pursuit-name"><em>Discourse</em> <button type="button" class="section-permalink" data-target="pursuit-discourse" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>
@@ -383,6 +416,7 @@
   </article>
 
   <article class="pursuit fade-in" id="pursuit-vigil">
+    <span class="pursuit-tick tr" aria-hidden="true"></span><span class="pursuit-tick br" aria-hidden="true"></span>
     <div class="pursuit-tenet">04 · Tenet</div>
     <div class="pursuit-name"><em>Vigil</em> <button type="button" class="section-permalink" data-target="pursuit-vigil" aria-label="Copy link to this pursuit" title="Copy link to this pursuit">¶</button></div>
     <div class="pursuit-rule"></div>

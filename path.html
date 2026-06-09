@@ -611,6 +611,33 @@ body.failures-active .failures-hint { display: none; }
 }
 body.failures-active .failures-dismiss { display: block; }
 .failures-dismiss:hover { opacity: 1; }
+
+/* === dark-mode dramatic treatment: rank HUD tiles + tier glow === */
+html:not(.scribe-mode) .rank-card{
+  --chamfer:14px; position:relative;
+  clip-path:polygon(var(--chamfer) 0,100% 0,100% calc(100% - var(--chamfer)),calc(100% - var(--chamfer)) 100%,0 100%,0 var(--chamfer));
+  box-shadow:none;
+  filter:drop-shadow(0 12px 26px rgba(0,0,0,0.36));
+  transition:border-color .3s, background .3s, filter .3s, transform .3s;
+}
+html:not(.scribe-mode) .rank-card:hover{
+  transform:translateY(-2px);
+  filter:drop-shadow(0 16px 30px rgba(0,0,0,0.45)) drop-shadow(0 0 16px rgba(74,216,255,0.4));
+}
+html:not(.scribe-mode) .rank-card::before{
+  content:""; position:absolute; top:0; left:18px; right:6px; height:2px;
+  background:linear-gradient(90deg, var(--crystal), rgba(74,216,255,0.05));
+  box-shadow:0 0 10px rgba(74,216,255,0.7);
+}
+html:not(.scribe-mode) .rank-tick{ position:absolute; width:9px; height:9px; border:1.5px solid var(--gold); opacity:0.6; transition:opacity .3s; pointer-events:none; z-index:1; }
+html:not(.scribe-mode) .rank-tick.tr{ top:7px; right:7px; border-left:0; border-bottom:0; }
+html:not(.scribe-mode) .rank-tick.bl{ bottom:7px; left:7px; border-right:0; border-top:0; }
+html:not(.scribe-mode) .rank-card:hover .rank-tick{ opacity:1; }
+html:not(.scribe-mode) .rank-card-num{ color:var(--gold-bright); text-shadow:0 0 14px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .rank-card-name em{ text-shadow:0 0 14px rgba(74,216,255,0.25); }
+html:not(.scribe-mode) .path-tier-rule{ box-shadow:0 0 8px rgba(199,154,58,0.45); }
+html:not(.scribe-mode) .path-tier-label{ text-shadow:0 0 12px rgba(74,216,255,0.3); }
+html:not(.scribe-mode) .rank-failure{ box-shadow:0 0 22px rgba(199,154,58,0.08), inset 0 0 30px rgba(199,154,58,0.04); }
 </style>
 </head>
 <body>
@@ -648,6 +675,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-pledge">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">I.</div>
       <div>
         <div class="rank-card-name">Pledge</div>
@@ -657,6 +685,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-student">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">II.</div>
       <div>
         <div class="rank-card-name">Student</div>
@@ -665,6 +694,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-librarian">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">III.</div>
       <div>
         <div class="rank-card-name">Librarian</div>
@@ -682,6 +712,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-intellect">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">IV.</div>
       <div>
         <div class="rank-card-name">Intellect</div>
@@ -690,6 +721,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-tutor">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">V.</div>
       <div>
         <div class="rank-card-name">Tutor</div>
@@ -708,6 +740,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-lore-keeper">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">VI.</div>
       <div>
         <div class="rank-card-name">Lore Keeper</div>
@@ -717,6 +750,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-archivist">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">VII.</div>
       <div>
         <div class="rank-card-name">Archivist</div>
@@ -734,6 +768,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-historian">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">VIII.</div>
       <div>
         <div class="rank-card-name">Historian</div>
@@ -743,6 +778,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-curator">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">IX.</div>
       <div>
         <div class="rank-card-name">Curator of the Archives</div>
@@ -751,6 +787,7 @@ body.failures-active .failures-dismiss { display: block; }
     </div>
 
     <div class="rank-card fade-in" id="rank-chief">
+      <span class="rank-tick tr" aria-hidden="true"></span><span class="rank-tick bl" aria-hidden="true"></span>
       <div class="rank-card-num">X.</div>
       <div>
         <div class="rank-card-name">Chief Librarian</div>
