@@ -41,6 +41,7 @@ html.scribe-mode body {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   background: var(--ink-deep);
   color: var(--paper);

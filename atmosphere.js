@@ -72,14 +72,14 @@
     if (btn) btn.innerHTML = scribeIcon(isScribeOn());
   }
   const SECTION_LABELS = {
-    'article-i': 'I · Of Truth',
+    'article-i': 'I · Of the Record',
     'article-ii': 'II · Of Discourse',
     'article-iii': 'III · Of Instruction',
-    'article-iv': 'IV · Of Patience',
+    'article-iv': 'IV · Of the Pledge',
     'article-v': 'V · Of Conduct',
-    'article-vi': 'VI · Of Confidence',
-    'article-vii': 'VII · Of Service',
-    'article-viii': 'VIII · Of Accountability',
+    'article-vi': 'VI · Of Privacy',
+    'article-vii': 'VII · Of the Hierarchy',
+    'article-viii': 'VIII · Of the Trial',
     'article-ix': 'IX · Of Departure',
     'pursuit-archive': 'I · The Archive',
     'pursuit-instruction': 'II · Instruction',
@@ -92,7 +92,8 @@
     'section-i': 'I · What is asked',
     'section-ii': 'II · The application',
     'section-iii': 'III · What follows',
-    'section-iv': 'IV · What you may ask',
+    'first-week': 'IV · Your first week',
+    'section-iv': 'V · What you may ask',
   };
 
   function buildCurrentSectionEl() {
